@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Baker's Craft Admin</title>
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="css/Main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2><span class="Bakerscraft"></span><span>Baker's Craft</span></h2>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="Dashboard.html" class = "not-active"><span class = "las la-home"></span>
+                    <span>Dashboard</span></a> 
+                </li>
+                <li>
+                    <a href="Products.html" class = "not-active"><span class = "las la-boxes"></span>
+                    <span>Products</span></a> 
+                </li>
+                <li>
+                    <a href="Inventory.html" class = "not-active"><span class = "las la-clipboard-list"></span>
+                    <span>Inventory</span></a> 
+                </li>
+                <li>
+                    <a href="Sales.html" class = "active"><span class = "las la-cash-register"></span>
+                    <span>Sales</span></a> 
+                </li>
+                <li>
+                    <a href="Orders.html" class = "not-active"><span class = "las la-briefcase"></span>
+                    <span>Orders</span></a> 
+                </li>
+                <li>
+                    <a href="CRM.html" class = "not-active"><span class = "las la-users"></span>
+                    <span>Customers</span></a> 
+                </li>
+                <li>
+                    <a href="Suppliers.html" class = "not-active"><span class = "las la-user-tie"></span>
+                    <span>Suppliers</span></a> 
+                </li>
+                <li>
+                    <a href="Warehouse.html" class = "not-active"><span class = "las la-warehouse"></span>
+                    <span>Warehouse</span></a> 
+                </li>
+                <li>
+                    <a href="Returns.html" class = "not-active"><span class = "las la-truck"></span>
+                    <span>Returns</span></a> 
+                </li>
+                <li>
+                    <a href="Reports.html" class = "not-active"><span class = "las la-chart-line"></span>
+                    <span>Reports</span></a> 
+                </li>
+                <li>
+                    <a href="Users.html" class = "not-active"><span class = "las la-user"></span>
+                    <span>Users</span></a> 
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                 <h3>
+                     <label for="nav-toggle">
+                         <span class = "las la-bars">
+
+                         </span>
+                     </label>
+                 </h3>
+            </div>
+            <div class="search-wrapper">
+                <span class ="las la-search"></span>
+                <input type="search" placeholder="Search"/> 
+            </div>
+            <div class="user-wrapper">
+                <img src="Images/Backgrounds/SamplePic.jpeg" width="30px" height="30px" alt="">
+                <div>
+                    <h4>Eric John</h4>
+                    <small>Admin</small>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="main-containter">
+                <div class="Returns">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>     
+                                <span class = "las la-cash-register"></span>
+                                Sales
+                            </h2>
+                            <button> Add <span class="las la-plus"></span></button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="sortable" class="table" width = "100%">
+                                    <thead>
+                                        <tr>
+                                            <td>Product Code</td>
+                                            <td>Name</td>
+                                            <td>Manufacturer</td>
+                                            <td>Product Type</td>
+                                            <td>Capacity</td>
+                                            <td>Color</td>
+                                            <td>Price</td>
+                                            <td>Actions</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>100TG-Oven-Green</td>
+                                            <td>100 Tray Gas Oven - Green</td>
+                                            <td>Uni-Jem</td>
+                                            <td>Oven</td>
+                                            <td>100 Trays</td>
+                                            <td>Green</td>
+                                            <td>9999999</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
