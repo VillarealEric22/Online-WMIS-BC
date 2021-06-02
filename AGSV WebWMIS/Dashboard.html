@@ -146,78 +146,20 @@
                                 </form>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <td>Product Code</td>
-                                                <td>Name</td>
-                                                <td>Quantity</td>
-                                                <td>Price</td>
-                                                <td>Warehouse</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>100TG-Oven-Green</td>
-                                                <td>100 Tray Gas Oven - Green</td>
-                                                <td>100</td>
-                                                <td>9999999</td>
-                                                <td>Dasmarinas</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <canvas id="PieChart" style = "width:100%;max-width:700px"></canvas>
+                            </div>
                             </div>
                         </div>  
-                    </div>
                     <div class="Sales">
                         <div class="card">
                             <div class="card-header">
-                                <h2>Recent Sales</h2>
+                                <h2>Sales</h2>
                                 <form action="Sales.html">
                                     <button type="submit">See more <span class="las la-arrow-right"></span></button>
                                 </form>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <td>Customer</td>
-                                                <td>Product Code</td>
-                                                <td>Quantity</td>
-                                                <td>Price</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Customer01</td>
-                                                <td>Sample Product 4</td>
-                                                <td>10</td>
-                                                <td>150</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Customer02</td>
-                                                <td>Sample Product 4</td>
-                                                <td>10</td>
-                                                <td>150</td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Sample Product 4</td>
-                                                <td>10</td>
-                                                <td>150</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Anna Smith</td>
-                                                <td>Sample Product 4</td>
-                                                <td>10</td>
-                                                <td>150</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <canvas id="LineChart" style = "width:100%;max-width:700px"></canvas>
                             </div>
                         </div>
                     </div>   
@@ -257,6 +199,10 @@
         <!--End modals-->
     </div>
     <script src= "js/main.js"></script>
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+    <script src = "js/charts.js"></script>
     <!--end wrapper-->
 </body>
 </html>

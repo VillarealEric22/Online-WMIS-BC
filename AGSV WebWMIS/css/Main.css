@@ -571,13 +571,13 @@ footer {
     .sidebar:hover li a span:last-child{
         display: inline;
     }
+    .recent-grid{
+        grid-template-columns: 100%;
+    }
 }
 @media only screen and (max-width: 960px){
     .cards{
         grid-template-columns: repeat(3,1fr);
-    }
-    .recent-grid{
-        grid-template-columns: 60% 40%;
     }
 }
 @media only screen and (max-width: 768px){
