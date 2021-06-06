@@ -299,22 +299,22 @@ main{
     border: none;
     outline: none;
 }
-.paginate-button{
+.pagination li{
     display: inline;
 }
-.pagination a {
+.pagination li {
     color: black;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
     transition: background-color .1s;
 }
-.pagination a.active {
+.pagination li.active {
     background-color: dodgerblue;
     color: white;
 }
-.pagination a:hover:not(.active) {background-color: #ddd;}
-.pagination a:active:not(.active) {background-color: rgb(139, 139, 139);}
+.pagination li:hover:not(.active) {background-color: #ddd;}
+.pagination li:active:not(.active) {background-color: rgb(139, 139, 139);}
 .card{
     background: #fff;
     border-radius: 5px;
@@ -330,37 +330,49 @@ main{
     align-items: center;
     border-bottom: 1px solid #f0f0f0;
 }
-.card-header button{
+.btn-add{
     background: var(--main-color);
     border-radius: 10px;
     color: #fff;
-    font-size: .8rem;
+    font-size: 1rem;
     padding: .5rem 1rem;
-    border: 1px solid var(--main-color);
+    border: none;
     cursor: pointer;
     transition: background-color .1s;
 }
-.card-header button:hover{
+.btn-add:hover{
     background: #b12759;
 }
-.card-header button:active{
+.btn-add:active{
     background: #7c1c3f;
 }
 table{
     border-collapse: collapse;
 }
 thead tr{
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
+    border-top: 2px solid #f0f0f0;
+    border-bottom: 2px solid #f0f0f0;
     display: absolute;
 }
 thead td{
     font-weight: 700;
 }
 td{
-    padding: .5rem 1rem;
+    padding: .7rem 1rem;
     font-size: .9rem;
     color: #222;
+}
+thead tr:hover {
+    background-color: none !important;
+    cursor: pointer;  
+}
+tbody tr:hover {
+    background-color:#f5f5f5;
+    cursor: pointer;
+}
+.selected {
+    background-color: #ddd;
+    color: #000;
 }
 .table-responsive{
     width: 100%;
@@ -527,6 +539,29 @@ footer {
 .modal-footer button:active{
     background: rgb(139, 139, 139);
 }
+.form {
+    margin: 1rem;
+    margin-top: 1rem;
+    width: 210px;
+}
+.form label{
+    display: flex;
+    align-items: center;
+    text-align: right;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+.form input{  
+    display: flex;
+    text-align: left;
+    border-radius: 5px;
+    height: 25px;
+    width: 300px;
+    position: relative;
+    left: 150px;
+    top: -20px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .modal.fade .modal-dialog {
       transition: none;

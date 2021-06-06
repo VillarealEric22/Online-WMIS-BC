@@ -81,53 +81,242 @@
                 <input type="search" placeholder="Search"/> 
             </div>
             <div class="user-wrapper">
-                <img src="Images/Backgrounds/SamplePic.jpeg" width="30px" height="30px" alt="">
-                <div>
-                    <h4>Eric John</h4>
-                    <small>Admin</small>
-                </div>
+                <ul>
+                    <li>
+                      <a href="#">
+                        <p>Eric John<br><span>Admin</span></p>
+                        <img src="Images/Backgrounds/SamplePic.jpeg" width="40px" height="40px" alt="User"><i class="las la-angle-down"></i>
+                      </a>
+                      <div class="dropdown">
+                          <ul>
+                            <li><a href="#"><i class = "las la-user-alt"></i> Profile </a></li>
+                            <li><a href="#"><i class = "las la-cogs"></i> Settings </a></li>
+                            <li><a href="#" class = "modalBtn logout"><i class = "las la-sign-out-alt"></i> Log Out </a></li> 
+                        </ul>
+                      </div>
+                    </li>
+                </ul>
             </div>
         </header>
         <main>
             <div class="main-containter">
-                <div class="inventory">
+                <div class="products">
                     <div class="card">
                         <div class="card-header">
                             <h2>     
-                                <span class = "las la-clipboard-list"></span>
-                                Item Inventory
+                                <span class = "las la-boxes"></span>
+                                Products
                             </h2>
-                            
-                            <button> Add <span class="las la-plus"></span></button>
+                            <button class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="sortable" class="table" width = "100%">
-                                    <thead>
-                                        <tr>
-                                            <td>Product Code</td>
-                                            <td>Name</td>
-                                            <td>Quantity</td>
-                                            <td>Price</td>
-                                            <td>Warehouse</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>100TG-Oven-Green</td>
-                                            <td>100 Tray Gas Oven - Green</td>
-                                            <td>100</td>
-                                            <td>9999999</td>
-                                            <td>Dasmarinas</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="row">
+                                    <div class="table-length">
+                                        <label>Show <Select name="tableLength">
+                                        </Select> Entries.</label> 
+                                    </div>
+                                    <div class="table-search">
+                                       <label> Search: <input type="search" placeholder=""/></label> 
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table id="sortable" class="table" width = "100%">
+                                        <thead>
+                                            <tr>
+                                                <td>Product Code</td>
+                                                <td>Name</td>
+                                                <td>Manufacturer</td>
+                                                <td>Product Type</td>
+                                                <td>Capacity</td>
+                                                <td>Color</td>
+                                                <td>Price</td>
+                                                <td>Actions</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="modalBtn btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="modalBtn btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>100TG-Oven-Green</td>
+                                                <td>100 Tray Gas Oven - Green</td>
+                                                <td>Uni-Jem</td>
+                                                <td>Oven</td>
+                                                <td>100 Trays</td>
+                                                <td>Green</td>
+                                                <td>99999</td>
+                                                <td><button type="button" class="btn-success"><i class="las la-edit"></i></button>
+                                                    <button type="button" class="btn-danger"><i class="las la-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row-no-margin">
+                                    <div class="table-pagination">
+                                        <ul class = pagination>
+                                            <li class="paginate-button"><a href="#" class=""><span class="las la-angle-double-left"></span></a></li>
+                                            <li class="paginate-button"><a href="#" class="active">1</a></li>
+                                            <li class="paginate-button"><a href="#" class="">2</a></li>
+                                            <li class="paginate-button"><a href="#" class="">3</a></li>
+                                            <li class="paginate-button"><a href="#" class="">4</a></li>
+                                            <li class="paginate-button"><a href="#" class="">5</a></li>
+                                            <li class="paginate-button"><a href="#" class="">6</a></li>
+                                            <li class="paginate-button"><a href="#" class="">7</a></li>
+                                            <li class="paginate-button"><a href="#" class=""><span class="las la-angle-double-right"></span></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="table-info"> <p>
+                                        Showing 10 results out of 57
+                                    </p></div>
+                                </div>
                             </div>
                         </div>
                     </div>  
                 </div>
             </div>
         </main>
+        <!--modals-->
+            <!--logout modal-->
+            <div id = "logoutModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ready to Leave?</h5>
+                            <button class="close" type="button">
+                                <span>×</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn-cancel" type="button">Cancel</button>
+                            <a class="btn-confirm" href="Login.html">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--logout modal end-->
+            <!--add modal-->
+            <div id = "addProductModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add New Item</h5>
+                            <button class="close" type="button">
+                                <span>×</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">Filler text</div>
+                        <div class="modal-footer">
+                            <button class="btn-cancel" type="button">Cancel</button>
+                            <a class="btn-confirm" href="">Confirm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--add modal end-->
+            <div id = "editProductModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Item</h5>
+                            <button class="close" type="button">
+                                <span>×</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">Filler text</div>
+                        <div class="modal-footer">
+                            <button class="btn-cancel" type="button">Cancel</button>
+                            <a class="btn-confirm" href="">Confirm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--add modal end-->
+        <!--End modals-->
     </div>
+    <script src= "js/main.js"></script>
 </body>
 </html>
