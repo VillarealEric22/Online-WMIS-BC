@@ -29,7 +29,7 @@
                         <span>Orders</span></a>
                     </li>
                     <li>
-                        <a href="CRM.php" class = "not-active"><span class = "las la-users"></span>
+                        <a href="Customers.php" class = "not-active"><span class = "las la-users"></span>
                         <span>Customers</span></a>
                     </li>
                     <li>
@@ -82,8 +82,7 @@
                           </a>
                           <div class="dropdown">
                             <ul>
-                                <li><a href="#profileModal" class = "modalBtn profile"><i class = "las la-user-alt"></i> Profile </a></li>
-                                <li><a href="#accountModal" class = "modalBtn settings"><i class = "las la-cogs"></i> Settings </a></li>
+                                <li><a href="#accountModal" class = "modalBtn settings"><i class = "las la-cogs"></i> User Settings </a></li>
                                 <li><a href="#logoutModal" class = "modalBtn logout"><i class = "las la-sign-out-alt"></i> Log Out </a></li> 
                             </ul>
                           </div>

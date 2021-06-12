@@ -1,7 +1,17 @@
 //table select
-$("#sortable tbody tr").click(function(){
-    $(this).addClass('selected').siblings().removeClass('selected');
- });
+
+ $('#sortable tbody tr').click(function() {
+    if ($(this).hasClass('selected')) {
+
+        $(this).removeClass('selected');
+       
+    }
+    else {
+        $('#sortable tbody tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+    }
+  
+});
 
 var table = '#sortable'
 $('#maxRows').on('change', function(){

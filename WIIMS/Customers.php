@@ -4,17 +4,17 @@
 ?>
 <main>
     <div class="main-containter">
-        <div class="Warehouse">
+        <div class="Customers">
             <div class="card">
                 <div class="card-header">
                     <h2>     
-                        <span class = "las la-warehouse"></span>
-                        Warehouse
+                        <span class = "las la-users"></span>
+                        Customers
                     </h2>
                     <div class="CRUDbuttons">
-                            <button href = "#addWarehouseModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editWarehouseModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteWarehouseModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#addCustomersModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
+                            <button href = "#editCustomersModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteCustomersModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -38,18 +38,20 @@
                             <table id="sortable" class="table" width = "100%">
                                 <thead>
                                     <tr>
-                                        <td>Warehouse Code</td>
-                                        <td>Warehouse Name</td>
-                                        <td>Warehouse Address</td>
-                                        <td>Staff in Charge</td>
+                                        <td>Customer ID</td>
+                                        <td>First Name</td>
+                                        <td>Last Name</td>
+                                        <td>Address</td>
+                                        <td>Contact Number</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>wh-cav-001</td>
-                                        <td>warehouse cavite 01</td>
-                                        <td>sa tapat ng PCU</td>
-                                        <td>BCAdmin</td>
+                                        <td>001</td>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>741 Sabino Padilla St., Sta. Cruz, Manila</td>
+                                        <td>09745645123</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -68,7 +70,7 @@
         </div>
     </div>
     <!--add modal-->
-    <div id = "addWarehouseModal" class="modal fade">
+    <div id = "addCustomersModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -146,7 +148,7 @@
     </div>
     <!--add modal end-->
     <!--edit modal-->
-    <div id = "editWarehouseModal" class="modal fade">
+    <div id = "editCustomersModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -224,7 +226,7 @@
     </div>
     <!--edit modal end-->
     <!--delete modal-->
-    <div id = "deleteWarehouseModal" class="modal fade">
+    <div id = "deleteCustomersModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

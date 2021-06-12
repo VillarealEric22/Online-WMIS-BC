@@ -374,6 +374,10 @@ tbody tr:hover {
     background-color: #ddd;
     color: #000;
 }
+tbody tr.selected:hover {
+    background-color:#ddd !important;
+    cursor: pointer;
+}
 .table-responsive{
     width: 100%;
     overflow-x: auto;
