@@ -9,7 +9,7 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="Index.php" class = "not-active"><span class = "las la-home"></span>
+                        <a href="Dashboard.php" class = "not-active"><span class = "las la-home"></span>
                         <span>Dashboard</span></a>
                     </li>
                     <li>
@@ -17,39 +17,39 @@
                         <span>Products</span></a>
                     </li>
                     <li>
-                        <a href="Inventory.html" class = "not-active"><span class = "las la-clipboard-list"></span>
+                        <a href="Inventory.php" class = "not-active"><span class = "las la-clipboard-list"></span>
                         <span>Inventory</span></a>
                     </li>
                     <li>
-                        <a href="Sales.html" class = "not-active"><span class = "las la-cash-register"></span>
+                        <a href="Sales.php" class = "not-active"><span class = "las la-cash-register"></span>
                         <span>Sales</span></a>
                     </li>
                     <li>
-                        <a href="Orders.html" class = "not-active"><span class = "las la-briefcase"></span>
+                        <a href="Orders.php" class = "not-active"><span class = "las la-briefcase"></span>
                         <span>Orders</span></a>
                     </li>
                     <li>
-                        <a href="CRM.html" class = "not-active"><span class = "las la-users"></span>
+                        <a href="CRM.php" class = "not-active"><span class = "las la-users"></span>
                         <span>Customers</span></a>
                     </li>
                     <li>
-                        <a href="Suppliers.html" class = "not-active"><span class = "las la-user-tie"></span>
+                        <a href="Suppliers.php" class = "not-active"><span class = "las la-user-tie"></span>
                         <span>Suppliers</span></a>
                     </li>
                     <li>
-                        <a href="Warehouse.html" class = "not-active"><span class = "las la-warehouse"></span>
+                        <a href="Warehouse.php" class = "not-active"><span class = "las la-warehouse"></span>
                         <span>Warehouse</span></a>
                     </li>
                     <li>
-                        <a href="Returns.html" class = "not-active"><span class = "las la-truck"></span>
+                        <a href="Returns.php" class = "not-active"><span class = "las la-truck"></span>
                         <span>Returns</span></a> 
                     </li>
                     <li>
-                        <a href="Reports.html" class = "not-active"><span class = "las la-chart-line"></span>
+                        <a href="Reports.php" class = "not-active"><span class = "las la-chart-line"></span>
                         <span>Reports</span></a> 
                     </li>
                     <li>
-                        <a href="Users.html" class = "not-active"><span class = "las la-user"></span>
+                        <a href="Users.php" class = "not-active"><span class = "las la-user"></span>
                         <span>Users</span></a> 
                     </li>
                 </ul>

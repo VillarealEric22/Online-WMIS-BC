@@ -1,68 +1,43 @@
-<?php 
-    include('php/includes/header.php');
-    include('php/includes/navbar.php');
-?>
-    <main>
-        <div class="cards">
-            <div class="card-single">
-                <div>
-                    <h1>10</h1>
-                    <span>Items&nbsplow on stock</span>
-                </div>
-                <div>
-                    <span class = "las la-box-open"></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/Login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+        <nav class = "nav">
+            <a href="#" class="logo">Baker's Craft</a>
+        </nav>
+        <div class="main-content">           
+            <div class="main-col-left">
+                <h1>Integrated&nbspInventory Management.</h1>
+                    <img src="Images/Backgrounds/Dash.svg" alt="dashboard-image" class="main-img">
+            </div> 
+            <div class="main-login">
+                <h3> Sign In </h3>
+                <input type = "email" placeholder="Email">
+                <input type = "password" placeholder="Password">
+                <a href="Dashboard.php" class="sign-in">Sign-In</a>
+                <label class="rememberme">
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+                <a href="#" class="forgot">Forgot Password?</a>
+                
+                <div class="contact">
+                    <p>Having problems signing in?</p>
+                    <a href="#" class="contact-admin"> Contact an Administrator</a>
                 </div>
             </div>
-            <div class="card-single">
-                <div>
-                    <h1>15</h1>
-                    <span>Sales Today</span>
-                </div>
-                <div>
-                    <span class = "las la-money-bill-wave"></span>
-                </div>
-            </div>
-            <div class="card-single">
-                <div>
-                    <h1>10</h1>
-                    <span>Returns Today</span>
-                </div>
-                <div>
-                    <span class = "las la-dolly"></span>
-                </div>
-            </div>
+          
         </div>
-        <div class="recent-grid">
-            <div class="inventory">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Inventory</h2>
-                        <form action="Inventory.html">
-                            <button type="submit">See more <span class="las la-arrow-right"></span></button>
-                        </form>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="PieChart" style = "width:100%;max-width:700px"></canvas>
-                    </div>
-                    </div>
-                </div>  
-            <div class="Sales">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Sales</h2>
-                        <form action="Sales.html">
-                            <button type="submit">See more <span class="las la-arrow-right"></span></button>
-                        </form>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="LineChart" style = "width:100%;max-width:700px"></canvas>
-                    </div>
-                </div>
-            </div>   
-        </div>
-    </main>
-</div>
-<?php
-    include('php/includes/footer.php');
-    include('php/includes/scripts.php');
-?>
+
+    </div> 
+</body>
+</html>

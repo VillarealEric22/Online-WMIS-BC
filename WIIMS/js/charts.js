@@ -49,7 +49,7 @@ new Chart("PieChart", {
     options: {
       title: {
         display: true,
-        text: "Sales"
+        text: "Inventory"
       }
     }
   });
