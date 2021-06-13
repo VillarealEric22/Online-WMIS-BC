@@ -49,7 +49,7 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn-cancel" type="button">Cancel</button>
-                            <a class="btn-confirm" href="Index.php">Logout</a>
+                            <a class="btn-confirm" href="logout.php"> Logout</a>
                         </div>
                     </div>
                 </div>

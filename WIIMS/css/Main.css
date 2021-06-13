@@ -28,90 +28,6 @@ header h3 label .las:hover{
     background: var(--main-color);
     color:#fff
 }
-.sidebar{
-    width: 300px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: var(--main-color);
-    z-index: 100;
-    transition: width 300ms;
-}
-.sidebar-brand{
-    height: 90px;
-    padding: 1rem 0rem 1rem  2rem;
-    color: #fff;
-}
-.sidebar-brand span{
-    display: inline-block;
-    padding-right: 1rem;
-}
-.sidebar-menu li{
-    width: 100%;
-    margin-bottom: 1.3rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-.sidebar-menu a{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    display: block;
-    color: #fff;
-    font-size: 1.1rem;
-}
-.sidebar-menu a span:first-child{
-    font-size: 1.5rem;
-    padding-right: 1rem;
-}
-.sidebar-menu a.active{
-    background: #fff;
-    padding: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    color: var(--main-color);
-    border-radius: 30px;
-    transition: background-color .1s;
-}
-.sidebar-menu a.not-active:hover{
-    background: #b12759;
-    padding: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    color: #fff;
-    border-radius: 30px;
-    margin-bottom: -1rem;
-    margin-top: -1rem;
-}
-.sidebar-menu a.not-active:active{
-    background: #7c1c3f;
-}
-#nav-toggle:checked + .sidebar{
-    width: 90px;
-}
-#nav-toggle:checked + .sidebar .sidebar-brand h2,
-#nav-toggle:checked + .sidebar .li{
-    padding-left: 0rem;
-    text-align: center;
-}
-#nav-toggle:checked + .sidebar .li a{
-    padding-left: 0rem;
-}
-#nav-toggle:checked + .sidebar .sidebar-brand h2 span:last-child,
-#nav-toggle:checked + .sidebar li a span:last-child{
-    display: none;
-}
-#nav-toggle:checked ~ .main-content{
-    margin-left: 90px;
-}
-#nav-toggle:checked ~ .main-content header{
-    width: calc(100% - 90px);
-    left: 90px;
-}
-.main-content{
-    transition: margin-left 300ms;
-    margin-left: 300px;
-}
 header{
     background-color: #fff;
     display: flex;
@@ -177,15 +93,16 @@ header label span{
   }
 .user-wrapper ul li .dropdown{
     position: absolute;
-    top: 65px;
+    top: 50px;
     right: 0;
     background: #fff;
     border-radius: 5px;
     display: none;
     font-size: 1rem;
+    box-shadow: 8px 8px 8px rgba(0,0,0,0.2);
 }
 .user-wrapper ul li .dropdown .las{
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .user-wrapper ul li .dropdown:before{
     content: "";
@@ -197,12 +114,12 @@ header label span{
     border-color: transparent transparent #fff transparent;
 }
 .user-wrapper ul li.active .dropdown{
-    display: block;   
+    display: block;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
 .user-wrapper ul li.active .dropdown ul li a{
     padding: 5px 30px;
     border-color: #ccc;
-    opacity: 80%;
 }
 .user-wrapper ul li.active .dropdown ul li a:hover{
     background: var(--main-color);
@@ -211,6 +128,90 @@ header label span{
 }
 .user-wrapper ul li.active .dropdown ul li a:active{
     background: #7c1c3f;
+}
+.sidebar{
+    width: 300px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: var(--main-color);
+    z-index: 100;
+    transition: width 300ms;
+}
+.sidebar-brand{
+    height: 90px;
+    padding: 1rem 0rem 1rem  2rem;
+    color: #fff;
+}
+.sidebar-brand span{
+    display: inline-block;
+    padding-right: 1rem;
+}
+.sidebar-menu li{
+    width: 100%;
+    margin-bottom: 1.3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.sidebar-menu a{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: block;
+    color: #fff;
+    font-size: 1.1rem;
+}
+.sidebar-menu a span:first-child{
+    font-size: 1.5rem;
+    padding-right: 1rem;
+}
+.sidebar-menu ul li a.active{
+    background: #fff;
+    padding: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: var(--main-color);
+    border-radius: 30px;
+    transition: background-color .1s;
+}
+.sidebar-menu a.not-active:hover{
+    background: #b12759;
+    padding: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: #fff;
+    border-radius: 30px;
+    margin-bottom: -1rem;
+    margin-top: -1rem;
+}
+.sidebar-menu a.not-active:active{
+    background: #7c1c3f;
+}
+#nav-toggle:checked + .sidebar{
+    width: 90px;
+}
+#nav-toggle:checked + .sidebar .sidebar-brand h2,
+#nav-toggle:checked + .sidebar .li{
+    padding-left: 0rem;
+    text-align: center;
+}
+#nav-toggle:checked + .sidebar .li a{
+    padding-left: 0rem;
+}
+#nav-toggle:checked + .sidebar .sidebar-brand h2 span:last-child,
+#nav-toggle:checked + .sidebar li a span:last-child{
+    display: none;
+}
+#nav-toggle:checked ~ .main-content{
+    margin-left: 90px;
+}
+#nav-toggle:checked ~ .main-content header{
+    width: calc(100% - 90px);
+    left: 90px;
+}
+.main-content{
+    transition: margin-left 300ms;
+    margin-left: 300px;
 }
 main{
     margin-top: 60px;

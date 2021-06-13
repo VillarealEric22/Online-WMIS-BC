@@ -22,14 +22,18 @@
             </div> 
             <div class="main-login">
                 <h3> Sign In </h3>
-                <input type = "email" placeholder="Email">
-                <input type = "password" placeholder="Password">
-                <a href="Dashboard.php" class="sign-in">Sign-In</a>
-                <label class="rememberme">
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-                <a href="#" class="forgot">Forgot Password?</a>
-                
+                <form action = "auth.php" method="post">
+                    <?php
+                        if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
+                            echo "<p class='wrong'>Wrong Username / Password</p>";
+                        }
+                    ?>
+                    <input type="text" name="username" placeholder="Username" id="username" required>
+                    <input type="password" name="password" placeholder="Password" id="password" required>   
+                    <input type = "submit" value="Sign-In" class="sign-in"> 
+                    <label class="rememberme" for="remember"><input type="checkbox" name="remember"> Remember me</label>
+                </form> 
+                <a href="#" class="forgot">Forgot Password?</a>  
                 <div class="contact">
                     <p>Having problems signing in?</p>
                     <a href="#" class="contact-admin"> Contact an Administrator</a>

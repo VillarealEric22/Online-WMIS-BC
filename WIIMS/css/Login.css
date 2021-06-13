@@ -59,6 +59,20 @@
     margin: 0 auto;
     flex-shrink: 0;
 }
+form{
+    width: 70%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: center;
+}
+.main-login input[type="text"], input[type="password"]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px;
+    box-sizing: border-box;
+}
 .main-content h1{
     margin-bottom: 1.0rem;
     font-size: 2.5rem;
@@ -66,12 +80,6 @@
 .main-login h3{
     margin-top: 1.0rem;
     padding-bottom: 1.0rem;
-}
-.main-login input[type=email], input[type=password]{
-    width: 80%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
 }
 .rememberme{
     margin: 0.5rem;
@@ -97,6 +105,11 @@
 .forgot{
     margin:1rem;
     font-size: 0.9rem;
+}
+.wrong{
+    font-size: 0.8rem;
+    text-align: center;;
+    color: red;
 }
 .contact{
     font-size: 0.7rem;
