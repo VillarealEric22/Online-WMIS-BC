@@ -17,7 +17,7 @@
         exit('Please fill both the username and password fields!');
     }
     // Prepare our SQL (anti-SQL injection)
-    if ($stmt = $con->prepare('SELECT username, password FROM users WHERE username = ?')) {
+    if ($stmt = $con->prepare('SELECT username, password FROM user WHERE username = ?')) {
         //Bind parameters
         $stmt->bind_param('s', $_POST['username']);
         $stmt->execute();

@@ -12,7 +12,7 @@
                         Users
                     </h2>
                     <div class="CRUDbuttons">
-                            <button href = "#addProductModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
+                            <button href = "#addUsersModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
                             <button href = "#editProductModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
                             <button href = "#deleteProductModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
                     </div>
@@ -82,7 +82,7 @@
         </div>
     </div>
     <!--add modal-->
-    <div id = "addProductModal" class="modal fade">
+    <div id = "addUsersModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,60 +93,97 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        Employee Details
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "pcode">Product Code:</label>
+                                <label class = modal-form-label for = "addEmployeeID">Product Name:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="pcode" name = "pcode">
+                                <input type ="text" id="addEmployeeID" name = "addEmployeeID">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "pname">Name:</label>
+                                <label class = modal-form-label for = "adddimensions">Name:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="pname" name = "pname">
+                                <label>Last Name</label>
+                                <input type ="text" id="addlength" name = "addlength">
+                            </div>
+                            <div class="input">
+                                <label> First Name</label>
+                                <input type ="text" id="addwidth" nmae = "addwidth">
+                            </div>
+                            <div class="input">
+                                <label>M.I </label>
+                                <input type ="text" id="addheight" nmae = "addheight">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
+                                <label class = modal-form-label for = "addEmployeeAddress"> Address:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="manufacturer" name = "manufacturer">
+                                <input type ="text" id="addEmployeeAddress" name = "addEmployeeAddress">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "ptype">Product Type:</label>
+                                <label class = modal-form-label for = "addEmployeeContact"> Contact No.:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="ptype" name = "ptype"> 
+                                <input type ="text" id="addEmployeeContact" name = "addEmployeeContact">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "capacity">Capacity:</label>
+                                <label class = modal-form-label for = "sex">Sex:</label>
+                            </div>
+                            <div class="input">
+                            <Select name="sex" id="sex">
+                                    <option value = "type 1" > Male </option>
+                                    <option value = "type 2" > Female </option>
+                                    <option value = "type 3" > Transexual </option>
+                            </Select>
+                            </div>                           
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "birthdate">Birth Date:</label>
+                            </div>
+                            <div class="input">
+                                <input type="date" id="birthdate" name="birthdate">
+                            </div>
+                        </div>
+                        <br/>
+                        User Account
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addusername">Username:</label>
+                            </div>
+                            <div class="input">
+                                <input type="text" id="addusername" name = "addusername">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addpassword">Password:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="text" id="capacity" name = "capacity"> 
+                                <input type ="text" id="addpassword" name = "addpassword"> 
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "color">Color:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="color" name = "color">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "price">Price:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="price" nmae = "price">
+                                <label class = modal-form-label for = "addRole">User Role:</label>
+                            </div>                              
+                            <div class="input">                               
+                            <Select name="addRole" id="addRole">
+                                    <option value = "Products" > type 1 </option>
+                                    <option value = "Packages" > type 2 </option>
+                                    <option value = "Packages" > type 3 </option>
+                            </Select>
+                            <button href = "#userRoleModal" class = "modalBtn"> ... </button>
                             </div>
                         </div>
                     </form>
@@ -170,64 +207,103 @@
                         </button>
                 </div>
                 <div class = "modal-body">
-                <form>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "pcode">Product Code:</label>
+                    <form>
+                        Employee Details
+                        <br/>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addEmployeeID">Product Name:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="addEmployeeID" name = "addEmployeeID">
+                            </div>
                         </div>
-                        <div class="input">
-                            <input type="text" id="pcode" name = "pcode">
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "adddimensions">Name:</label>
+                            </div>
+                            <div class="input">
+                                <label>Last Name</label>
+                                <input type ="text" id="addlength" name = "addlength">
+                            </div>
+                            <div class="input">
+                                <label> First Name</label>
+                                <input type ="text" id="addwidth" nmae = "addwidth">
+                            </div>
+                            <div class="input">
+                                <label>M.I </label>
+                                <input type ="text" id="addheight" nmae = "addheight">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "pname">Name:</label>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addEmployeeAddress"> Address:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="addEmployeeAddress" name = "addEmployeeAddress">
+                            </div>
                         </div>
-                        <div class="input">
-                            <input type ="text" id="pname" name = "pname">
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addEmployeeContact"> Contact No.:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="addEmployeeContact" name = "addEmployeeContact">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "sex">Sex:</label>
+                            </div>
+                            <div class="input">
+                            <Select name="sex" id="sex">
+                                    <option value = "type 1" > Male </option>
+                                    <option value = "type 2" > Female </option>
+                                    <option value = "type 3" > Transexual </option>
+                            </Select>
+                            </div>                           
                         </div>
-                        <div class="input">
-                            <input type ="text" id="manufacturer" name = "manufacturer">
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "birthdate">Birth Date:</label>
+                            </div>
+                            <div class="input">
+                                <input type="date" id="birthdate" name="birthdate">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "ptype">Product Type:</label>
+                        <br/>
+                        User Account
+                        <br/>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addusername">Username:</label>
+                            </div>
+                            <div class="input">
+                                <input type="text" id="addusername" name = "addusername">
+                            </div>
                         </div>
-                        <div class="input">
-                            <input type ="text" id="ptype" name = "ptype"> 
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addpassword">Password:</label>
+                            </div>                              
+                            <div class="input">                               
+                                <input type ="text" id="addpassword" name = "addpassword"> 
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "capacity">Capacity:</label>
-                        </div>                              
-                        <div class="input">                               
-                            <input type ="text" id="capacity" name = "capacity"> 
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addRole">User Role:</label>
+                            </div>                              
+                            <div class="input">                               
+                            <Select name="addRole" id="addRole">
+                                    <option value = "Products" > type 1 </option>
+                                    <option value = "Packages" > type 2 </option>
+                                    <option value = "Packages" > type 3 </option>
+                            </Select>
+                            <button href = "#userRoleModal" class = "modalBtn"> ... </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "color">Color:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="color" name = "color">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "price">Price:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="price" nmae = "price">
-                        </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
@@ -260,6 +336,196 @@
         </div>
     </div>
     <!--delete modal end-->
+    <!--user role modal-->
+    <div id = "userRoleModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content-wide">
+                <div class="modal-header">
+                    <h5 class="modal-title">User Roles</h5>
+                    <button class="close" type="button">
+                        <span>×</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-message">
+                        <div class="col">
+                            <table id="sortable" class="table" width = "100%">
+                                <thead>
+                                    <tr>
+                                        <td>User Role</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Admin</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sales</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warehouse Manager</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td><button type = "button">Add</button></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <table id="sortable" class="table" width = "100%">
+                                <thead>
+                                    <tr>
+                                        <td>Module</td>
+                                        <td>Authorization</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Products</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inventory</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sales</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Orders</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Customers</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Suppliers</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warehouse</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reports</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Returns</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Users</td>
+                                        <td>
+                                            <select>
+                                                <option value = "1" > No Restrictions </option>
+                                                <option value = "2" > Create and Edit </option>
+                                                <option value = "3" > Read-Only </option>
+                                                <option value = "4" > No Authorization </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" type="button">Cancel</button>
+                    <a class="btn-confirm" href="">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--user role modal modal end-->
 </main>
 <?php
     include('php/includes/footer.php');

@@ -15,7 +15,7 @@
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
     // get username and usertype
-    $stmt = $con->prepare('SELECT user_role, user_img FROM users WHERE username = ?');
+    $stmt = $con->prepare('SELECT user_role, user_img FROM user WHERE username = ?');
     //diplay onto header
     $stmt->bind_param('s', $_SESSION['username']);
     $stmt->execute();

@@ -9,7 +9,10 @@
                 <div class="card-header">
                     <h2>     
                         <span class = "las la-boxes"></span>
-                        Products
+                            <Select name="tableName" id="tbName" onchange="location.href=this.value">
+                                    <option value = "Products.php" > Products </option>
+                                    <option value = "Packages.php" > Packages </option>
+                            </Select>
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addProductModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
@@ -356,58 +359,97 @@
                     <form>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "pcode">Product Code:</label>
+                                <label class = modal-form-label for = "addptype">Product Type:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="pcode" name = "pcode">
+                            <Select name="tableName" id="tbName">
+                                    <option value = "type 1" > type 1 </option>
+                                    <option value = "type 2" > type 2 </option>
+                                    <option value = "type 3" > type 3 </option>
+                            </Select>
+                            <button href = "#productTypeModal" class = "modalBtn"> ... </button>
+                            </div>                           
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addproductname">Product Name:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="addproductname" name = "addproductname">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "pname">Name:</label>
+                                <label class = modal-form-label for = "addproductcode">Product Code:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="pname" name = "pname">
+                                <input type="text" id="addproductcode" name = "addproductcode">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="manufacturer" name = "manufacturer">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "ptype">Product Type:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="ptype" name = "ptype"> 
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "capacity">Capacity:</label>
+                                <label class = modal-form-label for = "addcapacity">Capacity:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="text" id="capacity" name = "capacity"> 
+                                <input type ="text" id="addcapacity" name = "addcapacity"> 
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "color">Color:</label>
+                                <label class = modal-form-label for ="addmanufacturer">Manufacturer:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="color" name = "color">
+                                <input type ="text" id="addmanufacturer" name = "addmanufacturer">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "price">Price:</label>
+                                <label class = modal-form-label for = "addcolor">Color:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="price" nmae = "price">
+                                <input type ="text" id="addcolor" name = "addcolor">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addprice">Price:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="addprice" name = "addprice">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "adddimensions">Dimensions:</label>
+                            </div>
+                            <Select name="unitLength" id="unitLength">
+                                    <option value = "mm" > mm </option>
+                                    <option value = "in" > in </option>
+                                    <option value = "cm" > cm </option>
+                            </Select>
+                            <div class="input">
+                                <label>(L)</label>
+                                <input type ="text" id="addlength" name = "addlength">
+                            </div>
+                            <div class="input">
+                                <label>(W)</label>
+                                <input type ="text" id="addwidth" nmae = "addwidth">
+                            </div>
+                            <div class="input">
+                                <label>(H)</label>
+                                <input type ="text" id="addheight" nmae = "addheight">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "addsupplier">Supplier Name:</label>
+                            </div>                              
+                            <div class="input">                               
+                            <Select name="addsuplier" id="addsupplier">
+                                    <option value = "Products" > type 1 </option>
+                                    <option value = "Packages" > type 2 </option>
+                                    <option value = "Packages" > type 3 </option>
+                            </Select>
                             </div>
                         </div>
                     </form>
@@ -432,63 +474,102 @@
                 </div>
                 <div class = "modal-body">
                 <form>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "pcode">Product Code:</label>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "edittype">Product Type:</label>
+                            </div>
+                            <div class="input">
+                            <Select name="tableName" id="tbName">
+                                    <option value = "type 1" > type 1 </option>
+                                    <option value = "type 2" > type 2 </option>
+                                    <option value = "type 3" > type 3 </option>
+                            </Select>
+                            <button href = "#productTypeModal" class = "modalBtn"> ... </button>
+                            </div>                           
                         </div>
-                        <div class="input">
-                            <input type="text" id="pcode" name = "pcode">
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "editproductname">Product Name:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="editproductname" name = "editproductname">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "pname">Name:</label>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "editproductcode">Product Code:</label>
+                            </div>
+                            <div class="input">
+                                <input type="text" id="editproductcode" name = "editproductcode">
+                            </div>
                         </div>
-                        <div class="input">
-                            <input type ="text" id="pname" name = "pname">
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "editcapacity">Capacity:</label>
+                            </div>                              
+                            <div class="input">                               
+                                <input type ="text" id="editcapacity" name = "editcapacity"> 
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for ="editmanufacturer">Manufacturer:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="editmanufacturer" name = "editmanufacturer">
+                            </div>
                         </div>
-                        <div class="input">
-                            <input type ="text" id="manufacturer" name = "manufacturer">
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "editcolor">Color:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="editcolor" name = "editcolor">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "ptype">Product Type:</label>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "editprice">Price:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="editprice" name = "editprice">
+                            </div>
                         </div>
-                        <div class="input">
-                            <input type ="text" id="ptype" name = "ptype"> 
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "editdimensions">Dimensions:</label>
+                            </div>
+                            <Select name="unitLength" id="unitLength">
+                                    <option value = "mm" > mm </option>
+                                    <option value = "in" > in </option>
+                                    <option value = "cm" > cm </option>
+                            </Select>
+                            <div class="input">
+                                <label>(L)</label>
+                                <input type ="text" id="editlength" name = "editlength">
+                            </div>
+                            <div class="input">
+                                <label>(W)</label>
+                                <input type ="text" id="editwidth" nmae = "editwidth">
+                            </div>
+                            <div class="input">
+                                <label>(H)</label>
+                                <input type ="text" id="editheight" nmae = "editheight">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "capacity">Capacity:</label>
-                        </div>                              
-                        <div class="input">                               
-                            <input type ="text" id="capacity" name = "capacity"> 
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "editsupplier">Supplier Name:</label>
+                            </div>                              
+                            <div class="input">                               
+                            <Select name="editsuplier" id="editsupplier">
+                                    <option value = "Products" > type 1 </option>
+                                    <option value = "Packages" > type 2 </option>
+                                    <option value = "Packages" > type 3 </option>
+                            </Select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "color">Color:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="color" name = "color">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "price">Price:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="price" nmae = "price">
-                        </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
@@ -521,6 +602,52 @@
         </div>
     </div>
     <!--delete modal end-->
+    <div id = "productTypeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Type</h5>
+                    <button class="close" type="button">
+                        <span>×</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-message">
+                        <table id="ptypeTable" class="modalTable" width = "100%">
+                                <thead>
+                                    <tr>
+                                        <td>Product Type</td>
+                                        <td>Description</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class ="medium-input" type="string"></td>
+                                        <td><input class ="medium-input" type="string"></td>
+                                        <td><button><span class="las la-plus"></span></button></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Oven</td>
+                                        <td class = "description">Oven tol</td>
+                                        <td><button><span class="las la-trash"></span></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Oven</td>
+                                        <td class = "description">Oven tol</td>
+                                        <td><button><span class="las la-trash"></span></button></td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" type="button">Cancel</button>
+                    <a class="btn-confirm" href="">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <?php
     include('php/includes/footer.php');

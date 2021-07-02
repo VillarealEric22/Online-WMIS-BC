@@ -43,121 +43,28 @@
                                         <td>Product Code</td>
                                         <td>Item Price</td>
                                         <td>Quantity</td>
-                                        <td>Discount Code</td>
                                         <td>Total Price</td>
                                         <td>Transaction Date</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td><a class="show" href="#">00001</a></td>
                                         <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                         <td>199998</td>
                                         <td>01/20/21</td>
                                     </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
+                                    <tr class = "items">
+                                        <td></td>
+                                        <td></td>
                                         <td>100TG-Oven-Green</td>
                                         <td>99999</td>
                                         <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>N/A</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -189,7 +96,7 @@
                     <form>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "pcode">Product Code:</label>
+                                <label class = modal-form-label for = "transactionID">Transaction ID:</label>
                             </div>
                             <div class="input">
                                 <input type="text" id="pcode" name = "pcode">
@@ -197,7 +104,7 @@
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "pname">Name:</label>
+                                <label class = modal-form-label for = "pname">Customer:</label>
                             </div>
                             <div class="input">
                                 <input type ="text" id="pname" name = "pname">
@@ -205,42 +112,41 @@
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
+                                <label class = modal-form-label for = "items">Items:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="manufacturer" name = "manufacturer">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "ptype">Product Type:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="ptype" name = "ptype"> 
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "capacity">Capacity:</label>
-                            </div>                              
-                            <div class="input">                               
-                                <input type ="text" id="capacity" name = "capacity"> 
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "color">Color:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="color" name = "color">
-                            </div>
-                        </div>
+                                <div class="itemdiv">
+                                <div>
+                                    <div class="input">
+                                        <label>Product Name </label><input type ="text" id="pname" name = "pname">
+                                    </div>
+                                         
+                                    <div class="input">
+                                        <label>Qty.</label><input type ="text" id="qty" nmae = "qty">
+                                    </div>
+                                         
+                                    <div class="input">
+                                        <label>Price</label><input type ="text" id="qty" nmae = "qty">
+                                    </div>
+                                    <div class="addrow"><a href="javascript:void(0);" class="addItem" title="Add field">add</a></div>
+                                </div>
+                                </div>
+                            </div>  
+                        </div>                        
                         <div class="input-row">
                             <div class="input-label">
                                 <label class = modal-form-label for = "price">Price:</label>
                             </div>
                             <div class="input">
                                 <input type ="text" id="price" nmae = "price">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "color">Transaction Date:</label>
+                            </div>
+                            <div class="input">
+                                <input type="date" id="transactiondate" name="transactiondate">
                             </div>
                         </div>
                     </form>
@@ -253,108 +159,31 @@
         </div>
     </div>
     <!--add modal end-->
-    <!--edit modal-->
-    <div id = "editSalesModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Item</h5>
-                    <button class="close" type="button">
-                        <span>×</span>
-                        </button>
-                </div>
-                <div class = "modal-body">
-                <form>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "pcode">Product Code:</label>
-                        </div>
-                        <div class="input">
-                            <input type="text" id="pcode" name = "pcode">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "pname">Name:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="pname" name = "pname">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="manufacturer" name = "manufacturer">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "ptype">Product Type:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="ptype" name = "ptype"> 
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "capacity">Capacity:</label>
-                        </div>                              
-                        <div class="input">                               
-                            <input type ="text" id="capacity" name = "capacity"> 
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "color">Color:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="color" name = "color">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-label">
-                            <label class = modal-form-label for = "price">Price:</label>
-                        </div>
-                        <div class="input">
-                            <input type ="text" id="price" nmae = "price">
-                        </div>
-                    </div>
-                </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--edit modal end-->
-    <!--delete modal-->
-    <div id = "deleteSalesModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Delete Item</h5>
-                    <button class="close" type="button">
-                        <span>×</span>
-                        </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-message">
-                        Are you sure to delete item? This action is irreversible.
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--delete modal end-->
 </main>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $(".items").hide(); 
+            $(".show").click(function() {
+                $(this).closest('tr').nextUntil("tr:has(.show)").toggle("fast" ,function() {});     
+            });
+        })
+        $(document).ready(function(){
+            var addButton = $('.addItem'); //Add button selector
+            var wrapper = $('.itemdiv'); //Input field wrapper
+            var fieldHTML = '<div><div class="input"><label>Product Name </label><input type ="text" id="pname" name = "pname"></div><div class="input"><label>Qty.</label><input type ="text" id="qty" nmae = "qty"></div><div class="input"><label>Price</label><input type ="text" id="qty" nmae = "qty"></div><a href="javascript:void(0);" class="remove_button">remove</a></div>'; //New input field html 
+            
+            //Once add button is clicked
+            $(addButton).click(function(){
+                    $(wrapper).append(fieldHTML); //Add field html
+            });
+            
+            //Once remove button is clicked
+            $(wrapper).on('click', '.remove_button', function(e){
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+            });
+        });
+    </script>
 <?php 
     include('php/includes/footer.php');
     include('php/includes/scripts.php');

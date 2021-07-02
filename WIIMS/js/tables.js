@@ -2,9 +2,7 @@
 
  $('#sortable tbody tr').click(function() {
     if ($(this).hasClass('selected')) {
-
         $(this).removeClass('selected');
-       
     }
     else {
         $('#sortable tbody tr.selected').removeClass('selected');
@@ -12,6 +10,8 @@
     }
   
 });
+
+//pagination
 
 var table = '#sortable'
 $('#maxRows').on('change', function(){
@@ -51,3 +51,12 @@ $('#maxRows').on('change', function(){
         })
     })
 })
+$('.modalTable').find('.description').each(function() {
+    $(this).click(function() {
+      $('.modalTable td').not($(this)).prop('contenteditable', false);
+      $(this).prop('contenteditable', true);
+    });
+    $(this).blur(function() {
+      $(this).prop('contenteditable', false);
+    });
+  });
