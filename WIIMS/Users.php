@@ -44,27 +44,44 @@
                                         <td>Lastname</td>
                                         <td>Firstname</td>
                                         <td>M.I.</td>
+                                        <td>Sex</td>
                                         <td>Address</td>
                                         <td>Contact No.</td>
-                                        <td>Sex</td>
                                         <td>Birthday</td>
                                         <td>User Status</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>01</td>
-                                        <td>BCAdmin</td>
-                                        <td>Admin</td>
-                                        <td>Villareal</td>
-                                        <td>Eric John</td>
-                                        <td>D.</td>
-                                        <td>Here and There</td>
-                                        <td>096969696969</td>
-                                        <td>M</td>
-                                        <td>08/22/00</td>
-                                        <td>Active</td>
-                                    </tr>
+                                    <!--display to table-->
+                                    <?php
+                                        //connection info.
+                                        $DATABASE_HOST = 'localhost';
+                                        $DATABASE_USER = 'root';
+                                        $DATABASE_PASS = '';
+                                        $DATABASE_NAME = 'db_inventory';
+                                        //connect using data above.
+                                        $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                        if ( mysqli_connect_errno() ) {
+                                            // If there is an error with the connection, stop the script and display the error.
+                                            exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                        }
+                                        $sql = "SELECT user.employee_id, user.username, user.user_role, employees.lastname, employees.firstname, employees.middlename, employees.sex, employees.address, employees.contact_number, employees.birthday FROM user INNER JOIN employees ON user.employee_id = employees.employee_id";
+                                        $result = $con->query($sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
+                                            while($rows= $result-> fetch_assoc()){
+                                                echo "<tr><td>".$rows['employee_id']."</td>";
+                                                echo "<td>".$rows['username']."</td>";
+                                                echo "<td>".$rows['user_role']."</td>";
+                                                echo "<td>".$rows['lastname']."</td>";
+                                                echo "<td>".$rows['firstname']."</td>";
+                                                echo "<td>".$rows['middlename']."</td>";
+                                                echo "<td>".$rows['sex']."</td>";
+                                                echo "<td>".$rows['address']."</td>";
+                                                echo "<td>".$rows['contact_number']."</td>";
+                                                echo "<td>".$rows['birthday']."</td></tr>";
+                                            }
+                                            echo "number of rows: " . $result->num_rows;
+                                        $con->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
