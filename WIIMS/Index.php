@@ -22,7 +22,7 @@
             </div> 
             <div class="main-login">
                 <h3> Sign In </h3>
-                <form action = "auth.php" method="post">
+                <form action = "auth.php" method="POST">
                     <?php
                         if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
                             echo "<p class='wrong'>Wrong Username / Password</p>";

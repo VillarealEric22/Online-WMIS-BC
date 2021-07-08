@@ -51,284 +51,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr><tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
-                                    <tr>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>100 Tray Gas Oven - Green</td>
-                                        <td>Uni-Jem</td>
-                                        <td>Oven</td>
-                                        <td>100 Trays</td>
-                                        <td>Green</td>
-                                        <td>99999</td>
-                                    </tr>
+                                <?php
+                                        //connection info.
+                                        $DATABASE_HOST = 'localhost';
+                                        $DATABASE_USER = 'root';
+                                        $DATABASE_PASS = '';
+                                        $DATABASE_NAME = 'db_inventory';
+                                        //connect using data above.
+                                        $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                        if ( mysqli_connect_errno() ) {
+                                            // If there is an error with the connection, stop the script and display the error.
+                                            exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                        }
+                                        $sql = "SELECT products.product_code, products.product_name, products.manufacturer, products.product_type, products.capacity, products.color, products.item_price FROM products";
+                                        $result = $con->query($sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
+                                            while($rows= $result-> fetch_assoc()){
+                                                echo "<tr><td>".$rows['product_code']."</td>";
+                                                echo "<td>".$rows['product_name']."</td>";
+                                                echo "<td>".$rows['manufacturer']."</td>";
+                                                echo "<td>".$rows['product_type']."</td>";
+                                                echo "<td>".$rows['capacity']."</td>";
+                                                echo "<td>".$rows['color']."</td>";
+                                                echo "<td>".$rows['item_price']."</td>";
+
+                                            }
+                                            echo "number of rows: " . $result->num_rows;
+                                        $con->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

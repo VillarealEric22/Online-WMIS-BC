@@ -48,51 +48,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
-                                    <tr>
-                                        <td>00001</td>
-                                        <td>00001</td>
-                                        <td>100TG-Oven-Green</td>
-                                        <td>99999</td>
-                                        <td>2</td>
-                                        <td>199998</td>
-                                        <td>01/20/21</td>
-                                    </tr>
+                                <?php
+                                        //connection info.
+                                        $DATABASE_HOST = 'localhost';
+                                        $DATABASE_USER = 'root';
+                                        $DATABASE_PASS = '';
+                                        $DATABASE_NAME = 'db_inventory';
+                                        //connect using data above.
+                                        $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                        if ( mysqli_connect_errno() ) {
+                                            // If there is an error with the connection, stop the script and display the error.
+                                            exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                        }
+                                        $sql = "SELECT purchase_order.purchase_order_id, purchase_order.supplier_id, item_orders.product_code, item_orders.price, item_orders.quantity, purchase_order.total_price, purchase_order.order_date FROM purchase_order INNER JOIN item_orders ON purchase_order.purchase_order_id = item_orders.purchase_order_id";
+                                        $result = $con->query($sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
+                                            while($rows= $result-> fetch_assoc()){
+                                                echo "<tr><td>".$rows['purchase_order_id']."</td>";
+                                                echo "<td>".$rows['supplier_id']."</td>";
+                                                echo "<td>".$rows['product_code']."</td>";
+                                                echo "<td>".$rows['price']."</td>";
+                                                echo "<td>".$rows['quantity']."</td>";
+                                                echo "<td>".$rows['total_price']."</td>";
+                                                echo "<td>".$rows['order_date']."</td>";
+
+                                            }
+                                            echo "number of rows: " . $result->num_rows;
+                                        $con->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

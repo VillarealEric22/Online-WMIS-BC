@@ -3,18 +3,23 @@
     include('php/includes/navbar.php');
 ?>
 <main>
+
     <div class="main-containter">
         <div class="Users">
             <div class="card">
+            <form method='post' action='Delete_users.php'>
                 <div class="card-header">
                     <h2>     
                         <span class = "las la-user"></span>
-                        Users
+                        <select name = "tableName" id="tbName" onchange="location.href=this.value">
+                            <option value = "Users.php">Users</option>
+                            <option value = "Employees.php">Employees</option>
+                        </select>
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addUsersModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editProductModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteProductModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editUsersModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteUsersModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -38,17 +43,10 @@
                             <table id="sortable" class="table" width = "100%">
                                 <thead>
                                     <tr>
+                                        <td></td>
                                         <td>Employee ID</td>
                                         <td>Username</td>
                                         <td>User Role</td>
-                                        <td>Lastname</td>
-                                        <td>Firstname</td>
-                                        <td>M.I.</td>
-                                        <td>Sex</td>
-                                        <td>Address</td>
-                                        <td>Contact No.</td>
-                                        <td>Birthday</td>
-                                        <td>User Status</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,23 +63,27 @@
                                             // If there is an error with the connection, stop the script and display the error.
                                             exit('Failed to connect to MySQL: ' . mysqli_connect_error());
                                         }
-                                        $sql = "SELECT user.employee_id, user.username, user.user_role, employees.lastname, employees.firstname, employees.middlename, employees.sex, employees.address, employees.contact_number, employees.birthday FROM user INNER JOIN employees ON user.employee_id = employees.employee_id";
-                                        $result = $con->query($sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-                                            while($rows= $result-> fetch_assoc()){
-                                                echo "<tr><td>".$rows['employee_id']."</td>";
-                                                echo "<td>".$rows['username']."</td>";
-                                                echo "<td>".$rows['user_role']."</td>";
-                                                echo "<td>".$rows['lastname']."</td>";
-                                                echo "<td>".$rows['firstname']."</td>";
-                                                echo "<td>".$rows['middlename']."</td>";
-                                                echo "<td>".$rows['sex']."</td>";
-                                                echo "<td>".$rows['address']."</td>";
-                                                echo "<td>".$rows['contact_number']."</td>";
-                                                echo "<td>".$rows['birthday']."</td></tr>";
-                                            }
-                                            echo "number of rows: " . $result->num_rows;
-                                        $con->close();
-                                    ?>
+                                        
+                                        $sql = "SELECT user.employee_id, user.username, user.user_role FROM user";
+                                        $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
+                                            while($rows = mysqli_fetch_array($result)){
+                                               $employee_id = $rows['employee_id'];
+                                               $username = $rows['username'];
+                                               $user_role =  $rows['user_role'];
+                                        ?>
+                                        <tr id='tr_<?= $username ?>'>
+                                        <td><input type='checkbox' name='selectable[]' value='<?= $username ?>' ></td>
+                                        <td><?= $employee_id ?></td>
+                                        <td><?= $username?></td>
+                                        <td><?= $user_role ?></td>
+
+                                        
+                                        
+                                        </tr>
+                                        <?php
+                                        }
+                                        echo "number of rows: " . $result->num_rows;
+                                        ?>
                                 </tbody>
                             </table>
                         </div>
@@ -96,6 +98,7 @@
                     </div>
                 </div>
             </div>  
+            </form>
         </div>
     </div>
     <!--add modal-->
@@ -103,113 +106,82 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add New Item</h5>
+                    <h5 class="modal-title">Add New Employee</h5>
                     <button class="close" type="button">
                         <span>×</span>
                         </button>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        Employee Details
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "addEmployeeID">Product Name:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="addEmployeeID" name = "addEmployeeID">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "adddimensions">Name:</label>
-                            </div>
-                            <div class="input">
-                                <label>Last Name</label>
-                                <input type ="text" id="addlength" name = "addlength">
-                            </div>
-                            <div class="input">
-                                <label> First Name</label>
-                                <input type ="text" id="addwidth" nmae = "addwidth">
-                            </div>
-                            <div class="input">
-                                <label>M.I </label>
-                                <input type ="text" id="addheight" nmae = "addheight">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "addEmployeeAddress"> Address:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="addEmployeeAddress" name = "addEmployeeAddress">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "addEmployeeContact"> Contact No.:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="addEmployeeContact" name = "addEmployeeContact">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "sex">Sex:</label>
-                            </div>
-                            <div class="input">
-                            <Select name="sex" id="sex">
-                                    <option value = "type 1" > Male </option>
-                                    <option value = "type 2" > Female </option>
-                                    <option value = "type 3" > Transexual </option>
-                            </Select>
-                            </div>                           
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "birthdate">Birth Date:</label>
-                            </div>
-                            <div class="input">
-                                <input type="date" id="birthdate" name="birthdate">
-                            </div>
-                        </div>
-                        <br/>
+                <div class="modal-body">                       
+                    <form method = "POST" action = "php/functions/Add_users.php">
                         User Account
+                        <br/>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addusername">Username:</label>
+                                <label class = modal-form-label>employee_id:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="addusername" name = "addusername">
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT employees.employee_id, employees.lastname FROM employees";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select name="emp_sel">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['employee_id']."'>".$rows['employee_id']." - ".$rows['lastname']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>    
+                                </select>
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addpassword">Password:</label>
-                            </div>                              
-                            <div class="input">                               
-                                <input type ="text" id="addpassword" name = "addpassword"> 
+                                <label class = modal-form-label>Username:</label>
+                            </div>
+                            <div class="input">
+                                <input type="text" name = "username">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addRole">User Role:</label>
+                                <label class = modal-form-label>Password:</label>
                             </div>                              
                             <div class="input">                               
-                            <Select name="addRole" id="addRole">
-                                    <option value = "Products" > type 1 </option>
-                                    <option value = "Packages" > type 2 </option>
-                                    <option value = "Packages" > type 3 </option>
+                                <input type ="password" name = "password"> 
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label>User Role:</label>
+                            </div>                              
+                            <div class="input">                               
+                            <Select name="user_role">
+                                    <option value = "Admin"> Admin </option>
+                                    <option value = "Sales"> Sales </option>
+                                    <option value = "Warehouse Manager"> Warehouse Manager </option>
                             </Select>
                             <button href = "#userRoleModal" class = "modalBtn"> ... </button>
                             </div>
                         </div>
-                    </form>
                 </div>
+                
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <input type="submit" value="insert" name="insert" class="btn-submit">
                 </div>
-            </div>
+                </form>
         </div>
     </div>
     <!--add modal end-->
@@ -225,107 +197,43 @@
                 </div>
                 <div class = "modal-body">
                     <form>
-                        Employee Details
-                        <br/>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "addEmployeeID">Product Name:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="addEmployeeID" name = "addEmployeeID">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "adddimensions">Name:</label>
-                            </div>
-                            <div class="input">
-                                <label>Last Name</label>
-                                <input type ="text" id="addlength" name = "addlength">
-                            </div>
-                            <div class="input">
-                                <label> First Name</label>
-                                <input type ="text" id="addwidth" nmae = "addwidth">
-                            </div>
-                            <div class="input">
-                                <label>M.I </label>
-                                <input type ="text" id="addheight" nmae = "addheight">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "addEmployeeAddress"> Address:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="addEmployeeAddress" name = "addEmployeeAddress">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "addEmployeeContact"> Contact No.:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="addEmployeeContact" name = "addEmployeeContact">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "sex">Sex:</label>
-                            </div>
-                            <div class="input">
-                            <Select name="sex" id="sex">
-                                    <option value = "type 1" > Male </option>
-                                    <option value = "type 2" > Female </option>
-                                    <option value = "type 3" > Transexual </option>
-                            </Select>
-                            </div>                           
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "birthdate">Birth Date:</label>
-                            </div>
-                            <div class="input">
-                                <input type="date" id="birthdate" name="birthdate">
-                            </div>
-                        </div>
-                        <br/>
                         User Account
                         <br/>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addusername">Username:</label>
+                                <label class = modal-form-label>Username:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="addusername" name = "addusername">
+                                <input type="text" name = "username">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addpassword">Password:</label>
+                                <label class = modal-form-label for = "password">Password:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="text" id="addpassword" name = "addpassword"> 
+                                <input type ="text" id="addpassword" name = "password"> 
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addRole">User Role:</label>
+                                <label class = modal-form-label for = "user_ole">User Role:</label>
                             </div>                              
                             <div class="input">                               
                             <Select name="addRole" id="addRole">
-                                    <option value = "Products" > type 1 </option>
-                                    <option value = "Packages" > type 2 </option>
-                                    <option value = "Packages" > type 3 </option>
+                                    <option value = "Products" >  </option>
+                                    <option value = "Packages" >  </option>
+                                    <option value = "Packages" >  </option>
                             </Select>
                             <button href = "#userRoleModal" class = "modalBtn"> ... </button>
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <input type="submit" value="Confirm" name="update" class="btn-submit">
                 </div>
+                </form>
             </div>
         </div>
     </div>

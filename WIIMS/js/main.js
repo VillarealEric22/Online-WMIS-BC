@@ -35,3 +35,7 @@ for (var i = 0; i < cancel.length; i++) {
        }
     }
 }
+
+if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+  }

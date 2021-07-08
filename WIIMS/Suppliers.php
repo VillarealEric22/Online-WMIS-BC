@@ -45,12 +45,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>001</td>
-                                        <td>Uni-Jem</td>
-                                        <td>741 Sabino Padilla St., Sta. Cruz, Manila</td>
-                                        <td>09745645123</td>
-                                    </tr>
+                                <?php
+                                        //connection info.
+                                        $DATABASE_HOST = 'localhost';
+                                        $DATABASE_USER = 'root';
+                                        $DATABASE_PASS = '';
+                                        $DATABASE_NAME = 'db_inventory';
+                                        //connect using data above.
+                                        $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                        if ( mysqli_connect_errno() ) {
+                                            // If there is an error with the connection, stop the script and display the error.
+                                            exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                        }
+                                        $sql = "SELECT supplier.supplier_id, supplier.supplier_name, supplier.supplier_address, supplier.contact_number FROM supplier";
+                                        $result = $con->query($sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
+                                            while($rows= $result-> fetch_assoc()){
+                                                echo "<tr><td>".$rows['supplier_id']."</td>";
+                                                echo "<td>".$rows['supplier_name']."</td>";
+                                                echo "<td>".$rows['supplier_address']."</td>";
+                                                echo "<td>".$rows['contact_number']."</td>";
+
+                                            }
+                                            echo "number of rows: " . $result->num_rows;
+                                        $con->close();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

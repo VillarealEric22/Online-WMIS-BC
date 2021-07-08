@@ -1,16 +1,31 @@
-//table select
-
- $('#sortable tbody tr').click(function() {
-    if ($(this).hasClass('selected')) {
-        $(this).removeClass('selected');
-    }
-    else {
-        $('#sortable tbody tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-    }
-  
+$(document).ready(function() {
+    $('#sortable').on("click",'.tablerow',function(event) {
+      if (event.target.type !== 'checkbox') {
+        $(':checkbox', this).trigger('click');
+      }
+    });
+    $('#sortable').on("change", 'input[type="checkbox"]', function (e) {
+        if ($(this).is(":checked")) { //If the checkbox is checked
+            $(this).closest('tr').addClass("selected"); 
+            //Add class on checkbox checked
+        } else {
+            $(this).closest('tr').removeClass("selected");
+            //Remove class on checkbox uncheck
+        }
+    });
 });
-
+//disable button until something is selected, then disable edit button when more than 1 is selected
+$(document).ready(function () {
+    $("#sortable").on("click",'.selectable',function() {
+        if ($('.selectable:checked').length >= 2) {
+            $('#delete_button').removeAttr('disabled');
+            $('#edit_button').attr('disabled', 'disabled');
+        } else{
+            $('#edit_button').removeAttr('disabled');
+            $('#delete_button').removeAttr('disabled');
+        }
+    })
+});
 //pagination
 
 var table = '#sortable'
@@ -60,3 +75,4 @@ $('.modalTable').find('.description').each(function() {
       $(this).prop('contenteditable', false);
     });
   });
+
