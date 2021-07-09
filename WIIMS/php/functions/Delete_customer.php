@@ -10,20 +10,21 @@
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
-    if (isset($_POST['insert'])){
-        $cust_id = $_POST['customer_id'];
+    
+    if (isset($_POST['deleteID'])){
+        $cust_id = $_POST['deleteID'];
+        $total = count($cust_id);
+        $cust_id = implode(',', $cust_id);
 
-        $sql = "DELETE FROM customer WHERE customer_id = ?";
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param('s',$cust_id);
-        // Close connection
-        if ($stmt->execute()){
-            echo '<script> alert("Row deleted successfully"); </script>';
-            header('Location: /WIIMS/Customers.php');
-        } else {
-            echo '<script> alert("Data Not Saved"); </script>'. $con->error;;
-        }
-        $con->close();
+        $sql = "DELETE FROM customer WHERE customer_id IN ($cust_id)";
+        $result = mysqli_query($con, $sql);
+
+		if ($result === true) {
+			echo $total. " items successfully deleted";
+		}else{
+			echo "Data Not Saved". $con->error;;
+		}
+
     }
     
 ?>

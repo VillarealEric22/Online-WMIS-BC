@@ -10,20 +10,21 @@
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
-    if (isset($_POST['insert'])){
-        $u_username = $_POST['username'];
+    
+    if (isset($_POST['deleteID'])){
+        $un = $_POST['deleteID'];
+        $total = count($un);
+        $un = implode(',', $un);
 
-        $sql = "DELETE FROM user WHERE username = ?";
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param('s',$u_username);
-        // Close connection
-        if ($stmt->execute()){
-            echo '<script> alert("Row deleted successfully"); </script>';
-            header('Location: /WIIMS/Users.php');
-        } else {
-            echo '<script> alert("Data Not Saved"); </script>'. $con->error;;
-        }
-        $con->close();
+        $sql = "DELETE FROM user WHERE username IN ($un)";
+        $result = mysqli_query($con, $sql);
+
+		if ($result === true) {
+			echo $total. " items successfully deleted";
+		}else{
+			echo "Data Not Saved". $con->error;;
+		}
+
     }
     
 ?>

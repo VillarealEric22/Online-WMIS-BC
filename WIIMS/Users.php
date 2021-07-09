@@ -7,7 +7,7 @@
     <div class="main-containter">
         <div class="Users">
             <div class="card">
-            <form method='post' action='Delete_users.php'>
+            <form method='post' action="">
                 <div class="card-header">
                     <h2>     
                         <span class = "las la-user"></span>
@@ -49,41 +49,8 @@
                                         <td>User Role</td>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <!--display to table-->
-                                    <?php
-                                        //connection info.
-                                        $DATABASE_HOST = 'localhost';
-                                        $DATABASE_USER = 'root';
-                                        $DATABASE_PASS = '';
-                                        $DATABASE_NAME = 'db_inventory';
-                                        //connect using data above.
-                                        $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-                                        if ( mysqli_connect_errno() ) {
-                                            // If there is an error with the connection, stop the script and display the error.
-                                            exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-                                        }
-                                        
-                                        $sql = "SELECT user.employee_id, user.username, user.user_role FROM user";
-                                        $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-                                            while($rows = mysqli_fetch_array($result)){
-                                               $employee_id = $rows['employee_id'];
-                                               $username = $rows['username'];
-                                               $user_role =  $rows['user_role'];
-                                        ?>
-                                        <tr id='tr_<?= $username ?>'>
-                                        <td><input type='checkbox' name='selectable[]' value='<?= $username ?>' ></td>
-                                        <td><?= $employee_id ?></td>
-                                        <td><?= $username?></td>
-                                        <td><?= $user_role ?></td>
-
-                                        
-                                        
-                                        </tr>
-                                        <?php
-                                        }
-                                        echo "number of rows: " . $result->num_rows;
-                                        ?>
+                                <tbody class = "tablecontent">
+                                    <!--display to table-->  
                                 </tbody>
                             </table>
                         </div>
@@ -451,6 +418,139 @@
         </div>
     </div>
     <!--user role modal modal end-->
+    <script>
+    $(document).ready(function(){
+        // fetch data from table without reload/refresh page
+        loadData();
+        function loadData(){
+            $.ajax({    //create an ajax request to display.php
+                type: "POST",
+                url: "php/functions/Display_users.php",                             
+                success: function(response){                    
+                    $(".tablecontent").html(response); 
+                },
+                error: function(){
+                    alert("Something went wrong");
+                }
+            });
+        }
+        function emptyForm(){
+
+            var now = new Date();
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+            $('#a_employee_id').val('');
+            $('#a_lastname').val('');
+            $('#a_firstname').val('');
+            $('#a_middlename').val('');
+            $('#a_emp_address').val('');
+            $('#a_contact_number').val('');
+            $('#a_sex').val("Male");
+            $('#a_birthday').val(today);
+        }
+        //insert into table without relaod/refresh page
+        $("#insert").click(function() {
+            var e_id= $('#a_employee_id').val();
+            var e_ln= $('#a_lastname').val();
+            var e_fn= $('#a_firstname').val();
+            var e_mi= $('#a_middlename').val();
+            var e_add= $('#a_emp_address').val();
+            var e_cnum= $('#a_contact_number').val();
+            var e_sx= $('#a_sex').val();
+            var e_bday= $('#a_birthday').val();
+
+            $.ajax({
+                method: "POST",
+                url: "php/functions/Add_employee.php",
+                cache:false,
+                async: false,
+                data: {
+                    'e_id':e_id,
+                    'e_ln':e_ln,
+                    'e_fn':e_fn,
+                    'e_mi':e_mi,
+                    'e_add':e_add,
+                    'e_cnum':e_cnum,
+                    'e_sx':e_sx,
+                    'e_bday':e_bday
+                },
+                success: function(data) {
+                    $('#addEmpModal').hide();
+                    alert(data);
+                    loadData();
+                    emptyForm();
+                },
+                error: function(){
+                    alert(data);
+                    alert("hagorn")
+            }
+            });
+        });
+        // update data from table without relaod/refresh page
+        $("#update").click(function() {
+            event.preventDefault();
+            var e_id= $('#e_employee_id').val();
+            var e_ln= $('#e_lastname').val();
+            var e_fn= $('#e_firstname').val();
+            var e_mi= $('#e_middlename').val();
+            var e_add= $('#e_emp_address').val();
+            var e_cnum= $('#e_contact_number').val();
+            var e_sx= $('#e_sex').val();
+            var e_bday= $('#e_birthday').val();
+
+            $.ajax({
+                method: "POST",
+                url: "php/functions/Update_employee.php",
+                cache:false,
+                async: false,
+                data: {
+                    'e_id':e_id,
+                    'e_ln':e_ln,
+                    'e_fn':e_fn,
+                    'e_mi':e_mi,
+                    'e_add':e_add,
+                    'e_cnum':e_cnum,
+                    'e_sx':e_sx,
+                    'e_bday':e_bday
+                },
+                success: function(data) {
+                    $('#editEmpModal').hide();
+                    alert(data);
+                    loadData();
+                    emptyForm();
+                },
+                error: function(){
+                    alert(data);
+                    alert("hagorn")
+            }
+            });
+        });
+        // delete data from table without reload/refresh page
+        $('#delete').click(function(){
+        var id = [];
+        $(".selectable:checked").each(function(){
+              id.push($(this).val());
+        });
+            $.ajax({
+                url: "php/functions/Delete_employee.php",
+                method: "POST",
+                cache:false,
+                data: {'deleteID' : id},
+                async: false, 
+                success: function(response){
+                    $('#deleteEmpModal').hide();
+                    alert(response);
+                    loadData();
+                },
+                error: function(){
+                    alert(id);
+                }
+            });
+        });
+    });
+    </script>
 </main>
 <?php
     include('php/includes/footer.php');

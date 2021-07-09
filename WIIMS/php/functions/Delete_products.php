@@ -10,20 +10,21 @@
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
-    if (isset($_POST['insert'])){
-        $product_code = $_POST['product_code'];
+    
+    if (isset($_POST['deleteID'])){
+        $p_code = $_POST['deleteID'];
+        $total = count($p_code);
+        $p_code = implode(',', $p_code);
 
-        $sql = "DELETE FROM products WHERE product_code = ?";
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param('s',$product_code);
-        // Close connection
-        if ($stmt->execute()){
-            echo '<script> alert("Row deleted successfully"); </script>';
-            header('Location: /WIIMS/Products.php');
-        } else {
-            echo '<script> alert("Data Not Saved"); </script>'. $con->error;;
-        }
-        $con->close();
+        $sql = "DELETE FROM products WHERE product_code IN ($p_code)";
+        $result = mysqli_query($con, $sql);
+
+		if ($result === true) {
+			echo $total. " items successfully deleted";
+		}else{
+			echo "Data Not Saved". $con->error;;
+		}
+
     }
     
 ?>

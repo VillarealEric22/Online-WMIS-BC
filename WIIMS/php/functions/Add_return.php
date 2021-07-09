@@ -10,24 +10,24 @@
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
-    if (isset($_POST['i_code'])){
-        $i_code = $_POST['i_code'];
-        $i_pcode = $_POST['i_pcode'];
-        $i_qnty = $_POST['i_qnty'];
-        $i_wcode = $_POST['i_wcode'];
-        $i_datec= $_POST['i_datec'];
-        $i_sma = $_POST['i_sma'];
-        $i_ais = $_POST['i_ais'];
-        $i_ca = $_POST['i_ca'];
+    if (isset($_POST['r_id'])){
+        $r_id = $_POST['r_id'];
+        $r_transac = $_POST['r_transac'];
+        $r_code = $_POST['r_code'];
+        $r_qty = $_POST['r_qty'];
+        $r_price = $_POST['r_price'];
+        $r_tprice = $_POST['r_tprice'];
+        $r_type = $_POST['r_type'];
+        $r_date = $_POST['r_date'];
 
-        $sql = "INSERT INTO item_inventory (inventory_id, product_code, quantity, warehouse_code, date_created, stack_max_amt, amt_in_stack,critical_amt) VALUES (?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO warehouses (return_id, transaction_no, product_code, quantity, item_price, item_tprice, return_type, return_date) VALUES (?,?,?,?,?,?,?,?)";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('isissiii', $i_code, $i_pcode, $i_qnty, $i_wcode, $i_datec, $i_sma, $i_ais, $i_ca);
+        $stmt->bind_param('iisiddss', $r_id, $r_transac, $r_code, $r_qty, $r_price, $r_tprice, $r_type, $r_date);
         // Close connection
         if ($stmt->execute()){
             echo "New record created successfully";
         } else {
-            echo "Data Not Saved". $con->error;;
+            echo "Data Not Saved". $con->error;
         }
         $stmt->close();
         $con->close();

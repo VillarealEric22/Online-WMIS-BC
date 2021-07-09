@@ -10,25 +10,23 @@
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
-    if (isset($_POST['e_id'])){
-        $e_id = $_POST['e_id'];
-        $e_ln = $_POST['e_ln'];
-        $e_fn = $_POST['e_fn'];
-        $e_mi = $_POST['e_mi'];
-        $e_add = $_POST['e_add'];
-        $e_cnum = $_POST['e_cnum'];
-        $e_sx = $_POST['e_sx'];
-        $input_date=$_POST['e_bday'];
-        $e_bday = date("Y-m-d H:i:s",strtotime($input_date));
-
-        $sql = "UPDATE employees SET lastname = ?, firstname = ?, middlename = ?, emp_address = ?, contact_number = ?, sex = ?, birthday = ? WHERE employee_id = ?";
+    if (isset($_POST['r_id'])){
+        $r_id = $_POST['r_id'];
+        $r_tnum = $_POST['r_tnum'];
+        $r_pcode = $_POST['r_pcode'];
+        $r_qty = $_POST['r_qty'];
+        $r_iprice = $_POST['r_iprice'];
+        $r_tprice = $_POST['r_tprice'];
+        $r_rtype = $_POST['r_rtype'];
+        $r_rdate = $_POST['r_rdate'];
+        
+        $sql = "UPDATE item_returns SET transaction_no = ?, product_code = ?, quantity = ?, item_price = ?, total_price = ?, return_type = ?, return_date = ?  WHERE return_id = ?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('sssssssi', $e_ln, $e_fn, $e_mi, $e_add, $e_cnum, $e_sx, $e_bday, $e_id);
+        $stmt->bind_param('iisiddss', $r_id, $r_tnum, $r_pcode, $r_qty, $r_iprice, $r_tprice, $r_rtype, $r_rdate);
         // Close connection
         if ($stmt->execute()){
-            echo $e_id. "'s record created successfully";
-        } else { 
-            
+            echo $r_id. "'s record created successfully";
+        } else {
             echo "Data Not Saved". $con->error;
         }
         $stmt->close();

@@ -41,6 +41,7 @@
                             <table id="sortable" class="table" width = "100%">
                                 <thead>
                                     <tr>
+                                        <td></td>
                                         <td>Product Code</td>
                                         <td>Name</td>
                                         <td>Manufacturer</td>
@@ -50,41 +51,14 @@
                                         <td>Price</td>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <?php
-                                        //connection info.
-                                        $DATABASE_HOST = 'localhost';
-                                        $DATABASE_USER = 'root';
-                                        $DATABASE_PASS = '';
-                                        $DATABASE_NAME = 'db_inventory';
-                                        //connect using data above.
-                                        $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-                                        if ( mysqli_connect_errno() ) {
-                                            // If there is an error with the connection, stop the script and display the error.
-                                            exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-                                        }
-                                        $sql = "SELECT products.product_code, products.product_name, products.manufacturer, products.product_type, products.capacity, products.color, products.item_price FROM products";
-                                        $result = $con->query($sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-                                            while($rows= $result-> fetch_assoc()){
-                                                echo "<tr><td>".$rows['product_code']."</td>";
-                                                echo "<td>".$rows['product_name']."</td>";
-                                                echo "<td>".$rows['manufacturer']."</td>";
-                                                echo "<td>".$rows['product_type']."</td>";
-                                                echo "<td>".$rows['capacity']."</td>";
-                                                echo "<td>".$rows['color']."</td>";
-                                                echo "<td>".$rows['item_price']."</td>";
-
-                                            }
-                                            echo "number of rows: " . $result->num_rows;
-                                        $con->close();
-                                    ?>
+                                <tbody class="tablecontent">
+                                    <!--display to table-->
                                 </tbody>
                             </table>
                         </div>
                         <div class="row-no-margin">
                             <div class="table-pagination">
                                 <ul class = pagination>
-                                    
                                 </ul>
                             </div>
                             <div class="table-info"></div>
@@ -350,6 +324,134 @@
             </div>
         </div>
     </div>
+    <script>
+    $(document).ready(function(){
+        // fetch data from table without reload/refresh page
+        loadData();
+        function loadData(){
+            $.ajax({    //create an ajax request to display.php
+                type: "POST",
+                url: "php/functions/Display_products.php",                             
+                success: function(response){                    
+                    $(".tablecontent").html(response); 
+                },
+                error: function(){
+                    alert("Something went wrong");
+                }
+            });
+        }
+        function emptyForm(){
+
+            $('#a_product_code').val('');
+            $('#a_product_name').val('');
+            $('#a_manufacturer').val('');
+            $('#a_capacity').val('');
+            $('#a_product_type').val('');
+            $('#a_color').val('');
+            $('#a_item_price').val('');
+            $('#a_purchase_price').val('');
+        }
+        //insert into table without relaod/refresh page
+        $("#insert").click(function() {
+            var p_code= $('#a_product_code').val();
+            var p_name= $('#a_product_name').val();
+            var p_mftr= $('#a_manufacturer').val();
+            var p_capacity= $('#a_capacity').val();
+            var p_ype= $('#a_product_type').val();
+            var p_color= $('#a_color').val();
+            var p_iprice = $('#a_item_price').val();
+            var p_pprice= $('#a_purchase_price').val();
+
+            $.ajax({
+                method: "POST",
+                url: "php/functions/Add_products.php",
+                cache:false,
+                async: false,
+                data: {
+                    'p_code':p_code, 
+                    'p_name':p_name,
+                    'p_mftr':p_mftr, 
+                    'p_type':p_type,
+                    'p_capcity':p_capcity,
+                    'p_color':p_color,
+                    'p_iprice':p_iprice,
+                    'p_pprice':p_pprice,
+                },
+                success: function(data) {
+                    $('#addEmpModal').hide();
+                    alert(data);
+                    loadData();
+                    emptyForm();
+                },
+                error: function(){
+                    alert(data);
+                    alert("hagorn")
+            }
+            });
+        });
+        // update data from table without relaod/refresh page
+        $("#update").click(function() {
+            event.preventDefault();
+            var p_code= $('#a_product_code').val();
+            var p_name= $('#a_product_name').val();
+            var p_mftr= $('#a_manufacturer').val();
+            var p_capacity= $('#a_capacity').val();
+            var p_ype= $('#a_product_type').val();
+            var p_color= $('#a_color').val();
+            var p_iprice = $('#a_item_price').val();
+            var p_pprice= $('#a_purchase_price').val();
+
+            $.ajax({
+                method: "POST",
+                url: "php/functions/Update_products.php",
+                cache:false,
+                async: false,
+                data: {
+                    'p_code':p_code, 
+                    'p_name':p_name,
+                    'p_mftr':p_mftr, 
+                    'p_type':p_type,
+                    'p_capcity':p_capcity,
+                    'p_color':p_color,
+                    'p_iprice':p_iprice,
+                    'p_pprice':p_pprice,
+                },
+                success: function(data) {
+                    $('#editEmpModal').hide();
+                    alert(data);
+                    loadData();
+                    emptyForm();
+                },
+                error: function(){
+                    alert(data);
+                    alert("hagorn")
+            }
+            });
+        });
+        // delete data from table without reload/refresh page
+        $('#delete').click(function(){
+        var id = [];
+        $(".selectable:checked").each(function(){
+              id.push($(this).val());
+        });
+            $.ajax({
+                url: "php/functions/Delete_products.php",
+                method: "POST",
+                cache:false,
+                data: {'deleteID' : id},
+                async: false, 
+                success: function(response){
+                    $('#deleteEmpModal').hide();
+                    alert(response);
+                    loadData();
+                },
+                error: function(){
+                    alert(id);
+                }
+            });
+        });
+    });
+    </script>
     <!--delete modal end-->
     <div id = "productTypeModal" class="modal fade">
         <div class="modal-dialog">

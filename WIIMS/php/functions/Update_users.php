@@ -10,27 +10,25 @@
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
-    if (isset($_POST['e_ln'])){
-        $e_id = $_POST['e_id'];
-        $e_ln = $_POST['e_ln'];
-        $e_fn = $_POST['e_fn'];
-        $e_mi = $_POST['e_mi'];
-        $e_add = $_POST['e_add'];
-        $e_cnum = $_POST['e_cnum'];
-        $e_sx = $_POST['e_sx'];
-        $input_date=$_POST['e_bday'];
-        $e_bday = date("Y-m-d H:i:s",strtotime($input_date));
+    if (isset($_POST['u_un'])){
+        $u_un = $_POST['u_un'];
+        $u_pass = $_POST['u_pass'];
+        $u_role = $_POST['u_role'];
+        $u_id = $_POST['u_id'];
 
-        $sql = "INSERT INTO employees (employee_id, lastname, firstname, middlename, emp_address, contact_number, sex, birthday) VALUES (?,?,?,?,?,?,?,?)";
+        $sql = "UPDATE user SET user_password = ?, user_role = ?, employee_id = ? WHERE username = ?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('isssssss', $e_id, $e_ln, $e_fn, $e_mi, $e_add, $e_cnum, $e_sx, $e_bday);
+        $stmt->bind_param('sssi', $u_un, $u_pass, $u_role, $u_id);
         // Close connection
         if ($stmt->execute()){
-            echo "New record created successfully";
+            echo $u_un. "'s record created successfully";
         } else {
             echo "Data Not Saved". $con->error;
         }
         $stmt->close();
         $con->close();
+    }
+    else{
+        echo "Data Not Saved". $con->error;
     }
 ?>

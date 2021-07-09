@@ -19,13 +19,14 @@
 
         $sql = "INSERT INTO user (employee_id, username, password, user_role) VALUES (?,?,?,?)";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('ssssis', $u_eid, $u_username, $hash_pass, $u_role);
+        $stmt->bind_param('isss', $u_eid, $u_username, $hash_pass, $u_role);
         // Close connection
         if ($stmt->execute()){
-            echo '<script> alert("new user added successfully"); </script>';
+            echo "new user added successfully";
         } else {
-            echo '<script> alert("Data Not Saved"); </script>'. $con->error;;
+            echo "Data Not Saved". $con->error;;
         }
+	    $stmt->close();
         $con->close();
     }
 ?>

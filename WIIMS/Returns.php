@@ -26,7 +26,7 @@
                                     <option value = "10" > 10 </option>
                                     <option value = "20" > 20</option>
                                     <option value = "30" > 30 </option>
-                                    <option value = "40" > 40 </option>
+                                    <option value = "40" > 40 </option> 
                                     <option value = "50" > 50 </option>
                                 </Select> Entries.</label> 
                             </div>
@@ -48,35 +48,8 @@
                                         <td>Return Date</td>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <?php
-                                        //connection info.
-                                        $DATABASE_HOST = 'localhost';
-                                        $DATABASE_USER = 'root';
-                                        $DATABASE_PASS = '';
-                                        $DATABASE_NAME = 'db_inventory';
-                                        //connect using data above.
-                                        $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-                                        if ( mysqli_connect_errno() ) {
-                                            // If there is an error with the connection, stop the script and display the error.
-                                            exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-                                        }
-                                        $sql = "SELECT item_returns.return_id, item_returns.transaction_no, item_returns.product_code, item_returns.item_price, item_returns.quantity, sales_transaction.total_price, item_returns.return_type, item_returns.return_date FROM item_returns INNER JOIN sales_transaction ON item_returns.transaction_no = sales_transaction.transaction_no";
-                                        $result = $con->query($sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-                                            while($rows= $result-> fetch_assoc()){
-                                                echo "<tr><td>".$rows['return_id']."</td>";
-                                                echo "<td>".$rows['transaction_no']."</td>";
-                                                echo "<td>".$rows['product_code']."</td>";
-                                                echo "<td>".$rows['item_price']."</td>";
-                                                echo "<td>".$rows['quantity']."</td>";
-                                                echo "<td>".$rows['total_price']."</td>";
-                                                echo "<td>".$rows['return_type']."</td>";
-                                                echo "<td>".$rows['return_date']."</td>";
-
-                                            }
-                                            echo "number of rows: " . $result->num_rows;
-                                        $con->close();
-                                    ?>
+                                <tbody class="tablecontent">
+                                    <!--display to table-->
                                 </tbody>
                             </table>
                         </div>

@@ -13,24 +13,27 @@
     if (isset($_POST['p_code'])){
         $p_code = $_POST['p_code'];
         $p_name = $_POST['p_name'];
-        $p_mftr = $_POST['p_mftr '];
+        $p_mftr = $_POST['p_mftr'];
+        $p_capacity = $_POST['p_capacity'];
         $p_type = $_POST['p_type'];
-        $p_capcity= $_POST['p_capcity'];
         $p_color = $_POST['p_color'];
         $p_iprice = $_POST['p_iprice'];
         $p_pprice = $_POST['p_pprice'];
+        $p_id = $_POST['p_id'];
 
-        $sql = "INSERT INTO products (product_code, product_name, manufacturer, product_type, capacity, color, item_price, purchase_price) VALUES (?,?,?,?,?,?,?)";
+        $sql = "UPDATE products SET product_name = ?, manufacturer = ?, capacity = ?, product_type = ?, color = ?, item_price = ?, purchase_price = ?, supplier_id = ? WHERE product_code = ?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('ssssssdd', $p_code, $p_name, $p_mftr, $p_type, $p_capcity, $p_color, $p_iprice, $p_pprice);
+        $stmt->bind_param('ssssssddi', $p_code, $p_name, $p_mftr, $p_capacity, $p_type, $p_color, $p_iprice, $p_pprice, $p_id);
         // Close connection
         if ($stmt->execute()){
-            echo "New record created successfully";
-            
+            echo $p_code. "'s record created successfully";
         } else {
-            echo "Data Not Saved". $con->error;;
+            echo "Data Not Saved". $con->error;
         }
         $stmt->close();
         $con->close();
+    }
+    else{
+        echo "Data Not Saved". $con->error;
     }
 ?>
