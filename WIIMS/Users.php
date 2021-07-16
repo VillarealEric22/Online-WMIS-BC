@@ -7,7 +7,7 @@
     <div class="main-containter">
         <div class="Users">
             <div class="card">
-            <form method='post' action="">
+            <form method='POST' action="">
                 <div class="card-header">
                     <h2>     
                         <span class = "las la-user"></span>
@@ -18,7 +18,7 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addUsersModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editUsersModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
+                            <button href = "#editUsersModal" class = "modalBtn btn-success" id = "edit_button"> Edit <span class="las la-edit"></span></button>
                             <button href = "#deleteUsersModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                             <table id="sortable" class="table" width = "100%">
                                 <thead>
                                     <tr>
-                                        <td></td>
+                                        <td> </td>
                                         <td>Employee ID</td>
                                         <td>Username</td>
                                         <td>User Role</td>
@@ -64,8 +64,8 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>  
-            </form>
         </div>
     </div>
     <!--add modal-->
@@ -79,14 +79,14 @@
                         </button>
                 </div>
                 <div class="modal-body">                       
-                    <form method = "POST" action = "php/functions/Add_users.php">
+                    <form method = "POST">
                         User Account
                         <br/>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label>employee_id:</label>
+                                <label class = modal-form-label for = "employee_id" >employee_id:</label>
                             </div>
-                            <div class="input">
+                            <div class="input">  
                                 <?php
                                     //connection info.
                                     $DATABASE_HOST = 'localhost';
@@ -102,7 +102,7 @@
                                     $sql = "SELECT employees.employee_id, employees.lastname FROM employees";
                                     $result = $con->query($sql) or die($con->error);
                                 ?>
-                                <select name="emp_sel">
+                                <select id="a_employee_id">
                                     <?php
                                         while($rows= $result-> fetch_assoc())
                                         {
@@ -115,63 +115,10 @@
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label>Username:</label>
+                                <label class = modal-form-label for = "username">Username:</label>
                             </div>
                             <div class="input">
-                                <input type="text" name = "username">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label>Password:</label>
-                            </div>                              
-                            <div class="input">                               
-                                <input type ="password" name = "password"> 
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label>User Role:</label>
-                            </div>                              
-                            <div class="input">                               
-                            <Select name="user_role">
-                                    <option value = "Admin"> Admin </option>
-                                    <option value = "Sales"> Sales </option>
-                                    <option value = "Warehouse Manager"> Warehouse Manager </option>
-                            </Select>
-                            <button href = "#userRoleModal" class = "modalBtn"> ... </button>
-                            </div>
-                        </div>
-                </div>
-                
-                <div class="modal-footer">
-                    <button class="btn-cancel" type="button">Cancel</button>
-                    <input type="submit" value="insert" name="insert" class="btn-submit">
-                </div>
-                </form>
-        </div>
-    </div>
-    <!--add modal end-->
-    <!--edit modal-->
-    <div id = "editProductModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Item</h5>
-                    <button class="close" type="button">
-                        <span>×</span>
-                        </button>
-                </div>
-                <div class = "modal-body">
-                    <form>
-                        User Account
-                        <br/>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label>Username:</label>
-                            </div>
-                            <div class="input">
-                                <input type="text" name = "username">
+                                <input type = "text"  id = "a_username" name = "username" required>
                             </div>
                         </div>
                         <div class="input-row">
@@ -179,26 +126,110 @@
                                 <label class = modal-form-label for = "password">Password:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="text" id="addpassword" name = "password"> 
+                                <input type = "password" id = "a_password" name = "password" required> 
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "user_ole">User Role:</label>
+                                <label class = modal-form-label for ="user_role">User Role:</label>
                             </div>                              
                             <div class="input">                               
-                            <Select name="addRole" id="addRole">
-                                    <option value = "Products" >  </option>
-                                    <option value = "Packages" >  </option>
-                                    <option value = "Packages" >  </option>
+                            <Select name = "user_role" id = "a_user_role">
+                                    <option value = "Admin"> Admin </option>
+                                    <option value = "Sales"> Sales </option>
+                                    <option value = "Warehouse Manager"> Warehouse Manager </option>
                             </Select>
                             <button href = "#userRoleModal" class = "modalBtn"> ... </button>
                             </div>
                         </div>
-                </div>
+                    </div>
                 <div class="modal-footer">
-                    <button class="btn-cancel" type="button">Cancel</button>
-                    <input type="submit" value="Confirm" name="update" class="btn-submit">
+                <button class="btn-cancel" type="button">Cancel</button>
+                    <button class ="btn-submit" type= submit value="Confirm" id="insert" name="insert">Confirm</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--add modal end-->
+    <!--edit modal-->
+    <div id = "editUsersModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Employee</h5>
+                    <button class="close" type="button">
+                        <span>×</span>
+                        </button>
+                </div>
+                <div class="modal-body">                       
+                    <form method = "POST">
+                        User Account
+                        <br/>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "employee_id" >employee_id:</label>
+                            </div>
+                            <div class="input">  
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT employees.employee_id, employees.lastname FROM employees";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select id="e_employee_id">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['employee_id']."'>".$rows['employee_id']." - ".$rows['lastname']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "username">Username:</label>
+                            </div>
+                            <div class="input">
+                                <input type = "text"  id = "e_username" name = "username">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for = "password">Password:</label>
+                            </div>                              
+                            <div class="input">                               
+                                <input type = "password" id = "e_password" name = "password"> 
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for ="user_role">User Role:</label>
+                            </div>                              
+                            <div class="input">                               
+                            <Select name = "user_role" id = "e_user_role">
+                                    <option value = "Admin"> Admin </option>
+                                    <option value = "Sales"> Sales </option>
+                                    <option value = "Warehouse Manager"> Warehouse Manager </option>
+                            </Select>
+                            <button href = "#userRoleModal" class = "modalBtn"> ... </button>
+                            </div>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                <button class="btn-cancel" type="button">Cancel</button>
+                    <button class ="btn-submit" value="Confirm" id="update" name="update">Confirm</button>
                 </div>
                 </form>
             </div>
@@ -206,7 +237,7 @@
     </div>
     <!--edit modal end-->
     <!--delete modal-->
-    <div id = "deleteProductModal" class="modal fade">
+    <div id = "deleteUsersModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -222,7 +253,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <button class ="btn-submit" value="Confirm" id="delete" name="delete">Confirm</button>
                 </div>
             </div>
         </div>
@@ -419,138 +450,158 @@
     </div>
     <!--user role modal modal end-->
     <script>
+
     $(document).ready(function(){
-        // fetch data from table without reload/refresh page
-        loadData();
-        function loadData(){
-            $.ajax({    //create an ajax request to display.php
-                type: "POST",
-                url: "php/functions/Display_users.php",                             
-                success: function(response){                    
-                    $(".tablecontent").html(response); 
-                },
-                error: function(){
-                    alert("Something went wrong");
-                }
-            });
+    //autofill edit inputs
+    $("#edit_button").click(function() {
+        var id = $('.selectable:checked').val();
+        $.ajax({
+            method: "POST",
+            url: "php/functions/function_user.php",
+            cache:false,
+            async: false,
+            data: {
+                'func': "auto_input",
+                'edit_id':id
+            },
+            dataType:"json",
+            success: function(data) {
+                $('#e_username').val(data.username);
+                $('#e_password').val(data.password);
+                $('#e_user_role').val(data.user_role);
+                $('#e_employee_id').val(data._employee_id);
+            },
+            error: function(){
+                alert("ayaw"); //XD
+                alert(id);
         }
-        function emptyForm(){
-
-            var now = new Date();
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
-            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-
-            $('#a_employee_id').val('');
-            $('#a_lastname').val('');
-            $('#a_firstname').val('');
-            $('#a_middlename').val('');
-            $('#a_emp_address').val('');
-            $('#a_contact_number').val('');
-            $('#a_sex').val("Male");
-            $('#a_birthday').val(today);
-        }
-        //insert into table without relaod/refresh page
-        $("#insert").click(function() {
-            var e_id= $('#a_employee_id').val();
-            var e_ln= $('#a_lastname').val();
-            var e_fn= $('#a_firstname').val();
-            var e_mi= $('#a_middlename').val();
-            var e_add= $('#a_emp_address').val();
-            var e_cnum= $('#a_contact_number').val();
-            var e_sx= $('#a_sex').val();
-            var e_bday= $('#a_birthday').val();
-
-            $.ajax({
-                method: "POST",
-                url: "php/functions/Add_employee.php",
-                cache:false,
-                async: false,
-                data: {
-                    'e_id':e_id,
-                    'e_ln':e_ln,
-                    'e_fn':e_fn,
-                    'e_mi':e_mi,
-                    'e_add':e_add,
-                    'e_cnum':e_cnum,
-                    'e_sx':e_sx,
-                    'e_bday':e_bday
-                },
-                success: function(data) {
-                    $('#addEmpModal').hide();
-                    alert(data);
-                    loadData();
-                    emptyForm();
-                },
-                error: function(){
-                    alert(data);
-                    alert("hagorn")
-            }
-            });
-        });
-        // update data from table without relaod/refresh page
-        $("#update").click(function() {
-            event.preventDefault();
-            var e_id= $('#e_employee_id').val();
-            var e_ln= $('#e_lastname').val();
-            var e_fn= $('#e_firstname').val();
-            var e_mi= $('#e_middlename').val();
-            var e_add= $('#e_emp_address').val();
-            var e_cnum= $('#e_contact_number').val();
-            var e_sx= $('#e_sex').val();
-            var e_bday= $('#e_birthday').val();
-
-            $.ajax({
-                method: "POST",
-                url: "php/functions/Update_employee.php",
-                cache:false,
-                async: false,
-                data: {
-                    'e_id':e_id,
-                    'e_ln':e_ln,
-                    'e_fn':e_fn,
-                    'e_mi':e_mi,
-                    'e_add':e_add,
-                    'e_cnum':e_cnum,
-                    'e_sx':e_sx,
-                    'e_bday':e_bday
-                },
-                success: function(data) {
-                    $('#editEmpModal').hide();
-                    alert(data);
-                    loadData();
-                    emptyForm();
-                },
-                error: function(){
-                    alert(data);
-                    alert("hagorn")
-            }
-            });
-        });
-        // delete data from table without reload/refresh page
-        $('#delete').click(function(){
-        var id = [];
-        $(".selectable:checked").each(function(){
-              id.push($(this).val());
-        });
-            $.ajax({
-                url: "php/functions/Delete_employee.php",
-                method: "POST",
-                cache:false,
-                data: {'deleteID' : id},
-                async: false, 
-                success: function(response){
-                    $('#deleteEmpModal').hide();
-                    alert(response);
-                    loadData();
-                },
-                error: function(){
-                    alert(id);
-                }
-            });
         });
     });
-    </script>
+    // fetch data from table without reload/refresh page
+    loadData();
+    function loadData(){
+        $.ajax({    //create an ajax request to display.php
+            type: "POST",
+            url: "php/functions/function_user.php",
+            data: {
+                'func':"disp"
+            },                             
+            success: function(response){                    
+                $(".tablecontent").html(response); 
+            },
+            error: function(){
+                alert("Something went wrong");
+            }
+        });
+    }
+    function emptyForm(){
+
+        $('#a_username').val();
+        $('#a_password').val();
+        $('#a_user_role').val();
+        $('#a_employee_id').val();
+
+        $('#e_username').val();
+        $('#e_password').val();
+        $('#e_user_role').val();
+        $('#e_employee_id').val();
+
+    }
+    //insert into table without relaod/refresh page
+    $("#insert").submit(function() {
+
+        var username = $('#a_username').val();
+        var password = $('#a_password').val();
+        var user_role = $('#a_user_role').val();
+        var employee_id = $('#a_employee_id').val();
+
+        alert(username);
+
+        $.ajax({
+            method: "POST",
+            url: "php/functions/function_user.php",
+            cache:false,
+            async: false,
+            data: {
+                'func': "insert",
+                'username': username,
+                'password': password,
+                'user_role': user_role,
+                'employee_id': employee_id
+        
+            },
+            success: function(data) {
+                $('#addUsersModal').hide();
+                alert(data);
+                loadData();
+                emptyForm();
+            },
+            error: function(){
+                alert(data);
+                alert("hagorn")
+        }
+        });
+    });
+    // update data from table without relaod/refresh page
+    $("#update").click(function() {
+        event.preventDefault();
+
+        var username = $('#e_username').val();
+        var password = $('#e_password').val();
+        var user_role = $('#e_user_role').val();
+        var employee_id = $('#e_employee_id').val();
+
+        $.ajax({
+            method: "POST",
+            url: "php/functions/function_user.php",
+            cache:false,
+            async: false,
+            data: {
+                'func': "update",
+                'username': username,
+                'password': password,
+                'user_role': user_role,
+                'employee_id': employee_id
+            },
+            success: function(data) {
+                $('#editUsersModal').hide();
+                alert(data);
+                loadData();
+                emptyForm();
+            },
+            error: function(){
+                alert(data);
+                alert("hagorn")
+        }
+        });
+    });
+    // delete data from table without reload/refresh page
+    $('#delete').click(function(){
+    var id = [];
+    $(".selectable:checked").each(function(){
+        id.push($(this).val());
+    });
+        $.ajax({
+            url: "php/functions/function_user.php",
+            method: "POST",
+            cache:false,
+            data: {
+                'func': "delete",
+                'deleteID' : id
+            },
+            async: false, 
+            success: function(response){
+                $('#deleteUsersModal').hide();
+                alert(response);
+                loadData();
+            },
+            error: function(){
+                alert(id);
+            }
+        });
+    });
+});
+</script>
 </main>
 <?php
     include('php/includes/footer.php');

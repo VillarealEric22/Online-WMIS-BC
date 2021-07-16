@@ -6,6 +6,7 @@
     <div class="main-containter">
         <div class="products">
             <div class="card">
+            <form method="POST">
                 <div class="card-header">
                     <h2>     
                         <span class = "las la-boxes"></span>
@@ -16,7 +17,7 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addProductModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editProductModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
+                            <button href = "#editProductModal" class = "modalBtn btn-success" id = "edit_button"> Edit <span class="las la-edit"></span></button>
                             <button href = "#deleteProductModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
@@ -65,6 +66,7 @@
                         </div>
                     </div>
                 </div>
+            </form>
             </div>  
         </div>
     </div>
@@ -73,77 +75,96 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add New Item</h5>
+                    <h5 class="modal-title">Edit Item</h5>
                     <button class="close" type="button">
                         <span>×</span>
                         </button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <div class = "modal-body">
+                <form method = "POST">
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addptype">Product Type:</label>
+                                <label class = modal-form-label for = "product_type">Product Type:</label>
                             </div>
-                            <div class="input">
-                            <Select name="tableName" id="tbName">
-                                    <option value = "type 1" > type 1 </option>
-                                    <option value = "type 2" > type 2 </option>
-                                    <option value = "type 3" > type 3 </option>
-                            </Select>
+                            <div class="input">  
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT product_type FROM product_category";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select id= "a_product_type">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['product_type']."'>" .$rows['product_type']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>    
+                                </select>
                             <button href = "#productTypeModal" class = "modalBtn"> ... </button>
                             </div>                           
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addproductname">Product Name:</label>
+                                <label class = modal-form-label for = "product_name">Product Name:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="addproductname" name = "addproductname">
+                                <input type ="text" id="a_product_name" name = "product_name" required>
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addproductcode">Product Code:</label>
+                                <label class = modal-form-label for = "product_code">Product Code:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="addproductcode" name = "addproductcode">
+                                <input type="text" id="a_product_code" name = "product_code" required>
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addcapacity">Capacity:</label>
+                                <label class = modal-form-label for = "capacity">Capacity:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="text" id="addcapacity" name = "addcapacity"> 
+                                <input type ="text" id="a_capacity" name = "capacity" required> 
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="addmanufacturer">Manufacturer:</label>
+                                <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="addmanufacturer" name = "addmanufacturer">
+                                <input type ="text" id="a_manufacturer" name = "manufacturer" required>
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addcolor">Color:</label>
+                                <label class = modal-form-label for = "color">Color:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="addcolor" name = "addcolor">
+                                <input type ="text" id="a_color" name = "color" required>
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addprice">Price:</label>
+                                <label class = modal-form-label for = "item_price">Price:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="addprice" name = "addprice">
+                                <input type ="text" id="a_item_price" name = "item_price" required>
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "adddimensions">Dimensions:</label>
+                                <label class = modal-form-label for = "editdimensions">Dimensions:</label>
                             </div>
                             <Select name="unitLength" id="unitLength">
                                     <option value = "mm" > mm </option>
@@ -152,35 +173,54 @@
                             </Select>
                             <div class="input">
                                 <label>(L)</label>
-                                <input type ="text" id="addlength" name = "addlength">
+                                <input type ="text" id="e_lenght" name = "e_lenght">
                             </div>
                             <div class="input">
                                 <label>(W)</label>
-                                <input type ="text" id="addwidth" nmae = "addwidth">
+                                <input type ="text" id="e_width" name = "width">
                             </div>
                             <div class="input">
                                 <label>(H)</label>
-                                <input type ="text" id="addheight" nmae = "addheight">
+                                <input type ="text" id="e_height" name = "height">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "addsupplier">Supplier Name:</label>
+                                <label class = modal-form-label for = "supplier_id">Supplier Name:</label>
                             </div>                              
-                            <div class="input">                               
-                            <Select name="addsuplier" id="addsupplier">
-                                    <option value = "Products" > type 1 </option>
-                                    <option value = "Packages" > type 2 </option>
-                                    <option value = "Packages" > type 3 </option>
-                            </Select>
+                            <div class="input-row">
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT supplier_id, supplier_name FROM supplier";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select id= "a_supplier_id">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['supplier_id']."'>".$rows['supplier_id']." - ".$rows['supplier_name']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>
+                                </select>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <button class ="btn-submit" type="submit" value="Confirm" id="insert" name="insert">Confirm</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -196,66 +236,85 @@
                         </button>
                 </div>
                 <div class = "modal-body">
-                <form>
+                <form method = "POST">
                         <div class="input-row">
                             <div class="input-label">
                                 <label class = modal-form-label for = "edittype">Product Type:</label>
                             </div>
-                            <div class="input">
-                            <Select name="tableName" id="tbName">
-                                    <option value = "type 1" > type 1 </option>
-                                    <option value = "type 2" > type 2 </option>
-                                    <option value = "type 3" > type 3 </option>
-                            </Select>
+                            <div class="input">  
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT product_type FROM product_category";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select id= "e_product_type">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['product_type']."'>" .$rows['product_type']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>    
+                                </select>
                             <button href = "#productTypeModal" class = "modalBtn"> ... </button>
                             </div>                           
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "editproductname">Product Name:</label>
+                                <label class = modal-form-label for = "product_name">Product Name:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="editproductname" name = "editproductname">
+                                <input type ="text" id="e_product_name" name = "product_name">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "editproductcode">Product Code:</label>
+                                <label class = modal-form-label for = "product_code">Product Code:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="editproductcode" name = "editproductcode">
+                                <input type="text" id="e_product_code" name = "product_code">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "editcapacity">Capacity:</label>
+                                <label class = modal-form-label for = "capacity">Capacity:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="text" id="editcapacity" name = "editcapacity"> 
+                                <input type ="text" id="e_capacity" name = "capacity"> 
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="editmanufacturer">Manufacturer:</label>
+                                <label class = modal-form-label for ="manufacturer">Manufacturer:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="editmanufacturer" name = "editmanufacturer">
+                                <input type ="text" id="e_manufacturer" name = "manufacturer">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "editcolor">Color:</label>
+                                <label class = modal-form-label for = "color">Color:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="editcolor" name = "editcolor">
+                                <input type ="text" id="e_color" name = "color">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "editprice">Price:</label>
+                                <label class = modal-form-label for = "item_price">Price:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="editprice" name = "editprice">
+                                <input type ="text" id="e_item_price" name = "item_price">
                             </div>
                         </div>
                         <div class="input-row">
@@ -269,35 +328,54 @@
                             </Select>
                             <div class="input">
                                 <label>(L)</label>
-                                <input type ="text" id="editlength" name = "editlength">
+                                <input type ="text" id="e_lenght" name = "e_lenght">
                             </div>
                             <div class="input">
                                 <label>(W)</label>
-                                <input type ="text" id="editwidth" nmae = "editwidth">
+                                <input type ="text" id="e_width" name = "width">
                             </div>
                             <div class="input">
                                 <label>(H)</label>
-                                <input type ="text" id="editheight" nmae = "editheight">
+                                <input type ="text" id="e_height" name = "height">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "editsupplier">Supplier Name:</label>
+                                <label class = modal-form-label for = "supplier_id">Supplier Name:</label>
                             </div>                              
-                            <div class="input">                               
-                            <Select name="editsuplier" id="editsupplier">
-                                    <option value = "Products" > type 1 </option>
-                                    <option value = "Packages" > type 2 </option>
-                                    <option value = "Packages" > type 3 </option>
-                            </Select>
+                            <div class="input-row">
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT supplier_id, supplier_name FROM supplier";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select id= "e_supplier_id">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['supplier_id']."'>".$rows['supplier_id']." - ".$rows['supplier_name']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>
+                                </select>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <button class ="btn-submit" value="Confirm" id="update" name="update">Confirm</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -319,19 +397,59 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <button class ="btn-submit" value="submit" id="delete" name="delete">Confirm</button>
+                </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
+
     $(document).ready(function(){
+
+        //autofill edit inputs
+        $("#edit_button").click(function() {
+            var id = $('.selectable:checked').val();
+            $.ajax({
+                method: "POST",
+                url: "php/functions/function_product.php",
+                cache:false,
+                async: false,
+                data: {
+                    'func': "auto_input",
+                    'edit_id':id
+                },
+                dataType:"json",
+                success: function(data) {
+
+                    $('#e_product_code').val(data.product_code);
+                    $('#e_product_name').val(data.product_name);
+                    $('#e_manufacturer').val(data.manufacturer);
+                    $('#e_product_type').val(data.product_type);
+                    $('#e_capacity').val(data.capacity);
+                    $('#e_color').val(data.color);
+                    $('#e_lenght').val(data.lenght);
+                    $('#e_width').val(data.width);
+                    $('#e_height').val(data.height);
+                    $('#e_item_price').val(data.item_price);
+                    $('#e_supplier_id').val(data.supplier_id);
+                    
+                },
+                error: function(){
+                    alert("ayaw"); //XD
+                    alert(id);
+            }
+            });
+        });
         // fetch data from table without reload/refresh page
         loadData();
         function loadData(){
             $.ajax({    //create an ajax request to display.php
                 type: "POST",
-                url: "php/functions/Display_products.php",                             
+                url: "php/functions/function_product.php",
+                data: {
+                    'func':"disp"
+                },                             
                 success: function(response){                    
                     $(".tablecontent").html(response); 
                 },
@@ -345,40 +463,64 @@
             $('#a_product_code').val('');
             $('#a_product_name').val('');
             $('#a_manufacturer').val('');
-            $('#a_capacity').val('');
             $('#a_product_type').val('');
+            $('#a_capacity').val('');
             $('#a_color').val('');
+            $('#a_lenght').val('');
+            $('#a_width').val('');
+            $('#a_height').val('');
             $('#a_item_price').val('');
-            $('#a_purchase_price').val('');
+            $('#a_supplier_id').val('');
+
+            $('#e_product_code').val('');
+            $('#e_product_name').val('');
+            $('#e_manufacturer').val('');
+            $('#e_product_type').val('');
+            $('#e_capacity').val('');
+            $('#e_color').val('');
+            $('#e_lenght').val('');
+            $('#e_width').val('');
+            $('#e_height').val('');
+            $('#e_item_price').val('');
+            $('#e_supplier_id').val('');
         }
         //insert into table without relaod/refresh page
-        $("#insert").click(function() {
-            var p_code= $('#a_product_code').val();
-            var p_name= $('#a_product_name').val();
-            var p_mftr= $('#a_manufacturer').val();
-            var p_capacity= $('#a_capacity').val();
-            var p_ype= $('#a_product_type').val();
-            var p_color= $('#a_color').val();
-            var p_iprice = $('#a_item_price').val();
-            var p_pprice= $('#a_purchase_price').val();
+        $("#insert").submit(function(){
+            
+            var product_code= $('#a_product_code').val();
+            var product_name= $('#a_product_name').val();
+            var manufacturer= $('#a_manufacturer').val();
+            var product_type= $('#a_product_type').val();
+            var capacity= $('#a_capacity').val();
+            var color= $('#a_color').val();
+            var lenght = $('#a_lenght').val();
+            var width= $('#a_width').val();
+            var height= $('#a_height').val();
+            var item_price = $('#a_item_price').val();
+            var supplier_id= $('#a_supplier_id').val();
 
             $.ajax({
                 method: "POST",
-                url: "php/functions/Add_products.php",
+                url: "php/functions/function_product.php",
                 cache:false,
                 async: false,
                 data: {
-                    'p_code':p_code, 
-                    'p_name':p_name,
-                    'p_mftr':p_mftr, 
-                    'p_type':p_type,
-                    'p_capcity':p_capcity,
-                    'p_color':p_color,
-                    'p_iprice':p_iprice,
-                    'p_pprice':p_pprice,
+                    'func': "insert",
+                    'product_code':product_code, 
+                    'product_name':product_name,
+                    'manufacturer':manufacturer, 
+                    'product_type':product_type,
+                    'capacity':capacity,
+                    'color':color,
+                    'lenght':lenght,
+                    'width':width,
+                    'height':height,
+                    'item_price':item_price,
+                    'supplier_id':supplier_id
                 },
+                
                 success: function(data) {
-                    $('#addEmpModal').hide();
+                    $('#addProductModal').hide();
                     alert(data);
                     loadData();
                     emptyForm();
@@ -392,32 +534,39 @@
         // update data from table without relaod/refresh page
         $("#update").click(function() {
             event.preventDefault();
-            var p_code= $('#a_product_code').val();
-            var p_name= $('#a_product_name').val();
-            var p_mftr= $('#a_manufacturer').val();
-            var p_capacity= $('#a_capacity').val();
-            var p_ype= $('#a_product_type').val();
-            var p_color= $('#a_color').val();
-            var p_iprice = $('#a_item_price').val();
-            var p_pprice= $('#a_purchase_price').val();
+            var product_code= $('#e_product_code').val();
+            var product_name= $('#e_product_name').val();
+            var manufacturer= $('#e_manufacturer').val();
+            var product_type= $('#e_product_type').val();
+            var capacity= $('#e_capacity').val();
+            var color= $('#e_color').val();
+            var lenght= $('#e_lenght').val();
+            var width= $('#e_width').val();
+            var height= $('#e_height').val();
+            var item_price = $('#e_item_price').val();
+            var supplier_id= $('#e_supplier_id').val();
 
             $.ajax({
                 method: "POST",
-                url: "php/functions/Update_products.php",
+                url: "php/functions/function_product.php",
                 cache:false,
                 async: false,
                 data: {
-                    'p_code':p_code, 
-                    'p_name':p_name,
-                    'p_mftr':p_mftr, 
-                    'p_type':p_type,
-                    'p_capcity':p_capcity,
-                    'p_color':p_color,
-                    'p_iprice':p_iprice,
-                    'p_pprice':p_pprice,
+                    'func': "update",
+                    'product_code':product_code, 
+                    'product_name':product_name,
+                    'manufacturer':manufacturer, 
+                    'product_type':product_type,
+                    'capacity':capacity,
+                    'color':color,
+                    'lenght':lenght,
+                    'width':width,
+                    'height':height,
+                    'item_price':item_price,
+                    'supplier_id':supplier_id
                 },
                 success: function(data) {
-                    $('#editEmpModal').hide();
+                    $('#editProductModal').hide();
                     alert(data);
                     loadData();
                     emptyForm();
@@ -435,13 +584,15 @@
               id.push($(this).val());
         });
             $.ajax({
-                url: "php/functions/Delete_products.php",
+                url: "php/functions/function_product.php",
                 method: "POST",
                 cache:false,
-                data: {'deleteID' : id},
+                data: {
+                    'func': "delete",
+                    'deleteID' : id},
                 async: false, 
                 success: function(response){
-                    $('#deleteEmpModal').hide();
+                    $('#deleteProductModal').hide();
                     alert(response);
                     loadData();
                 },
@@ -494,7 +645,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <button class ="btn-submit" value="Confirm" id="delete" name="delete">Confirm</button>
                 </div>
             </div>
         </div>

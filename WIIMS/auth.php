@@ -27,7 +27,7 @@
             $stmt->bind_result($username, $password);
             $stmt->fetch();
             //Account exists, now we verify the password.
-            if (password_verify($_POST['password'], $password)) {
+            if (password_verify($_POST['password'], $password)){
                 //Create sessions.
                 session_regenerate_id();
                 $_SESSION['loggedin'] = TRUE;

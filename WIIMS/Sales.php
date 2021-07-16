@@ -13,8 +13,6 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addSalesModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editSalesModal" class = "modalBtn btn-success" > Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteSalesModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -76,21 +74,21 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST">
                         <div class="input-row">
                             <div class="input-label">
                                 <label class = modal-form-label for = "transactionID">Transaction ID:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="pcode" name = "pcode">
+                                <input type="text" id="a_transaction_No">
                             </div>
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "pname">Customer:</label>
+                                <label class = modal-form-label>Customer:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="pname" name = "pname">
+                                <input type ="text" id="a_customer_id" >
                             </div>
                         </div>
                         <div class="input-row">
@@ -98,30 +96,32 @@
                                 <label class = modal-form-label for = "items">Items:</label>
                             </div>
                             <div class="input">
-                                <div class="itemdiv">
-                                <div>
-                                    <div class="input">
-                                        <label>Product Name </label><input type ="text" id="pname" name = "pname">
-                                    </div>
-                                         
-                                    <div class="input">
-                                        <label>Qty.</label><input type ="text" id="qty" nmae = "qty">
-                                    </div>
-                                         
-                                    <div class="input">
-                                        <label>Price</label><input type ="text" id="qty" nmae = "qty">
-                                    </div>
-                                    <div class="addrow"><a href="javascript:void(0);" class="addItem" title="Add field">add</a></div>
-                                </div>
-                                </div>
-                            </div>  
+                                <table id="prodCart" class="modalTable" width = "100%">
+                                    <thead>
+                                        <tr>
+                                            <td>Product Code</td>
+                                            <td>Qty</td>
+                                            <td>Item Price</td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input class ="medium-input" id = "a_product" type="string"></td>
+                                            <td><input class ="small-input" id = "a_qty" type="number" min="0"></td>
+                                            <td><input class ="small-input" id = "a_iprice" type="number" min="0"></td>
+                                            <td><button class = "addItem" id = "addProd"><span class="las la-plus"></span></button></td>
+                                        </tr>     
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>                        
                         <div class="input-row">
                             <div class="input-label">
                                 <label class = modal-form-label for = "price">Price:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="price" nmae = "price">
+                                <input type ="text" id="a_Tprice" nmae = "price">
                             </div>
                         </div>
                         <div class="input-row">
@@ -132,40 +132,132 @@
                                 <input type="date" id="transactiondate" name="transactiondate">
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <button class ="btn-submit" value="Confirm" id="insert" name="insert">Confirm</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
     <!--add modal end-->
 </main>
-<script type="text/javascript">
-        $(document).ready(function () {
-            $(".items").hide(); 
-            $(".show").click(function() {
-                $(this).closest('tr').nextUntil("tr:has(.show)").toggle("fast" ,function() {});     
-            });
-        })
-        $(document).ready(function(){
-            var addButton = $('.addItem'); //Add button selector
-            var wrapper = $('.itemdiv'); //Input field wrapper
-            var fieldHTML = '<div><div class="input"><label>Product Name </label><input type ="text" id="pname" name = "pname"></div><div class="input"><label>Qty.</label><input type ="text" id="qty" nmae = "qty"></div><div class="input"><label>Price</label><input type ="text" id="qty" nmae = "qty"></div><a href="javascript:void(0);" class="remove_button">remove</a></div>'; //New input field html 
-            
-            //Once add button is clicked
-            $(addButton).click(function(){
-                    $(wrapper).append(fieldHTML); //Add field html
-            });
-            
-            //Once remove button is clicked
-            $(wrapper).on('click', '.remove_button', function(e){
-                e.preventDefault();
-                $(this).parent('div').remove(); //Remove field html
-            });
+    <script type="text/javascript">
+       $(document).ready(function(){
+        //add button click
+        $("#addProd").click(function(e){
+            e.preventDefault();
+            var prod = $("#a_product").val();
+            var qty = $("#a_qty").val();
+            var item_price = $("#a_iprice").val();
+            var insertRow= "<tr><td class = 'item'>"+ prod +"</td><td><input class ='small-input itemqty' type='number' min='0' value = "+ qty +"></td><td><input class ='small-input itemprice' type='number' min='0' value = "+ item_price +"></td><td><button class = 'removeItem'><span class='las la-trash'></span></button></td></tr>";
+            $("#prodCart tbody").append(insertRow);
+            $("#a_product").val("");
+            $("#a_qty").val("");
+            $("#a_iprice").val("");
         });
+        //remove button is clicked
+        $("#prodCart").on('click', '.removeItem', function(e){
+            e.preventDefault();
+            $(this).parents("tr").remove(); //Remove field html
+        });
+    });
+    $(document).ready(function(){
+    // fetch data from table without reload/refresh page
+    loadData();
+    function loadData(){
+        $.ajax({    //create an ajax request to display.php
+            type: "POST",
+            url: "php/functions/function_sales.php",
+            data: {
+                'func':"disp"
+            },                             
+            success: function(response){                    
+                $(".tablecontent").html(response);
+            },
+            error: function(){
+                alert("Something went wrong");
+            }
+        });
+    }
+    function emptyForm(){
+        alert("empty");
+    }
+    // view products
+    $("#sortable").on("click",'.btn_view', function(e) {
+        e.preventDefault();
+        var id = $(this).val();    
+        e.preventDefault();
+        $.ajax({
+            method: "POST",
+            url: "php/functions/function_sales.php",
+            cache:false,
+            async: false,
+            data: {
+                'func': "view",
+                'viewID':id
+            },
+            success: function(response) {
+                $('#viewSoldItem').show();
+                $(".tbModal").html(response);
+            },
+            error: function(){
+                alert("ayaw");
+            }
+        });
+    });
+    //insert into table without relaod/refresh page
+    $("#insert").click(function() {
+        var transaction_no = $('#a_transaction_No').val();
+        var cID = $('#a_customer_id').val();
+        var total_price= $('#a_Tprice').val();
+        var tDate = $('#transactiondate').val();
+        var product_code = [];
+        var quantity = [];
+        var price = [];
+        var arrtNo = [];
+        $("tr").find(".item").each(function(){
+            product_code.push($(this).text());
+        });
+        $(".itemqty").each(function(){
+            quantity.push($(this).val());
+            arrtNo.push(transaction_no);
+        });
+        $(".itemprice").each(function(){
+            price.push($(this).val());
+        });
+        alert(arrtNo);
+        $.ajax({
+            method: "POST",
+            url: "php/functions/function_sales.php",
+            cache:false,
+            async: false,
+            data: {
+                'func': "insert",
+                'transaction_no': transaction_no,
+                'customer_ID': cID,
+                'total_price': total_price,
+                'transaction_date': tDate,
+                'product_code': product_code,
+                'quantity': quantity,
+                'item_price': price,
+                'tNumber': arrtNo
+            },
+            success: function(data) {
+                $('#addSalesModal').hide();
+                alert(data);
+                loadData();
+                emptyForm();
+            },
+            error: function(){
+                alert(data);
+                alert("hagorn")
+            }
+        });
+    });
+});
     </script>
 <?php 
     include('php/includes/footer.php');

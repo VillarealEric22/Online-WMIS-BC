@@ -18,8 +18,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addEmpModal" id = "add_button" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editEmpModal" id = "edit_button" class = "modalBtn btn-success" disabled = "disbaled"> Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteEmpModal" id = "delete_button" class = "modalBtn btn-danger" disabled = "disbaled" > Delete <span class="las la-trash"></span></button>
+                            <button href = "#editEmpModal" id = "edit_button" class = "modalBtn btn-success" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteEmpModal" id = "delete_button" class = "modalBtn btn-danger" disabled = "disabled" > Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -91,7 +91,7 @@
                                 <label class = modal-form-label for = "addEmployeeID">Employee ID:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id = "a_employee_id" name = "employee_id">
+                                <input type ="text" id = "a_employee_id" name = "employee_id" required>
                             </div>
                         </div>
                         <div class="input-row">
@@ -100,7 +100,7 @@
                             </div>
                             <div class="input">
                                 <label>Last Name</label>
-                                <input type ="text" id = "a_lastname" name = "lastname">
+                                <input type ="text" id = "a_lastname" name = "lastname" required>
                             </div>
                             <div class="input">
                                 <label> First Name</label>
@@ -108,7 +108,7 @@
                             </div>
                             <div class="input">
                                 <label>M.I </label>
-                                <input type ="text" id = "a_middlename" name = "middlename">
+                                <input type ="text" id = "a_middlename" name = "middlename" required>
                             </div>
                         </div>
                         <div class="input-row">
@@ -116,7 +116,7 @@
                                 <label class = modal-form-label> Address:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id = "a_emp_address" name = "emp_address">
+                                <input type ="text" id = "a_emp_address" name = "emp_address" required>
                             </div>
                         </div>
                         <div class="input-row">
@@ -124,7 +124,7 @@
                                 <label class = modal-form-label> Contact No.:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id = "a_contact_number" name = "contact_number">
+                                <input type ="text" id = "a_contact_number" name = "contact_number" required>
                             </div>
                         </div>
                         <div class="input-row">
@@ -145,14 +145,14 @@
                                 <label class = modal-form-label>Birth Date:</label>
                             </div>
                             <div class="input">
-                                <input type="date" id="a_birthday" name="birthday" value = "<?php echo date("Y-m-d");?>">
+                                <input type="date" id="a_birthday" name="birthday" value = "<?php echo date("Y-m-d");?>" required>
                             </div>
                         </div> 
                         <br/>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <button class ="btn-submit" value="Confirm" id="insert" name="insert">Confirm</button>
+                    <button class ="btn-submit" type = submit value="Confirm" id="insert" name="insert">Confirm</button>
                 </div>
                     
                 </form>
@@ -179,7 +179,7 @@
                                 <label class = modal-form-label for = "addEmployeeID">Employee ID:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id = "e_employee_id" name = "employee_id">
+                                <input type ="text" id = "e_employee_id" name = "employee_id" disabled = "disabled">
                             </div>
                         </div>
                         <div class="input-row">
@@ -242,7 +242,6 @@
                         <button class ="btn-submit" value="Confirm" id ="update" name="update">Confirm</button>
                     </div>
                     </form>
-                    
                 </div>
             </div>
         </div>
@@ -271,13 +270,48 @@
         </div>
     </div>
     <script>
+    
+
     $(document).ready(function(){
+
+        //autofill edit inputs
+        $("#edit_button").click(function() {
+            var id = $('.selectable:checked').val();
+            $.ajax({
+                method: "POST",
+                url: "php/functions/function_employee.php",
+                cache:false,
+                async: false,
+                data: {
+                    'func': "auto_input",
+                    'edit_id':id
+                },
+                dataType:"json",
+                success: function(data) {
+                    $('#e_employee_id').val(data.employee_id);
+                    $('#e_lastname').val(data.lastname);
+                    $('#e_firstname').val(data.firstname);
+                    $('#e_middlename').val(data.middlename);
+                    $('#e_emp_address').val(data.emp_address);
+                    $('#e_contact_number').val(data.contact_number);
+                    $('#e_sex').val(data.sex);
+                    $('#e_birthday').val(data.birthday);
+                },
+                error: function(){
+                    alert("ayaw");
+                    alert(id);
+            }
+            });
+        });
         // fetch data from table without reload/refresh page
         loadData();
         function loadData(){
             $.ajax({    //create an ajax request to display.php
                 type: "POST",
-                url: "php/functions/Display_employee.php",                             
+                url: "php/functions/function_employee.php",
+                data: {
+                    'func':"disp"
+                },                             
                 success: function(response){                    
                     $(".tablecontent").html(response); 
                 },
@@ -301,9 +335,18 @@
             $('#a_contact_number').val('');
             $('#a_sex').val("Male");
             $('#a_birthday').val(today);
+
+            $('#e_employee_id').val('');
+            $('#e_lastname').val('');
+            $('#e_firstname').val('');
+            $('#e_middlename').val('');
+            $('#e_emp_address').val('');
+            $('#e_contact_number').val('');
+            $('#e_sex').val("Male");
+            $('#e_birthday').val(today);
         }
         //insert into table without relaod/refresh page
-        $("#insert").click(function() {
+        $("#insert").submit(function() {
             var e_id= $('#a_employee_id').val();
             var e_ln= $('#a_lastname').val();
             var e_fn= $('#a_firstname').val();
@@ -315,10 +358,11 @@
 
             $.ajax({
                 method: "POST",
-                url: "php/functions/Add_employee.php",
+                url: "php/functions/function_employee.php",
                 cache:false,
                 async: false,
                 data: {
+                    'func': "insert",
                     'e_id':e_id,
                     'e_ln':e_ln,
                     'e_fn':e_fn,
@@ -354,10 +398,11 @@
 
             $.ajax({
                 method: "POST",
-                url: "php/functions/Update_employee.php",
+                url: "php/functions/function_employee.php",
                 cache:false,
                 async: false,
                 data: {
+                    'func': "update",
                     'e_id':e_id,
                     'e_ln':e_ln,
                     'e_fn':e_fn,
@@ -383,13 +428,16 @@
         $('#delete').click(function(){
         var id = [];
         $(".selectable:checked").each(function(){
-              id.push($(this).val());
+            id.push($(this).val());
         });
             $.ajax({
-                url: "php/functions/Delete_employee.php",
+                url: "php/functions/function_employee.php",
                 method: "POST",
                 cache:false,
-                data: {'deleteID' : id},
+                data: {
+                    'func': "delete",
+                    'deleteID' : id
+                },
                 async: false, 
                 success: function(response){
                     $('#deleteEmpModal').hide();
