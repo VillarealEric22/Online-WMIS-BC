@@ -32,7 +32,7 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -94,11 +94,34 @@
                         <div class="input-row">
                             <div class="input-label">
                                 <label class = modal-form-label for = "product_code">Product Code:</label>
+                            </div>     
+                            <div class="input-row">
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT product_code, product_name FROM products";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                 <select id= "a_product_code">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['product_code']."'>".$rows['product_code']." - ".$rows['product_name']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>
+                                </select>
                             </div>
-                            <div class="input">
-                                <input type ="text" id="a_product_code" name = "product_code" required>
-                            </div>
-                        </div>
+                        </div>         
                         <div class="input-row">
                             <div class="input-label">
                                 <label class = modal-form-label for ="quantity">Quantity:</label>
@@ -111,8 +134,31 @@
                             <div class="input-label">
                                 <label class = modal-form-label for = "warehouse_code">Warehouse Code:</label>
                             </div>
-                            <div class="input">
-                                <input type ="text" id="a_warehouse_code:" name = "warehouse_code" required> 
+                            <div class="input-row">
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT warehouse_code, warehouse_name FROM warehouses";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select id= "a_warehouse_code">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['warehouse_code']."'>".$rows['warehouse_code']." - ".$rows['warehouse_name']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>
+                                </select>
                             </div>
                         </div>
                         <div class="input-row">
@@ -120,7 +166,7 @@
                                 <label class = modal-form-label for = "date_created">Date Created:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="text" id="a_date_created" name = "date_created" required> 
+                                <input type ="date" id="a_date_created" name = "date_created" required> 
                             </div>
                         </div>
 			            <div class="input-row">
@@ -150,7 +196,7 @@
                     </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <button class ="btn-submit" type = submit value="Confirm" id="insert" name="insert">Confirm</button>
+                    <button class ="btn-submit" type ="submit" value="Confirm" id="insert" name="insert">Confirm</button>
                 </div>
                 </form>
             </div>
@@ -249,7 +295,7 @@
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "date_dreated">Date Created:</label>
+                                <label class = modal-form-label for = "date_created">Date Created:</label>
                             </div>                              
                             <div class="input">                               
                                 <input type ="date" id="e_date_created" name = "date_created" value = "<?php echo date("Y-m-d");?>"> 
@@ -282,7 +328,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn-cancel" type="button">Cancel</button>
-                        <button class ="btn-submit" value="Confirm" id ="update" name="update">Confirm</button>
+                        <button class ="btn-submit" value="Confirm" id="update" name="update">Confirm</button>
                     </div>
                 </form>
             </div>
@@ -314,6 +360,12 @@
     <script>
 
     $(document).ready(function(){
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     //autofill edit inputs
     $("#edit_button").click(function() {
         var id = $('.selectable:checked').val();
@@ -388,10 +440,9 @@
 
     }
     //insert into table without relaod/refresh page
-    $("#insert").submit(function(e) {
+    $("#insert").click(function() {
 
-        e.preventDefault();
-
+        var valid = this.form.checkValidity();
         var inventory_id = $('#a_inventory_id').val();
         var product_code = $('#a_product_code').val();
         var quantity = $('#a_quantity').val();
@@ -400,6 +451,11 @@
         var stack_max_amt = $('#a_stack_max_amt').val();
         var amt_in_stack = $('#a_amt_in_stack').val();
         var critical_amt = $('#a_critical_amt').val();
+
+        // validationnnnn
+        $("#valid").html(valid);
+        if (valid) {
+        event.preventDefault(); 
 
         $.ajax({
             method: "POST",
@@ -412,7 +468,7 @@
             'product_code': product_code,
             'quantity': quantity,
             'warehouse_code': warehouse_code,
-            'i_date': i_date,
+            'i_date': date_created,
             'stack_max_amt': stack_max_amt,
             'amt_in_stack': amt_in_stack,
             'critical_amt': critical_amt
@@ -423,11 +479,14 @@
                 alert(data);
                 loadData();
                 emptyForm();
+                console.log(data);
             },
             error: function(){
+                alert(data);
                 alert("hagorn")
         }
         });
+    }
     });
     // update data from table without relaod/refresh page
     $("#update").click(function(e) {
@@ -442,20 +501,18 @@
             var amt_in_stack = $('#e_amt_in_stack').val();
             var critical_amt = $('#e_critical_amt').val();
 
-            alert(inventory_id + product_code + warehouse_code + date_created + stack_max_amt + amt_in_stack + critical_amt);
-
             $.ajax({
                 method: "POST",
                 url: "php/functions/function_inventory.php",
                 cache:false,
                 async: false,
                 data: {
-                    'func': "update",
-                    'inventory_id': inventory_id,
+                'func': "update",
+                'inventory_id': inventory_id,
                 'product_code': product_code,
                 'quantity': quantity,
                 'warehouse_code': warehouse_code,
-                'i_date': i_date,
+                'i_date': date_created,
                 'stack_max_amt': stack_max_amt,
                 'amt_in_stack': amt_in_stack,
                 'critical_amt': critical_amt

@@ -1,6 +1,8 @@
 <?php 
     include('php/includes/header.php');
     include('php/includes/navbar.php');
+
+ 
 ?>
 <main>
     <div class="main-containter">
@@ -12,7 +14,7 @@
                         <span class = "las la-boxes"></span>
                             <Select name="tableName" id="tbName" onchange="location.href=this.value">
                                     <option value = "Products.php" > Products </option>
-                                    <option value = "Packages.php" > Packages </option>
+                                    <option value = "Packages.php" > Packages </option> 
                             </Select>
                     </h2>
                     <div class="CRUDbuttons">
@@ -35,7 +37,7 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -75,7 +77,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Item</h5>
+                    <h5 class="modal-title">Add New Product</h5>
                     <button class="close" type="button">
                         <span>×</span>
                         </button>
@@ -172,16 +174,16 @@
                                     <option value = "cm" > cm </option>
                             </Select>
                             <div class="input">
-                                <label>(L)</label>
-                                <input type ="text" id="e_lenght" name = "e_lenght">
+                                <!--<label>(L)</label>-->
+                                <input type ="text" id="a_lenght" name = "lenght" placeholder="(L)">
                             </div>
                             <div class="input">
-                                <label>(W)</label>
-                                <input type ="text" id="e_width" name = "width">
+                                <!--<label>(W)</label>--> 
+                                <input type ="text" id="a_width" name = "width" placeholder="(W)">
                             </div>
                             <div class="input">
-                                <label>(H)</label>
-                                <input type ="text" id="e_height" name = "height">
+                                <!--<label>(H)</label>-->
+                                <input type ="text" id="a_height" name = "height" placeholder="(H)">
                             </div>
                         </div>
                         <div class="input-row">
@@ -327,16 +329,16 @@
                                     <option value = "cm" > cm </option>
                             </Select>
                             <div class="input">
-                                <label>(L)</label>
-                                <input type ="text" id="e_lenght" name = "e_lenght">
+                                <!--<label>(L)</label>-->
+                                <input type ="text" id="e_lenght" name = "e_lenght" placeholder="(L)">
                             </div>
                             <div class="input">
-                                <label>(W)</label>
-                                <input type ="text" id="e_width" name = "width">
+                                <!--<label>(W)</label>-->
+                                <input type ="text" id="e_width" name = "width" placeholder="(W)">
                             </div>
                             <div class="input">
-                                <label>(H)</label>
-                                <input type ="text" id="e_height" name = "height">
+                                <!--<label>(H)</label>-->
+                                <input type ="text" id="e_height" name = "height" placeholder="(H)">
                             </div>
                         </div>
                         <div class="input-row">
@@ -406,7 +408,12 @@
     <script>
 
     $(document).ready(function(){
-
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
         //autofill edit inputs
         $("#edit_button").click(function() {
             var id = $('.selectable:checked').val();
@@ -425,8 +432,8 @@
                     $('#e_product_code').val(data.product_code);
                     $('#e_product_name').val(data.product_name);
                     $('#e_manufacturer').val(data.manufacturer);
-                    $('#e_product_type').val(data.product_type);
                     $('#e_capacity').val(data.capacity);
+                    $('#e_product_type').val(data.product_type);
                     $('#e_color').val(data.color);
                     $('#e_lenght').val(data.lenght);
                     $('#e_width').val(data.width);
@@ -460,44 +467,49 @@
         }
         function emptyForm(){
 
-            $('#a_product_code').val('');
-            $('#a_product_name').val('');
-            $('#a_manufacturer').val('');
-            $('#a_product_type').val('');
-            $('#a_capacity').val('');
-            $('#a_color').val('');
-            $('#a_lenght').val('');
-            $('#a_width').val('');
-            $('#a_height').val('');
-            $('#a_item_price').val('');
-            $('#a_supplier_id').val('');
+            $('#a_product_code').val();
+            $('#a_product_name').val();
+            $('#a_manufacturer').val();
+            $('#a_capacity').val();
+            $('#a_product_type').val();
+            $('#a_color').val();
+            $('#a_lenght').val();
+            $('#a_width').val();
+            $('#a_height').val();
+            $('#a_item_price').val();
+            $('#a_supplier_id').val();
 
-            $('#e_product_code').val('');
-            $('#e_product_name').val('');
-            $('#e_manufacturer').val('');
-            $('#e_product_type').val('');
-            $('#e_capacity').val('');
-            $('#e_color').val('');
-            $('#e_lenght').val('');
-            $('#e_width').val('');
-            $('#e_height').val('');
-            $('#e_item_price').val('');
-            $('#e_supplier_id').val('');
+            $('#e_product_code').val();
+            $('#e_product_name').val();
+            $('#e_manufacturer').val();
+            $('#e_capacity').val();
+            $('#e_product_type').val();
+            $('#e_color').val();
+            $('#e_lenght').val();
+            $('#e_width').val();
+            $('#e_height').val();
+            $('#e_item_price').val();
+            $('#e_supplier_id').val();
         }
         //insert into table without relaod/refresh page
-        $("#insert").submit(function(){
-            
-            var product_code= $('#a_product_code').val();
-            var product_name= $('#a_product_name').val();
-            var manufacturer= $('#a_manufacturer').val();
-            var product_type= $('#a_product_type').val();
-            var capacity= $('#a_capacity').val();
-            var color= $('#a_color').val();
+        $("#insert").click(function(){
+            var valid = this.form.checkValidity();
+            var product_code = $('#a_product_code').val();
+            var product_name = $('#a_product_name').val();
+            var manufacturer = $('#a_manufacturer').val();
+            var capacity = $('#a_capacity').val();
+            var product_type = $('#a_product_type').val();
+            var color = $('#a_color').val();
             var lenght = $('#a_lenght').val();
             var width= $('#a_width').val();
             var height= $('#a_height').val();
             var item_price = $('#a_item_price').val();
             var supplier_id= $('#a_supplier_id').val();
+
+            // validationnnnn
+            $("#valid").html(valid);
+            if (valid) {
+            event.preventDefault(); 
 
             $.ajax({
                 method: "POST",
@@ -508,9 +520,9 @@
                     'func': "insert",
                     'product_code':product_code, 
                     'product_name':product_name,
-                    'manufacturer':manufacturer, 
+                    'manufacturer':manufacturer,
+                    'capacity':capacity, 
                     'product_type':product_type,
-                    'capacity':capacity,
                     'color':color,
                     'lenght':lenght,
                     'width':width,
@@ -524,12 +536,14 @@
                     alert(data);
                     loadData();
                     emptyForm();
+                    console.log(data);
                 },
                 error: function(){
                     alert(data);
                     alert("hagorn")
             }
             });
+        }
         });
         // update data from table without relaod/refresh page
         $("#update").click(function() {
@@ -537,8 +551,8 @@
             var product_code= $('#e_product_code').val();
             var product_name= $('#e_product_name').val();
             var manufacturer= $('#e_manufacturer').val();
-            var product_type= $('#e_product_type').val();
             var capacity= $('#e_capacity').val();
+            var product_type= $('#e_product_type').val();
             var color= $('#e_color').val();
             var lenght= $('#e_lenght').val();
             var width= $('#e_width').val();
@@ -556,8 +570,8 @@
                     'product_code':product_code, 
                     'product_name':product_name,
                     'manufacturer':manufacturer, 
-                    'product_type':product_type,
                     'capacity':capacity,
+                    'product_type':product_type,
                     'color':color,
                     'lenght':lenght,
                     'width':width,

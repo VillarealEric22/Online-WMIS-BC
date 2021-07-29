@@ -20,7 +20,7 @@
           $total_price = $rows['total_price'];
           $transaction_date = $rows['transaction_date'];
       ?>
-      <tr id='tr_<?= $package_code ?>' class ='tablerow'>
+      <tr id='tr_<?= $transaction_no ?>' class ='tablerow'>
           <td><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $transaction_no ?>'> </td>
           <td><?= $transaction_no ?></td>
           <td><?= $customer_id ?></td>
@@ -31,23 +31,23 @@
       <?php
       }
     }
-    /*
     else if($func == "view"){
-      $package_code =  $_POST['viewID'];
-      $sql = "SELECT product_code, quantity FROM package_items WHERE package_code = '$package_code'";
+      $transaction_no =  $_POST['viewID'];
+      $sql = "SELECT product_code, quantity, price FROM cart_items WHERE transaction_no = '$transaction_no'";
       $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
      
       while($rows = mysqli_fetch_array($result)){
           $product_code = $rows['product_code'];
           $qty = $rows['quantity'];
+          $price= $rows['price'];
       ?>
-      <tr id='tr_<?= $package_code ?>' class ='tablerow'>
+      <tr id='tr_<?= $transaction_no ?>' class ='tablerow'>
           <td><?= $product_code ?></td>
           <td><?= $qty ?></td>
+          <td><?= $price ?></td>
       <?php
       }
     }
-    */
     else if($func == "insert"){
         $transaction_no = $_POST['transaction_no'];
         $customer_id = $_POST['customer_ID'];
@@ -55,13 +55,11 @@
         $input_date = $_POST['transaction_date'];
         $transaction_date = date("Y-m-d H:i:s",strtotime($input_date));
 
-
         $product_code = $_POST['product_code'];
         $quantity = $_POST['quantity'];
         $item_price = $_POST['item_price'];
         $tNumber = $_POST['tNumber'];
         
-
         $mi = new MultipleIterator();
 
         $mi->attachIterator(new ArrayIterator($tNumber));
@@ -76,7 +74,7 @@
         if ($stmt->execute()){
         $sql2 = "INSERT INTO cart_items (transaction_no, product_code, quantity, price) VALUES (?,?,?,?)";
         $stmt2 = $con->prepare($sql2);
-          foreach ($mi as $value ) {
+          foreach ($mi as $value) {
             list($tNumber, $product_code, $quantity, $item_price) = $value;
             $stmt2->bind_param('isid', $tNumber, $product_code, $quantity, $item_price);
             $stmt2->execute();

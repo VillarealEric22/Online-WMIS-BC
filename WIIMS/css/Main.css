@@ -572,8 +572,8 @@ footer {
 }
 .input-row{
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: .4rem;
+    /*flex-wrap: wrap;
+    margin-bottom: .4rem;*/
     justify-content: space-between;
     overflow: auto;
 }
@@ -582,17 +582,90 @@ footer {
     justify-content: left;
     position: relative;
     clear: both;
-    padding: 5px 5%;
+    padding: 5px 4%;
     border: 1px solid transparent;
 }
 .input{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1 1 1;
     justify-content: right;
     position: relative;
     clear: both;
-    padding: 5px 10%;
+    padding: 4px 5%;
     border: 1px solid transparent;
 }
+#a_product_type, #e_product_type{
+    position: relative;
+    right: 130px;
+    border-radius: 5px;
+    height: 35px;
+    width: 120px;
+    padding: 5px 5px;
+    border: none;
+    outline: none;
+    border: 1px solid #ccc;
+}
+#unitLength{
+    display: grid;
+    position: relative;
+    top: 5px;
+    left: 50px;
+    border-radius: 5px;
+    height: 35px;
+    width: 150px;
+    padding: 5px 5px;
+    border: none;
+    outline: none;
+    border: 1px solid #ccc;
+}
+#a_lenght, #e_lenght{
+    position: relative;
+    left:32px;
+    width: 150%;
+    padding: 4px;
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+}
+#a_width, #e_width{
+    position: relative;
+    left:5px;
+    width: 145%;
+    padding: 3px;
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#a_height, #e_height{
+    position: relative;
+    right:25px;
+    width: 147%;
+    padding: 3px;
+    height: 35px;
+    border-radius: 5px;
+    text-align: center;
+}
+#a_supplier_id{
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+    padding: .5rem;
+    border: none;
+    outline: none;
+    border: 1px solid #ccc;
+}
+#checkbox{
+    position: relative;
+    left: 10px;
+}
+  .hide{
+    display:none;
+  }
+  .show{
+    display: inline-block;
+  }
+
 .modal-body label{
     text-align: left;
     font-family: 'Montserrat', sans-serif;
@@ -620,6 +693,7 @@ footer {
 .modal-body input:focus-within{
     border: 2px solid #ccc;
 }
+
 @media (prefers-reduced-motion: reduce) {
     .modal.fade .modal-dialog {
       transition: none;

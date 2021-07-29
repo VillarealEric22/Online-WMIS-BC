@@ -32,7 +32,7 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -144,7 +144,7 @@
                     </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <button class ="btn-submit" type=submit value="Confirm" id="insert" name="insert">Confirm</button>
+                    <button class ="btn-submit" type="submit" value="Confirm" id="insert" name="insert">Confirm</button>
                     </div>
                 </form>
             </div>
@@ -238,6 +238,12 @@
     <script>
 
     $(document).ready(function(){
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     //autofill edit inputs
     $("#edit_button").click(function() {
         var id = $('.selectable:checked').val();
@@ -296,12 +302,18 @@
 
     }
     //insert into table without relaod/refresh page
-    $("#insert").submit(function() {
+    $("#insert").click(function() {
+        var valid = this.form.checkValidity();
         var warehouse_code = $('#a_warehouse_code').val();
         var warehouse_name = $('#a_warehouse_name').val();
         var warehouse_address = $('#a_warehouse_address').val();
         var warehouse_area = $('#a_warehouse_area').val();
         var username = $('#a_username').val();
+
+         // validationnnnn
+        $("#valid").html(valid);
+        if (valid) {
+        event.preventDefault();
 
         $.ajax({
             method: "POST",
@@ -322,12 +334,14 @@
                 alert(data);
                 loadData();
                 emptyForm();
+                console.log(data);
             },
             error: function(){
                 alert(data);
                 alert("hagorn")
             }
         });
+    }
     });
     // update data from table without relaod/refresh page
     $("#update").click(function() {

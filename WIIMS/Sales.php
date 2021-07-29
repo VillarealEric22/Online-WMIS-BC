@@ -29,20 +29,19 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
                             <table id="sortable" class="table" width = "100%">
                                 <thead>
                                     <tr>
+                                        <td></td>
                                         <td>Transaction ID</td>
                                         <td>Customer ID</td>
-                                        <td>Product Code</td>
-                                        <td>Item Price</td>
-                                        <td>Quantity</td>
                                         <td>Total Price</td>
                                         <td>Transaction Date</td>
+                                        <td></td>
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -107,8 +106,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input class ="medium-input" id = "a_product" type="string"></td>
-                                            <td><input class ="small-input" id = "a_qty" type="number" min="0"></td>
+                                            <td><input class ="medium-input" id = "a_product" type="string"><div id="itemList" class = "autoSuggest"></div> </td>
+                                            <td><input class ="small-input" id = "a_qty" type="number" min="1"></td>
                                             <td><input class ="small-input" id = "a_iprice" type="number" min="0"></td>
                                             <td><button class = "addItem" id = "addProd"><span class="las la-plus"></span></button></td>
                                         </tr>     
@@ -143,28 +142,135 @@
         </div>
     </div>
     <!--add modal end-->
+    <!--view modal-->
+    <div id = "viewSoldItem" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Type</h5>
+                    <button class="close" type="button">
+                        <span>×</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-message">
+                        <table id="pdcsTable" class="modalTable" width = "100%">
+                            <thead>
+                                <tr>
+                                    <td>Product </td>
+                                    <td>Quantity </td>
+                                    <td>Price</td>
+                                </tr>
+                            </thead>
+                            <tbody class = "tbModal">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" type="button">Cancel</button>
+                    <button class ="btn-submit" value="Confirm" id="delete" name="delete">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
     <script type="text/javascript">
        $(document).ready(function(){
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        function totalPrice(){
+            var qty;
+            var price;
+            var grandTotal = 0;
+            $(".arow").each(function () {
+               // get the values from this row:
+                var $qty = $('.itemqty', this).val();
+                var $price = $('.itemprice', this).val();
+                var $total = ($qty * 1) * ($price * 1);
+               // set total for the row
+
+               grandTotal += $total;
+           });
+           $('#a_Tprice').val(grandTotal);
+        }
+        function emptyForm(){
+            $('.arow').remove();
+            $('#a_transaction_No').val("");
+            $('#a_customer_id').val("");
+            $('#a_Tprice').val("");
+            $('#transactiondate').val("");
+        }
+        $('.close').click(function(){
+            emptyForm();
+        });
+        $('.btn-cancel').click(function(){
+            emptyForm();
+        });
         //add button click
         $("#addProd").click(function(e){
             e.preventDefault();
             var prod = $("#a_product").val();
             var qty = $("#a_qty").val();
             var item_price = $("#a_iprice").val();
-            var insertRow= "<tr><td class = 'item'>"+ prod +"</td><td><input class ='small-input itemqty' type='number' min='0' value = "+ qty +"></td><td><input class ='small-input itemprice' type='number' min='0' value = "+ item_price +"></td><td><button class = 'removeItem'><span class='las la-trash'></span></button></td></tr>";
+            var insertRow= "<tr class = 'arow'><td class = 'item'>"+ prod +"</td><td><input class ='small-input itemqty' type='number' min='0' value = "+ qty +"></td><td><input class ='small-input itemprice' type='number' min='0' value = "+ item_price +"></td><td><button class = 'removeItem'><span class='las la-trash'></span></button></td></tr>";
             $("#prodCart tbody").append(insertRow);
             $("#a_product").val("");
             $("#a_qty").val("");
             $("#a_iprice").val("");
+            totalPrice();
+
         });
         //remove button is clicked
         $("#prodCart").on('click', '.removeItem', function(e){
             e.preventDefault();
             $(this).parents("tr").remove(); //Remove field html
+            totalPrice();
         });
     });
     $(document).ready(function(){
+        $('#a_product').keyup(function(){
+            var query = $(this).val();
+            if(query != ''){
+                $.ajax({
+                    url: "php/functions/function_autocomplete_product.php",
+                    method: "POST",
+                    data:{
+                        query:query,
+                        'func':"autosug"
+                    },
+                    success:function(data){
+                        $('#itemList').fadeIn();  
+                        $('#itemList').html(data);  
+                     }  
+                });  
+           }  
+      });
+      $(document).on('click', 'li', function(){  
+           $('#a_product').val($(this).text());
+           $('#itemList').fadeOut();
+           var id = $('#a_product').val();
+            $.ajax({
+                url: "php/functions/function_autocomplete_product.php",
+                method: "POST",
+                dataType:"json",
+                data:{
+                    'id':id,
+                    'func':"autoprice"
+                },
+                success:function(data){
+                    $('#a_iprice').val(data.item_price); 
+                },
+                error:function(data){
+                }
+            });
+      });
+        
     // fetch data from table without reload/refresh page
     loadData();
     function loadData(){
@@ -181,9 +287,6 @@
                 alert("Something went wrong");
             }
         });
-    }
-    function emptyForm(){
-        alert("empty");
     }
     // view products
     $("#sortable").on("click",'.btn_view', function(e) {

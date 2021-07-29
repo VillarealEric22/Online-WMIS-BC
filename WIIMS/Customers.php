@@ -32,7 +32,7 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -215,7 +215,12 @@
     <script>
 
 $(document).ready(function(){
-
+    $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     //autofill edit inputs
     $("#edit_button").click(function() {
         var id = $('.selectable:checked').val();
@@ -275,14 +280,19 @@ $(document).ready(function(){
 
     }
     //insert into table without relaod/refresh page
-    $("#insert").submit(function() {
-
+    $("#insert").click(function() {
+        var valid = this.form.checkValidity();
         var customer_id = $('#a_customer_id').val();
         var firstname = $('#a_firstname').val();
         var lastname = $('#a_lastname').val();
         var c_address = $('#a_c_address').val();
         var contact_number = $('#a_contact_number').val();
         //alert(customer_id);
+
+        // validationnnnn
+        $("#valid").html(valid);
+        if (valid) {
+        event.preventDefault(); 
 
         $.ajax({
             method: "POST",
@@ -303,12 +313,14 @@ $(document).ready(function(){
                 alert(data);
                 loadData();
                 emptyForm();
+                console.log(data);
             },
             error: function(){
                 alert(data);
                 alert("hagorn")
         }
         });
+    }
     });
     // update data from table without relaod/refresh page
     $("#update").click(function() {

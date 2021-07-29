@@ -107,7 +107,8 @@
                           </a>
                           <div class="dropdown">
                             <ul>
-                                <li><a href="#accountModal" class = "modalBtn settings"><i class = "las la-cogs"></i> Settings </a></li>
+                                <li><a href="#userModal" class = "modalBtn userSetting" id = "user_edit"><i class = "las la-cogs"></i> User Settings </a></li>
+                                <li><a href="#accountModal" class = "modalBtn accountSetting"  id = "account_edit"><i class = "las la-sign-out-alt"></i> Account Settings </a></li> 
                                 <li><a href="#logoutModal" class = "modalBtn logout"><i class = "las la-sign-out-alt"></i> Log Out </a></li> 
                             </ul>
                           </div>

@@ -36,7 +36,7 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -44,14 +44,14 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>Employee ID</td>
-                                        <td>Lastname</td>
-                                        <td>Firstname</td>
-                                        <td>M.I.</td>
-                                        <td>Sex</td>
-                                        <td>Address</td>
-                                        <td>Contact No.</td>
-                                        <td>Birthday</td>
+                                        <td id ="e_id">Employee ID</td>
+                                        <td id ="ln">Lastname</td>
+                                        <td id ="fn">Firstname</td>
+                                        <td id ="mi">M.I.</td>
+                                        <td id ="sx">Sex</td>
+                                        <td id ="addr">Address</td>
+                                        <td id ="contact">Contact No.</td>
+                                        <td id ="birthday">Birthday</td>
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -104,7 +104,7 @@
                             </div>
                             <div class="input">
                                 <label> First Name</label>
-                                <input type ="text" id = "a_firstname" name = "firstname">
+                                <input type ="text" id = "a_firstname" name = "firstname" required>
                             </div>
                             <div class="input">
                                 <label>M.I </label>
@@ -148,15 +148,12 @@
                                 <input type="date" id="a_birthday" name="birthday" value = "<?php echo date("Y-m-d");?>" required>
                             </div>
                         </div> 
-                        <br/>
-                </div>
+                    </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <button class ="btn-submit" type = submit value="Confirm" id="insert" name="insert">Confirm</button>
+                    <button class ="btn-submit" type = "submit" value="Confirm" id="insert" name="insert">Confirm</button>
                 </div>
-                    
                 </form>
-                    
             </div>
         </div>
     </div>
@@ -273,7 +270,90 @@
     
 
     $(document).ready(function(){
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        //important note: please put id on <td> on table header. User it as identifier for event/action
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            //codes below will sort the table
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
 
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        //variables below is needed per table column
+        var f_eid = 1;
+        var f_ln = 1;
+        var f_fn = 1;
+        var f_mi = 1;
+        var f_sx = 1;
+        var f_addr = 1;
+        var f_con = 1;
+        var f_bday = 1;
+        //codes below will sort the table upon clicking the header
+        $("#e_id").click(function(){
+            f_eid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_eid,n);
+        });
+        $("#ln").click(function(){
+            f_ln *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_ln,n);
+        });
+        $("#fn").click(function(){
+            f_fn *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_fn,n);
+        });
+        $("#mi").click(function(){
+            f_mi *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_mi,n);
+        });
+        $("#sx").click(function(){
+            f_sx *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_sx,n);
+        });
+        $("#addr").click(function(){
+            f_addr *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_addr,n);
+        });
+        $("#contact").click(function(){
+            f_con *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_con,n);
+        });
+        $("#bday").click(function(){
+            f_bday *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_bday,n);
+        });
         //autofill edit inputs
         $("#edit_button").click(function() {
             var id = $('.selectable:checked').val();
@@ -346,7 +426,8 @@
             $('#e_birthday').val(today);
         }
         //insert into table without relaod/refresh page
-        $("#insert").submit(function() {
+        $("#insert").click(function() {
+            var valid = this.form.checkValidity();
             var e_id= $('#a_employee_id').val();
             var e_ln= $('#a_lastname').val();
             var e_fn= $('#a_firstname').val();
@@ -356,6 +437,11 @@
             var e_sx= $('#a_sex').val();
             var e_bday= $('#a_birthday').val();
 
+            // validationnnnn
+            $("#valid").html(valid);
+            if (valid) {
+            event.preventDefault(); 
+        
             $.ajax({
                 method: "POST",
                 url: "php/functions/function_employee.php",
@@ -377,12 +463,14 @@
                     alert(data);
                     loadData();
                     emptyForm();
+                    console.log(data);
                 },
                 error: function(){
                     alert(data);
                     alert("hagorn")
             }
             });
+        }
         });
         // update data from table without relaod/refresh page
         $("#update").click(function() {

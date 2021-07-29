@@ -38,16 +38,18 @@
         }
         echo "number of rows: " . $result->num_rows;
     }
-    if ($func == "insert"){
+    else if ($func == "insert"){
         $inventory_id = $_POST['inventory_id'];
         $product_code = $_POST['product_code'];
         $quantity = $_POST['quantity'];
         $warehouse_code = $_POST['warehouse_code'];
-        $date_created = $_POST['date_created'];
+        $date_created = $_POST['i_date'];
         $i_date = date("Y-m-d H:i:s",strtotime($date_created));
         $stack_max_amt = $_POST['stack_max_amt'];
         $amt_in_stack = $_POST['amt_in_stack'];
         $critical_amt =$_POST['critical_amt'];
+
+        echo($inventory_id);
 
         $sql = "INSERT INTO item_inventory (inventory_id, product_code, quantity, warehouse_code, date_created, stack_max_amt, amt_in_stack, critical_amt) VALUES (?,?,?,?,?,?,?,?)";
         $stmt = $con->prepare($sql);
@@ -55,7 +57,7 @@
         // Close connection
         if ($stmt->execute()){
             echo "New record created successfully";
-        } else {
+        } else {    
             echo "Data Not Saved". $con->error;
         }
         $stmt->close();
@@ -66,13 +68,13 @@
         $product_code = $_POST['product_code'];
         $quantity = $_POST['quantity'];
         $warehouse_code = $_POST['warehouse_code'];
-        $date_created = $_POST['date_created'];
+        $date_created = $_POST['i_date'];
         $i_date = date("Y-m-d H:i:s",strtotime($date_created));
         $stack_max_amt = $_POST['stack_max_amt'];
         $amt_in_stack = $_POST['amt_in_stack'];
         $critical_amt = $_POST['critical_amt'];
 
-        $sql = "UPDATE item_inventory SET product_code = ?, quantity  = ?, warehouse_code = ?, date_created= ?, stack_max_amt = ?, amt_in_stack, critical_amt = ? WHERE inventory_id = ?";
+        $sql = "UPDATE item_inventory SET product_code = ?, quantity  = ?, warehouse_code = ?, date_created= ?, stack_max_amt = ?, amt_in_stack = ?, critical_amt = ? WHERE inventory_id = ?";
         $stmt = $con->prepare($sql);
         $stmt->bind_param('sissiiii', $product_code, $quantity, $warehouse_code, $i_date, $stack_max_amt, $amt_in_stack, $critical_amt, $inventory_id);
         // Close connection
@@ -107,5 +109,4 @@
         $rows = mysqli_fetch_array($result);
         echo json_encode($rows);
     }
-    echo "Data Not Saved". $con->error;
 ?>

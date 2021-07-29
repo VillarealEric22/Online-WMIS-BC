@@ -18,7 +18,7 @@
             $product_code = $rows['product_code'];
             $product_name = $rows['product_name'];
             $manufacturer = $rows['manufacturer'];
-            $product_type =  $rows['product_type'];
+            $product_type =  $rows['product_type'];  
             $capacity = $rows['capacity'];
             $color =  $rows['color'];
             $item_price =  $rows['item_price'];
@@ -40,8 +40,8 @@
         $product_code = $_POST['product_code'];
         $product_name = $_POST['product_name'];
         $manufacturer = $_POST['manufacturer'];
-        $product_type = $_POST['product_type'];
         $capacity= $_POST['capacity'];
+        $product_type = $_POST['product_type'];
         $color = $_POST['color'];
         $lenght = $_POST['lenght'];
         $width = $_POST['width'];
@@ -49,9 +49,9 @@
         $item_price  = $_POST['item_price'];
         $supplier_id = $_POST['supplier_id'];
 
-        $sql = "INSERT INTO products (product_code, product_name, manufacturer, product_type, capacity, color, lenght, width, height, item_price, supplier_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO products (product_code, product_name, manufacturer, capacity, product_type, color, lenght, width, height, item_price, supplier_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('ssssssiiidi', $product_code, $product_name, $manufacturer, $product_type, $capacity, $color, $lenght, $width, $height, $item_price, $supplier_id);
+        $stmt->bind_param('ssssssiiidi', $product_code, $product_name, $manufacturer, $capacity, $product_type, $color, $lenght, $width, $height, $item_price, $supplier_id);
         // Close connection
         if ($stmt->execute()){
             echo "New record created successfully";
@@ -65,8 +65,8 @@
         $product_code = $_POST['product_code'];
         $product_name = $_POST['product_name'];
         $manufacturer = $_POST['manufacturer'];
-        $product_type = $_POST['product_type'];
         $capacity= $_POST['capacity'];
+        $product_type = $_POST['product_type'];
         $color = $_POST['color'];
         $lenght = $_POST['lenght'];
         $width = $_POST['width'];
@@ -74,9 +74,9 @@
         $item_price  = $_POST['item_price'];
         $supplier_id = $_POST['supplier_id'];
 
-        $sql = "UPDATE products SET product_name = ?, manufacturer = ?, product_type = ?, capacity = ?, color = ?, lenght = ?, width = ?, height = ?, item_price = ?, supplier_id = ? WHERE product_code = ?";
+        $sql = "UPDATE products SET product_name = ?, manufacturer = ?, capacity = ?, product_type = ?, color = ?, lenght = ?, width = ?, height = ?, item_price = ?, supplier_id = ? WHERE product_code = ?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('sssssiiidis', $product_name, $manufacturer, $product_type, $capacity, $color, $lenght, $width, $height, $item_price, $supplier_id, $product_code);
+        $stmt->bind_param('sssssiiidis', $product_name, $manufacturer, $capacity, $product_type, $color, $lenght, $width, $height, $item_price, $supplier_id, $product_code);
         // Close connection
         if ($stmt->execute()){
             echo $product_code. "'s record updated successfully";
@@ -104,7 +104,7 @@
     }
      else if($func == "auto_input"){
         $edit_id = $_POST['edit_id'];
-        $sql = "SELECT product_code, product_name, manufacturer, product_type, capacity, color, lenght, width, height, item_price, supplier_id FROM products WHERE product_code = '$edit_id'";
+        $sql = "SELECT product_code, product_name, manufacturer, capacity, product_type, color, lenght, width, height, item_price, supplier_id FROM products WHERE product_code = '$edit_id'";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $rows = mysqli_fetch_array($result);
         echo json_encode($rows);

@@ -44,7 +44,7 @@
             echo "New record created successfully";
         }
         else {
-            echo "Insert Supplier ID.". $con->error;
+            echo "Data Not Saved". $con->error;
         }
         $stmt->close();
         $con->close();
@@ -59,9 +59,10 @@
         $stmt = $con->prepare($sql);
         $stmt->bind_param('sssi', $supplier_name, $s_address, $contact_number, $supplier_id);
         // Close connection
-        if ($stmt->execute()){
+        if (!empty($stmt->execute())){
             echo $supplier_id. "'s record created successfully";
-        } else { 
+            }
+        else { 
             
             echo "Data Not Saved". $con->error;
         }

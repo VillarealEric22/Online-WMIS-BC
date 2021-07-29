@@ -36,7 +36,7 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -44,9 +44,9 @@
                                 <thead>
                                     <tr>
                                         <td> </td>
-                                        <td>Employee ID</td>
-                                        <td>Username</td>
-                                        <td>User Role</td>
+                                        <td id ="e_id">Employee ID</td>
+                                        <td id ="uname">Username</td>
+                                        <td id ="urole">User Role</td>
                                     </tr>
                                 </thead>
                                 <tbody class = "tablecontent">
@@ -131,21 +131,40 @@
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="user_role">User Role:</label>
+                                <label class = modal-form-label for = "supplier_id">User Role:</label>
                             </div>                              
-                            <div class="input">                               
-                            <Select name = "user_role" id = "a_user_role">
-                                    <option value = "Admin"> Admin </option>
-                                    <option value = "Sales"> Sales </option>
-                                    <option value = "Warehouse Manager"> Warehouse Manager </option>
-                            </Select>
-                            <button href = "#userRoleModal" class = "modalBtn"> ... </button>
+                            <div class="input-row">
+                                <?php
+                                    //connection info.
+                                    $DATABASE_HOST = 'localhost';
+                                    $DATABASE_USER = 'root';
+                                    $DATABASE_PASS = '';
+                                    $DATABASE_NAME = 'db_inventory';
+                                    //connect using data above.
+                                    $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+                                    if ( mysqli_connect_errno() ) {
+                                        // If there is an error with the connection, stop the script and display the error.
+                                        exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+                                    }
+                                    $sql = "SELECT user_role FROM user_roles";
+                                    $result = $con->query($sql) or die($con->error);
+                                ?>
+                                <select id= "a_user_role">
+                                    <?php
+                                        while($rows= $result-> fetch_assoc())
+                                        {
+                                            echo "<option value='".$rows['user_role']."'>".$rows['user_role']."</option>";
+                                        }
+                                        $con->close();
+                                    ?>
+                                </select>
+				                <button href = "#userRoleModal" class = "modalBtn userRole"> ... </button>
                             </div>
                         </div>
                     </div>
                 <div class="modal-footer">
                 <button class="btn-cancel" type="button">Cancel</button>
-                    <button class ="btn-submit" type= submit value="Confirm" id="insert" name="insert">Confirm</button>
+                    <button class ="btn-submit" type= "submit" value="Confirm" id="insert" name="insert">Confirm</button>
                 </div>
                 </form>
             </div>
@@ -223,7 +242,7 @@
                                     <option value = "Sales"> Sales </option>
                                     <option value = "Warehouse Manager"> Warehouse Manager </option>
                             </Select>
-                            <button href = "#userRoleModal" class = "modalBtn"> ... </button>
+                            <button href = "#userRoleModal" class = "modalBtn userRole"> ... </button>
                             </div>
                         </div>
                     </div>
@@ -272,53 +291,23 @@
                 <div class="modal-body">
                     <div class="modal-message">
                         <div class="col">
-                            <table id="sortable" class="table" width = "100%">
+                            <table id ="tb_UserRole" class="table" width = "100%">
                                 <thead>
                                     <tr>
                                         <td>User Role</td>
                                     </tr>
+                                    <tr>
+                                        <td><input class ="small-input" id = "a_role" type="string"></td>
+                                        <td><button class = "addItem" id ="a_addItem"><span class="las la-plus"></span></button></td>
+                                    </tr> 
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Admin</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sales</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Warehouse Manager</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                                    </tr>
+                                <tbody class = "userRoles" >
+                                        
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td><button type = "button">Add</button></td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         <div class="col">
-                            <table id="sortable" class="table" width = "100%">
+                            <table id="uroletb" class="table" width = "100%">
                                 <thead>
                                     <tr>
                                         <td>Module</td>
@@ -443,15 +432,65 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <a class="btn-confirm" href="">Confirm</a>
+                    <a class ="btn-submit" value="Confirm" id="okay" name="insert">Confirm</a>
+                   <!-- <a class="btn-confirm" id="okay">Confirm</a>-->
                 </div>
             </div>
         </div>
     </div>
     <!--user role modal modal end-->
     <script>
-
     $(document).ready(function(){
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_eid = 1;
+        var f_unm = 1;
+        var f_urole = 1;
+        $("#e_id").click(function(){
+            f_eid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_eid,n);
+        });
+        $("#uname").click(function(){
+            f_unm *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_unm,n);
+        });
+        $("#urole").click(function(){
+            f_urole *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_urole,n);
+        });
     //autofill edit inputs
     $("#edit_button").click(function() {
         var id = $('.selectable:checked').val();
@@ -479,6 +518,7 @@
     });
     // fetch data from table without reload/refresh page
     loadData();
+    loadUserRoles();
     function loadData(){
         $.ajax({    //create an ajax request to display.php
             type: "POST",
@@ -488,6 +528,27 @@
             },                             
             success: function(response){                    
                 $(".tablecontent").html(response); 
+            },
+            error: function(){
+                alert("Something went wrong");
+            }
+        });
+    }
+    function loadUserRoles(){
+        $.ajax({    //create an ajax request to display.php
+            type: "POST",
+            url: "php/functions/function_user.php",
+            cache: false,
+            async: false,
+            dataType:"json",
+            data: {
+                'func':"a_role",
+            },                             
+            success: function(data){  
+                $.each(data, function(){
+                    var insertRec = "<tr class = 'arow'><td><input type='checkbox' name='selectable[]' id = '   checkbox' class = 'selectable' value="+this.user_role+"></td><td class = 'a_userrole'>"+ this.user_role +"</td><td><button class = 'removeItem' value="+ this.user_role +"><span class='las la-trash'></span></button></td></tr>";
+                    $("#tb_UserRole tbody").append(insertRec);
+                })
             },
             error: function(){
                 alert("Something went wrong");
@@ -506,16 +567,21 @@
         $('#e_user_role').val();
         $('#e_employee_id').val();
 
+        $('#a_role').val();
+
     }
     //insert into table without relaod/refresh page
-    $("#insert").submit(function() {
-
+    $("#insert").click(function() {
+        var valid = this.form.checkValidity();
         var username = $('#a_username').val();
         var password = $('#a_password').val();
         var user_role = $('#a_user_role').val();
         var employee_id = $('#a_employee_id').val();
 
-        alert(username);
+        // validationnnnn
+        $("#valid").html(valid);
+        if (valid) {
+        event.preventDefault(); 
 
         $.ajax({
             method: "POST",
@@ -535,12 +601,48 @@
                 alert(data);
                 loadData();
                 emptyForm();
+                console.log(data);
             },
             error: function(){
                 alert(data);
                 alert("hagorn")
         }
         });
+    }
+    });
+    $("#a_role").click(function(){
+        var id = $('.selectable:checked').val();
+        
+    });
+    $("#okay").click(function() {
+        var valid = this.form.checkValidity();
+        var a_role = $('#a_role').val();
+        // validationnnnn
+        $("#valid").html(valid);
+        if (valid) {
+        event.preventDefault(); 
+
+        $.ajax({
+            method: "POST",
+            url: "php/functions/function_user.php",
+            cache:false,
+            async: false,
+            data: {
+                'func': "okay",
+                'user_role': user_role,
+            },
+            success: function(data) {
+                alert(data);
+                loadData();
+                emptyForm();
+                console.log(data);
+            },
+            error: function(){
+                alert(data);
+                alert("hagorn")
+        }
+        });
+    }
     });
     // update data from table without relaod/refresh page
     $("#update").click(function() {

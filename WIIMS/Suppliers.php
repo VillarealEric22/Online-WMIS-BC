@@ -32,7 +32,7 @@
                                 </Select> Entries.</label> 
                             </div>
                             <div class="table-search">
-                                <label> Search: <input type="search" placeholder=""/></label> 
+                                <label> Search: <input type="search" placeholder="" id = "searchInput"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -70,7 +70,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit Item</h5>
+                    <h5 class="modal-title">Add Supplier</h5>
                     <button class="close" type="button">
                         <span>×</span>
                         </button>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
-                    <button class ="btn-submit" type = "submit" value="Confirm" id="insert" name="insert">Confirm</button>
+                    <button class ="btn-submit" type ="submit" value="Confirm" id="insert" name="insert">Confirm</button>
                 </div>
                 </form>
             </div>
@@ -198,10 +198,23 @@
     <script>
 
     $(document).ready(function(){
+
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     //autofill edit inputs
-    $("#edit_button").click(function() {
+    $("#edit_button").click(function(){
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+                $("#sortable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
       
-        var id = $('.selectable:checked').val();
+    var id = $('.selectable:checked').val();
         $.ajax({
             method: "POST",
             url: "php/functions/function_supplier.php",
@@ -257,15 +270,18 @@
     }
     
     //insert into table without relaod/refresh page
-    
     $("#insert").click(function(){
-        
+        var valid = this.form.checkValidity();
         var supplier_id = $('#a_supplier_id').val();
         var supplier_name = $('#a_supplier_name').val();
         var s_address = $('#a_s_address').val();
         var contact_number = $('#a_contact_number').val();
         
-       
+        // validationnnnn
+        $("#valid").html(valid);
+        if (valid) {
+        event.preventDefault(); 
+
         $.ajax({
         method: "POST",
         url: "php/functions/function_supplier.php",
@@ -277,20 +293,20 @@
             'supplier_name': supplier_name,
             's_address': s_address,
             'contact_number': contact_number
-    
         },
         success: function(data) {
             $('#addSuppliersModal').hide();
             alert(data);
             loadData();
             emptyForm();
+            console.log(data);
         },
         error: function(){
             alert(data);
             alert("hagorn")
         }
         });
-       
+    }
     });
     
     // update data from table without relaod/refresh page
@@ -301,8 +317,6 @@
         var supplier_name = $('#e_supplier_name').val();
         var s_address = $('#e_s_address').val();
         var contact_number = $('#e_contact_number').val();
-
-        alert(supplier_id);
 
         $.ajax({
             method: "POST",

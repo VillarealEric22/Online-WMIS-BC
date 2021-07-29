@@ -42,45 +42,20 @@
         $return_id = $_POST['return_id'];
         $transaction_no = $_POST['transaction_no'];
         $product_code= $_POST['product_code'];
-        $quantity = $_POST['quantity '];
+        $quantity = $_POST['quantity'];
         $item_price = $_POST['item_price'];
         $total_price = $_POST['total_price'];
-        $return_type = $_POST['return_type '];
+        $return_type = $_POST['return_type'];
         $return_date = $_POST['r_date'];
         $r_date = date("Y-m-d H:i:s",strtotime($return_date));
         
-
-        $sql = "INSERT INTO item_returns (return_id, transaction_no, product_code, quantity , item_price, total_price, r_type, return_date) VALUES (?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO item_returns (return_id, transaction_no, product_code, quantity , item_price, total_price, return_type, return_date) VALUES (?,?,?,?,?,?,?,?)";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('iisiddss', $return_id, $transaction_no, $product_code, $quantity, $item_price, $total_price, $r_type, $return_date);
+        $stmt->bind_param('iisiddss', $return_id, $transaction_no, $product_code, $quantity, $item_price, $total_price, $return_type, $return_date);
         // Close connection
         if ($stmt->execute()){
             echo "New record created successfully";
         } else {
-            echo "Data Not Saved". $con->error;
-        }
-        $stmt->close();
-        $con->close();
-    }
-    else if ($func == "update"){
-        $return_id = $_POST['return_id'];
-        $transaction_no = $_POST['transaction_no'];
-        $product_code= $_POST['product_code'];
-        $quantity = $_POST['quantity '];
-        $item_price = $_POST['item_price'];
-        $total_price = $_POST['total_price'];
-        $return_type = $_POST['return_type '];
-        $return_date = $_POST['r_date'];
-        $r_date = date("Y-m-d H:i:s",strtotime($return_date));
-
-        $sql = "UPDATE item_returns SET transaction_no = ?, product_code = ?, quantity = ?, item_price = ?, total_price= ?, r_type = ?, return_date = ? WHERE return_id = ?";
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param('isiddssi', $transaction_no, $product_code, $quantity, $item_price, $total_price, $return_type, $r_date, $return_id);
-        // Close connection
-        if ($stmt->execute()){
-            echo $return_id. "'s record created successfully";
-        } else { 
-            
             echo "Data Not Saved". $con->error;
         }
         $stmt->close();

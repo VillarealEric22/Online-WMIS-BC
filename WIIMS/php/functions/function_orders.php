@@ -10,101 +10,106 @@
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
-    $func = $_POST['func'];
-    if ($func=="disp"){
-        $sql = "SELECT employees.employee_id, employees.lastname, employees.firstname, employees.middlename, employees.sex, employees.emp_address, employees.contact_number, employees.birthday FROM employees";
-        $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-        while($rows = mysqli_fetch_array($result)){
-            $employee_id = $rows['employee_id'];
-            $lastname = $rows['lastname'];
-            $firstname = $rows['firstname'];
-            $middlename = $rows['middlename'];           
-            $sex =  $rows['sex'];
-            $emp_address =  $rows['emp_address'];
-            $contact_number =  $rows['contact_number'];
-            $birthday =  $rows['birthday'];
-        ?>
-        <tr id='tr_<?= $username ?>' class ='tablerow'>
-            <td><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $employee_id ?>'></td>
-            <td><?= $employee_id ?></td>
-            <td><?= $lastname ?></td>
-            <td><?= $firstname ?></td>
-            <td><?= $middlename ?></td>
-            <td><?= $sex ?></td>
-            <td><?= $emp_address ?></td>
-            <td><?= $contact_number ?></td>
-            <td><?= $birthday ?></td>
-        <?php
-        }
-        echo "number of rows: " . $result->num_rows;
+    $func = $_POST["func"];
+    if($func == "disp"){
+      $sql = "SELECT purchase_order_id, supplier_id, total_price, order_date FROM purchase_order";
+      $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
+      while($rows = mysqli_fetch_array($result)){
+          $purchase_order_id = $rows['purchase_order_id'];
+          $supplier_id = $rows['supplier_id'];
+          $total_price = $rows['total_price'];
+          $order_date = $rows['order_date'];
+      ?>
+      <tr id='tr_<?= $purchase_order_id ?>' class ='tablerow'>
+          <td><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $purchase_order_id ?>'> </td>
+          <td><?= $purchase_order_id ?></td>
+          <td><?= $supplier_id ?></td>
+          <td><?= $total_price ?></td>
+          <td><?= $order_date ?></td>
+          <td><button class = 'btn_view' value='<?= $purchase_order_id ?>'> View <span class = 'las la-eye'></span></button></td>
+        </tr>
+      <?php
+      }
     }
-    if ($func == "insert"){
-        $e_id = $_POST['e_id'];
-        $e_ln = $_POST['e_ln'];
-        $e_fn = $_POST['e_fn'];
-        $e_mi = $_POST['e_mi'];
-        $e_add = $_POST['e_add'];
-        $e_cnum = $_POST['e_cnum'];
-        $e_sx = $_POST['e_sx'];
-        $input_date=$_POST['e_bday'];
-        $e_bday = date("Y-m-d H:i:s",strtotime($input_date));
+    else if($func == "view"){
+      $purchase_order_id =  $_POST['viewID'];
+      $sql = "SELECT product_code, quantity, price FROM item_orders WHERE purchase_order_id = '$purchase_order_id'";
+      $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
+     
+      while($rows = mysqli_fetch_array($result)){
+          $product_code = $rows['product_code'];
+          $qty = $rows['quantity'];
+          $price= $rows['price'];
+      ?>
+      <tr id='tr_<?= $purchase_order_id ?>' class ='tablerow'>
+          <td><?= $product_code ?></td>
+          <td><?= $qty ?></td>
+          <td><?= $price ?></td>
+      <?php
+      }
+    }
+    else if($func == "insert"){
+        $purchase_order_id = $_POST['purchase_order_id'];
+        $supplier_id = $_POST['supplier_ID'];
+        $total_price = $_POST['total_price'];
+        $input_date = $_POST['order_date'];
+        $order_date = date("Y-m-d H:i:s",strtotime($input_date));
 
-        $sql = "INSERT INTO employees (employee_id, lastname, firstname, middlename, emp_address, contact_number, sex, birthday) VALUES (?,?,?,?,?,?,?,?)";
+
+        $product_code = $_POST['product_code'];
+        $quantity = $_POST['quantity'];
+        $item_price = $_POST['item_price'];
+        $tNumber = $_POST['tNumber'];
+        
+
+        $mi = new MultipleIterator();
+
+        $mi->attachIterator(new ArrayIterator($tNumber));
+        $mi->attachIterator(new ArrayIterator($product_code));
+        $mi->attachIterator(new ArrayIterator($quantity));
+        $mi->attachIterator(new ArrayIterator($item_price));
+        
+        $sql = "INSERT INTO purchase_order (purchase_order_id, supplier_ID, total_price, order_date) VALUES (?,?,?,?)";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('isssssss', $e_id, $e_ln, $e_fn, $e_mi, $e_add, $e_cnum, $e_sx, $e_bday);
-        // Close connection
+        $stmt->bind_param('iids', $purchase_order_id, $supplier_id, $total_price, $order_date);
+
         if ($stmt->execute()){
-            echo "New record created successfully";
-        } else {
-            echo "Data Not Saved". $con->error;
+        $sql2 = "INSERT INTO item_orders (purchase_order_id, product_code, quantity, price) VALUES (?,?,?,?)";
+        $stmt2 = $con->prepare($sql2);
+          foreach ($mi as $value ) {
+            list($tNumber, $product_code, $quantity, $item_price) = $value;
+            $stmt2->bind_param('isid', $tNumber, $product_code, $quantity, $item_price);
+            $stmt2->execute();
+          }
+          echo "Successfully Created New Order Record";
         }
-        $stmt->close();
-        $con->close();
+       else{
+          echo "Data Not Saved". $con->error;
+       }
+      $stmt->close();
+      $con->close();
     }
-    else if ($func == "update"){
-        $e_id = $_POST['e_id'];
-        $e_ln = $_POST['e_ln'];
-        $e_fn = $_POST['e_fn'];
-        $e_mi = $_POST['e_mi'];
-        $e_add = $_POST['e_add'];
-        $e_cnum = $_POST['e_cnum'];
-        $e_sx = $_POST['e_sx'];
-        $input_date=$_POST['e_bday'];
-        $e_bday = date("Y-m-d H:i:s",strtotime($input_date));
-
-        $sql = "UPDATE employees SET lastname = ?, firstname = ?, middlename = ?, emp_address = ?, contact_number = ?, sex = ?, birthday = ? WHERE employee_id = ?";
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param('sssssssi', $e_ln, $e_fn, $e_mi, $e_add, $e_cnum, $e_sx, $e_bday, $e_id);
-        // Close connection
-        if ($stmt->execute()){
-            echo $e_id. "'s record created successfully";
-        } else { 
-            
-            echo "Data Not Saved". $con->error;
-        }
-        $stmt->close();
-        $con->close();
-    }
-    else if ($func == "delete"){
-        $emp_id = $_POST['deleteID'];
-        $total = count($emp_id);
-        $emp_id = implode(',', $emp_id);
-
-        $sql = "DELETE FROM employees WHERE employee_id IN ($emp_id)";
-        $result = mysqli_query($con, $sql);
-
-		if ($result === true) {
-			echo $total. " items successfully deleted";
-		}else{
-			echo "Data Not Saved". $con->error;;
-		}
-
-    }
-     else if($func == "auto_input"){
-        $edit_id = $_POST['edit_id'];
-        $sql = "SELECT employee_id, lastname, firstname, middlename, sex, emp_address, contact_number, birthday FROM employees WHERE employee_id = $edit_id";
-        $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-        $rows = mysqli_fetch_array($result);
-        echo json_encode($rows);
+    if($func = "autosug"){
+      if(isset($_POST["query"]))  
+      {  
+        $output = '';
+        $query = "SELECT product_code FROM products WHERE product_code LIKE '%".
+        $_POST["query"]."%'";
+        $result = mysqli_query($con, $query);  
+        $output = '<ul class="list-unstyled">';  
+        if(mysqli_num_rows($result) > 0)  
+        {  
+            while($row = mysqli_fetch_array($result))  
+            {  
+                  $output .= '<li>'.$row["product_code"].'</li>';  
+            }  
+        }  
+        else  
+        {  
+            $output .= '<li>Item Not Found</li>';  
+        }  
+        $output .= '</ul>';  
+        echo $output;  
+      }
     }
 ?>
