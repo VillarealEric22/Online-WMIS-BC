@@ -12,11 +12,11 @@
     }
     $func = $_POST["func"];
     if($func == "disp"){
-      $sql = "SELECT transaction_no, customer_id, total_price, transaction_date FROM sales_transaction";
+      $sql = "SELECT transaction_no, CONCAT(firstname, ' ', lastname) AS customer, total_price, transaction_date FROM sales_transaction INNER JOIN customer USING (customer_id)";
       $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
       while($rows = mysqli_fetch_array($result)){
           $transaction_no = $rows['transaction_no'];
-          $customer_id = $rows['customer_id'];
+          $customer_id = $rows['customer'];
           $total_price = $rows['total_price'];
           $transaction_date = $rows['transaction_date'];
       ?>
@@ -33,18 +33,20 @@
     }
     else if($func == "view"){
       $transaction_no =  $_POST['viewID'];
-      $sql = "SELECT product_code, quantity, price FROM cart_items WHERE transaction_no = '$transaction_no'";
+      $sql = "SELECT product_code, quantity, price_ea, price_tot FROM cart_items WHERE transaction_no = '$transaction_no'";
       $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
      
       while($rows = mysqli_fetch_array($result)){
           $product_code = $rows['product_code'];
           $qty = $rows['quantity'];
-          $price= $rows['price'];
+          $price= $rows['price_ea'];
+          $pricet= $rows['price_tot'];
       ?>
       <tr id='tr_<?= $transaction_no ?>' class ='tablerow'>
           <td><?= $product_code ?></td>
           <td><?= $qty ?></td>
           <td><?= $price ?></td>
+          <td><?= $pricet ?></td>
       <?php
       }
     }
@@ -58,6 +60,7 @@
         $product_code = $_POST['product_code'];
         $quantity = $_POST['quantity'];
         $item_price = $_POST['item_price'];
+        $tot_price = $_POST['totprice'];
         $tNumber = $_POST['tNumber'];
         
         $mi = new MultipleIterator();
@@ -66,17 +69,18 @@
         $mi->attachIterator(new ArrayIterator($product_code));
         $mi->attachIterator(new ArrayIterator($quantity));
         $mi->attachIterator(new ArrayIterator($item_price));
+        $mi->attachIterator(new ArrayIterator($tot_price));
         
         $sql = "INSERT INTO sales_transaction (transaction_no, customer_ID, total_price, transaction_date) VALUES (?,?,?,?)";
         $stmt = $con->prepare($sql);
         $stmt->bind_param('iids', $transaction_no, $customer_id, $total_price, $transaction_date);
 
         if ($stmt->execute()){
-        $sql2 = "INSERT INTO cart_items (transaction_no, product_code, quantity, price) VALUES (?,?,?,?)";
+        $sql2 = "INSERT INTO cart_items (transaction_no, product_code, quantity, price_ea, price_tot) VALUES (?,?,?,?,?)";
         $stmt2 = $con->prepare($sql2);
           foreach ($mi as $value) {
-            list($tNumber, $product_code, $quantity, $item_price) = $value;
-            $stmt2->bind_param('isid', $tNumber, $product_code, $quantity, $item_price);
+            list($tNumber, $product_code, $quantity, $item_price, $tot_price) = $value;
+            $stmt2->bind_param('isidd', $tNumber, $product_code, $quantity, $item_price, $tot_price);
             $stmt2->execute();
           }
           echo "Successfully Created New Package";

@@ -17,8 +17,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addProductModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editProductModal" class = "modalBtn btn-success" id = "edit_button"> Edit <span class="las la-edit"></span></button>
-                            <button href = "#deletePkgModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editProductModal" class = "modalBtn btn-success" id = "edit_button" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deletePkgModal" class = "modalBtn btn-danger" disabled = "disabled"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -43,8 +43,8 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>Package ID</td>
-                                        <td>Package Price</td>
+                                        <td id = "p_id">Package ID</td>
+                                        <td id = "p_price">Package Price</td>
                                         <td>Items</td>
                                     </tr>
                                 </thead>
@@ -145,7 +145,7 @@
                                 <label class = modal-form-label for = "addpkgname">Package Name:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="e_package_code" name = "addpkgname">
+                                <input type ="text" id="e_package_code" name = "pkgname" disabled>
                             </div>
                         </div>
                         <div class="input-row">
@@ -246,7 +246,6 @@
             </div>
         </div>
     </div>
-    
 </main>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -273,6 +272,44 @@
         });
         $('.btn-cancel').click(function(){
             emptyForm();
+        });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_pid = 1;
+        var f_pprice = 1;
+        $("#p_id").click(function(){
+            f_pid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_pid,n);
+        });
+        $("#p_price").click(function(){
+            f_pprice *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_pprice,n);
         });
         //add button click to create new row
         $("#a_addItem").click(function(e){

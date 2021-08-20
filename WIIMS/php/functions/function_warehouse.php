@@ -32,7 +32,7 @@
         }
         echo "number of rows: " . $result->num_rows;
     }
-    if ($func == "insert"){
+    else if ($func == "insert"){
         $warehouse_code = $_POST['warehouse_code'];
         $warehouse_name = $_POST['warehouse_name'];
         $warehouse_address = $_POST['warehouse_address'];

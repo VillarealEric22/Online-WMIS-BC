@@ -18,8 +18,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addUsersModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editUsersModal" class = "modalBtn btn-success" id = "edit_button"> Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteUsersModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editUsersModal" class = "modalBtn btn-success" id = "edit_button" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteUsersModal" class = "modalBtn btn-danger" disabled = "disabled"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -47,6 +47,7 @@
                                         <td id ="e_id">Employee ID</td>
                                         <td id ="uname">Username</td>
                                         <td id ="urole">User Role</td>
+                                        <td> Password </td>
                                     </tr>
                                 </thead>
                                 <tbody class = "tablecontent">
@@ -187,7 +188,7 @@
                         <br/>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "employee_id" >employee_id:</label>
+                                <label class = modal-form-label for = "employee_id">employee_id:</label>
                             </div>
                             <div class="input">  
                                 <?php
@@ -447,6 +448,8 @@
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+        loadData();
+        loadUserRoles();
         //table sort by ascending/descending
         function sortTable(f,n){
             var rows = $('#sortable tbody tr').get();
@@ -517,8 +520,7 @@
         });
     });
     // fetch data from table without reload/refresh page
-    loadData();
-    loadUserRoles();
+    
     function loadData(){
         $.ajax({    //create an ajax request to display.php
             type: "POST",
@@ -527,14 +529,12 @@
                 'func':"disp"
             },                             
             success: function(response){                    
-                $(".tablecontent").html(response); 
+                $(".tablecontent").html(response);
             },
             error: function(){
                 alert("Something went wrong");
             }
         });
-    }
-    function loadUserRoles(){
         $.ajax({    //create an ajax request to display.php
             type: "POST",
             url: "php/functions/function_user.php",
@@ -545,16 +545,25 @@
                 'func':"a_role",
             },                             
             success: function(data){  
-                $.each(data, function(){
-                    var insertRec = "<tr class = 'arow'><td><input type='checkbox' name='selectable[]' id = '   checkbox' class = 'selectable' value="+this.user_role+"></td><td class = 'a_userrole'>"+ this.user_role +"</td><td><button class = 'removeItem' value="+ this.user_role +"><span class='las la-trash'></span></button></td></tr>";
-                    $("#tb_UserRole tbody").append(insertRec);
+                $("#a_addItem").click(function(e){
+                var prod = $("#a_role").val();
+                var insertRec = "<tr class = 'arow'><td class = 'add_role'>"+ prod +"</td>" + "<td><button class = 'removeItem'><span class='las la-trash'></span></button></td></tr>";
+                $("#tb_UserRole tbody").append(insertRec);
+                
                 })
             },
             error: function(){
                 alert("Something went wrong");
             }
         });
+        $("#tb_UserRole").on('click', '.removeItem', function(e){
+            e.preventDefault();
+            $(this).parents("tr").remove(); //Remove field html
+        });
     }
+    
+
+    
     function emptyForm(){
 
         $('#a_username').val();
@@ -610,9 +619,8 @@
         });
     }
     });
-    $("#a_role").click(function(){
+   $("#a_role").click(function(){
         var id = $('.selectable:checked').val();
-        
     });
     $("#okay").click(function() {
         var valid = this.form.checkValidity();

@@ -12,21 +12,22 @@
     }
     $func = $_POST['func'];
     if ($func=="disp"){
-        $sql = "SELECT user.employee_id, user.username, user.password, user.user_role FROM user";
+        $sql = "SELECT employee_id, username, user_role, password FROM user";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $employee_id = $rows['employee_id'];
             $username = $rows['username'];
-            $user_role = $rows['user_role'];           
+            $user_role = $rows['user_role'];
+            $hashed = $rows['password'];          
         ?>
         <tr id='tr_<?= $username ?>' class ='tablerow'>
             <td><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $username ?>'></td>      
             <td><?= $employee_id ?></td>
             <td><?= $username ?></td>
             <td><?= $user_role ?></td>
+            <td><?= $hashed ?></td>
         <?php
         }
-        echo "number of rows: " . $result->num_rows;
     }
     
     if ($func == "insert"){
@@ -53,13 +54,12 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         $user_role = $_POST['user_role'];           
-        $employee_id =  $_POST['employee_id'];
 
         $hash_pass = password_hash($password, PASSWORD_DEFAULT);
     
-        $sql = "UPDATE user SET password = ?, user_role = ?, employee_id = ? WHERE username = ?";
+        $sql = "UPDATE user SET password = ?, user_role = ? WHERE username = ?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('ssis', $hash_pass, $user_role, $employee_id, $username);
+        $stmt->bind_param('sss', $hash_pass, $user_role, $username);
         // Close connection
         if ($stmt->execute()){
             echo $username. "'s record created successfully";
@@ -89,26 +89,25 @@
         $sql = "SELECT username, user_role, employee_id FROM user WHERE username = '$edit_id'";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $rows = mysqli_fetch_array($result);
-        echo json_encode($rows);
+        echo json_encode($rows); 
     }
     else if($func == "okay"){
         $user_role = $_POST['user_role'];
 
-        $sqlIn = "INSERT INTO user (user_role) VALUES (?) ON DUPLICATE KEY UPDATE user_role = VALUES(user_role)";
+        $sqlIn = "INSERT INTO user (user_role) VALUES (?) ON DUPLICATE KEY UPDATE user_role = VALUES($user_role)";
         $stmtIn = $con->prepare($sqlIn);
         echo $con->error;
       
-      if ($stmt->execute()){
+      if ($stmtIn->execute()){
         echo "New user role created successfully";
-    } 
+        } 
       else{
           echo "Data Not Saved". $con->error;
-    }
-    $stmt->close();
-    $con->close();
+        }
+        $stmtIn->close();
+        $con->close();
     }
     else if($func == "a_role"){
-
         $sql = "SELECT user_role FROM user_roles";
         $result = mysqli_query($con,$sql) or die($con->error);
         $array = array();

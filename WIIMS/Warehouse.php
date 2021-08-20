@@ -14,8 +14,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addWarehouseModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editWarehouseModal" class = "modalBtn btn-success" id = "edit_button" > Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteWarehouseModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editWarehouseModal" class = "modalBtn btn-success" id = "edit_button" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteWarehouseModal" class = "modalBtn btn-danger" disabled = "disabled"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -40,11 +40,11 @@
                                 <thead>
                                     <tr>
                                         <td> </td>
-                                        <td>Warehouse Code</td>
-                                        <td>Warehouse Name</td>
-                                        <td>Warehouse Address</td>
-                                        <td>Warehouse Area</td>
-                                        <td>Staff in Charge</td>
+                                        <td id = "w_code">Warehouse Code</td>
+                                        <td id = "w_name">Warehouse Name</td>
+                                        <td id = "w_add">Warehouse Address</td>
+                                        <td id = "w_area">Warehouse Area</td>
+                                        <td id = "staff">Staff in Charge</td>
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -168,7 +168,7 @@
                             <label class = modal-form-label for = "warehouse_code">Warehouse Code:</label>
                         </div>
                         <div class="input">
-                            <input type="text" id="e_warehouse_code" name = "warehouse_code">
+                            <input type="text" id="e_warehouse_code" name = "warehouse_code" disabled>
                         </div>
                     </div>
                     <div class="input-row">
@@ -235,14 +235,71 @@
             </div>
         </div>
     </div>
-    <script>
-
+    <!--delete modal end-->
+</main>
+<script>
     $(document).ready(function(){
         $("#searchInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
                 $("#sortable tbody tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_wcode = 1;
+        var f_wname = 1;
+        var f_wadd = 1;
+        var f_warea = 1;
+        var f_staff = 1;
+        $("#w_code").click(function(){
+            f_wcode *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_wcode,n);
+        });
+        $("#w_name").click(function(){
+            f_wname *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_wname,n);
+        });
+        $("#w_add").click(function(){
+            f_wadd *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_wadd,n);
+        });
+        $("#w_area").click(function(){
+            f_warea *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_warea,n);
+        });
+        $("#staff").click(function(){
+            f_staff *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_staff,n);
         });
     //autofill edit inputs
     $("#edit_button").click(function() {
@@ -405,8 +462,6 @@
     });
 });
 </script>
-    <!--delete modal end-->
-</main>
 <?php 
     include('php/includes/footer.php');
     include('php/includes/scripts.php');

@@ -12,7 +12,7 @@
     }
     $func = $_POST['func'];
     if ($func=="disp"){
-        $sql = "SELECT products.product_code, products.product_name, products.manufacturer, products.product_type, products.capacity, products.color, products.item_price FROM products";
+        $sql = "SELECT product_code, product_name, manufacturer, product_type, capacity, measurement, lenght, width, height, unit, color, item_price FROM products";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $product_code = $rows['product_code'];
@@ -20,6 +20,11 @@
             $manufacturer = $rows['manufacturer'];
             $product_type =  $rows['product_type'];  
             $capacity = $rows['capacity'];
+            $measurement = $rows['measurement'];
+            $lenght = $rows['lenght'];
+            $width = $rows['width'];
+            $height = $rows['height'];
+            $unit = $rows['unit'];            
             $color =  $rows['color'];
             $item_price =  $rows['item_price'];
         ?>
@@ -30,6 +35,11 @@
             <td><?= $manufacturer ?></td>
             <td><?= $product_type ?></td>
             <td><?= $capacity ?></td>
+            <td><?= $measurement ?></td>
+            <td><?= $lenght ?></td>
+            <td><?= $width ?></td>
+            <td><?= $height ?></td>
+            <td><?= $unit ?></td>
             <td><?= $color?></td>
             <td><?=$item_price ?></td>
         <?php

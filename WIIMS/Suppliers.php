@@ -14,8 +14,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addSuppliersModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editSuppliersModal" class = "modalBtn btn-success" id = "edit_button" > Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteSuppliersModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editSuppliersModal" class = "modalBtn btn-success" id = "edit_button" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteSuppliersModal" class = "modalBtn btn-danger" disabled = "disabled"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -40,10 +40,10 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>Supplier ID</td>
-                                        <td>Supplier Name</td>
-                                        <td>Supplier Address</td>
-                                        <td>Contact Number</td>
+                                        <td id = "s_id">Supplier ID</td>
+                                        <td id = "s_name">Supplier Name</td>
+                                        <td id = "s_add">Supplier Address</td>
+                                        <td id = "number">Contact Number</td>
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -136,7 +136,7 @@
                             <label class = modal-form-label for = "supplier_id">Supplier ID:</label>
                         </div>
                         <div class="input">
-                            <input type="text" id="e_supplier_id" name = "supplier_id">
+                            <input type="text" id="e_supplier_id" name = "supplier_id" disabled>
                         </div>
                     </div>
                     <div class="input-row">
@@ -204,6 +204,56 @@
                 $("#sortable tbody tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_sid = 1;
+        var f_sname = 1;
+        var f_sadd = 1;
+        var f_num = 1;
+        $("#s_id").click(function(){
+            f_sid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_sid,n);
+        });
+        $("#s_name").click(function(){
+            f_sname *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_sname,n);
+        });
+        $("#s_add").click(function(){
+            f_sadd *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_sadd,n);
+        });
+        $("#number").click(function(){
+            f_num *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_num,n);
         });
     //autofill edit inputs
     $("#edit_button").click(function(){

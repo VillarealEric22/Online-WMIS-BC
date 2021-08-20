@@ -27,7 +27,7 @@
                                         <label class = modal-form-label for = "username">Username:</label>
                                     </div>
                                     <div class="input">
-                                        <input type="text" id="e_username" name = "username">
+                                        <input type="text" id="e_username_" name = "username" disabled>
                                     </div>
                                 </div>
                                 <div class="input-row">
@@ -35,7 +35,7 @@
                                         <label class = modal-form-label for = "employee_id">Employee ID:</label>
                                     </div>
                                     <div class="input">
-                                        <input type="text" id="e_employee_id" name = "employee_id">
+                                        <input type="text" id="e_employee_id_" name = "employee_id" disabled>
                                     </div>
                                 </div>
                                 <div class="input-row">
@@ -48,11 +48,12 @@
                                 </div>
                                 <div class="input-row">
                                     <div class="input-label">
-                                        <label class = modal-form-label for = "rpassword">Re-Type Password:</label>
+                                        <label class = modal-form-label for = "rpassword">Re-Type Password:     </label>
                                     </div>
                                     <div class="input">
                                         <input type ="text" id="rpassword" name = "rpassword">
                                     </div>
+                                    <div id="divCheckPassword"></div>
                                 </div>
                                 <div class="input-row">
                                     <div class="input-label">
@@ -67,7 +68,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn-cancel" type="button">Cancel</button>
-                        <button class ="btn-submit" type ="submit" value="Confirm" id="update" name="update">Confirm</button>
+                        <button class ="btn-submit" type ="submit" value="Confirm" id="update_user" name="update">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -78,7 +79,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">User Settings</h5>
+                        <h5 class="modal-title">Account Settings</h5>
                         <button class="close" type="button">
                             <span>×</span>
                         </button>
@@ -88,15 +89,31 @@
                             <form>
                                 <div class="input-row">
                                     <div class="input-label">
-                                        <label class = modal-form-label for ="empName">Fullname:</label>
+                                        <label class = modal-form-label for ="empFName">First Name:</label>
                                     </div>
                                     <div class="input">
-                                        <input type ="text" id="e_firstname" name = "firstname" class = short> <input type ="text" id="e_middlename" name = "middlename" class = shortest> <input type ="text" id="e_lastname" name = "lastname" class = short>
+                                        <input type ="text" id="e_firstname" name = "firstname" class = short>
                                     </div>
                                 </div>
                                 <div class="input-row">
                                     <div class="input-label">
-                                        <label class = modal-form-label for = "sex">Sex:</label>
+                                        <label class = modal-form-label for ="empMName">M.I:</label>
+                                    </div>
+                                    <div class="input">
+                                        <input type ="text" id="e_middlename" name = "middlename" class = shortest>
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <div class="input-label">
+                                        <label class = modal-form-label for ="empLName">Last Name:</label>
+                                    </div>
+                                    <div class="input">
+                                        <input type ="text" id="e_lastname" name = "lastname" class = short>
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <div class="input-label">
+                                        <label class = modal-form-label for = "sex">Gender:</label>
                                     </div>
                                     <div class="input">
                                         <Select id="e_sex" name = "Sex">
@@ -134,7 +151,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn-cancel" type="button">Cancel</button>
-                        <button class ="btn-submit" type ="submit" value="Confirm" id="edit" name="edit">Confirm</button>
+                        <button class ="btn-submit" type ="submit" value="Confirm" id="edit_user" name="edit">Confirm</button>
                     </div>
                 </div>
             </div>
@@ -165,79 +182,69 @@
         <!--AJAX-->  
     <script>
     $(document).ready(function(){
-        $("edit_button").click(function(){
-            var id; //need muna makuha value ni session.
-            $.ajax({
-            method: "POST",
-            url: "php/functions/function_Usetting.php",
-            cache:false,
-            async: false,
-            data: {
-                'func': "auto_input",
-                'edit_id':id
-            },
-            dataType:"json",
-            success: function(data) {
-                $('#e_username').val(data.username);
-                $('#e_employee_id').val(data.employee_id);
-            },
-            error: function(){
-                alert("ayaw"); //XD
-                alert(id);
-                }
-            });
-        });
-    
+        
     $("#account_edit").click(function() {
-        var id;
         $.ajax({
             method: "POST",
             url: "php/functions/function_Asetting.php",
-            cache:false,
+            cache: false,
             async: false,
             data: {
                 'func': "auto_input",
-                'edit_id':id
             },
             dataType:"json",
             success: function(data) {
-            $('#e_firstname').val(data.firstname);
-            $('#e_lastname').val(data.lastname);
-            $('#e_middlename').val(data.middlename);
-            $('#e_sex').val(data.sex);
-            $('#e_birthday').val(data.birthday);
-            $('#e_email_address').val(data.email_address);
-            $('#e_contact_number').val(data.contact_number);
+                $('#e_firstname').val(data.firstname);
+                $('#e_lastname').val(data.lastname);
+                $('#e_middlename').val(data.middlename);
+                $('#e_sex').val(data.sex);
+                $('#e_birthday').val(data.birthday);
+                $('#e_email_address').val(data.email_address);
+                $('#e_contact_number').val(data.contact_number);
             },
             error: function(){
-                alert("ayaw"); //XD
-                alert(id);
+                alert("ayaw");
         }
         });
     });
-    // fetch data from table without reload/refresh page
-    loadData();
-    function loadData(){
-        $.ajax({    //create an ajax request to display.php
-            type: "POST",
-            url: "php/functions/function_supplier.php",
+    $("#user_edit").click(function(){
+        
+        $.ajax({
+            method: "POST",
+            url: "php/functions/function_Usetting.php",
+            cache: false,
+            async: false,
             data: {
-                'func':"disp"
-            },                             
-            success: function(response){                    
-                $(".tablecontent").html(response); 
+                'func': "auto_input_us",
             },
-            error: function(){
-                alert("Something went wrong");
-            }
-        });
-    }
+            dataType:"json",
+                success: function(data) {
+                    $('#e_employee_id_').val(data.employee_id);
+                    $('#e_username_').val(data.username);
+                },
+                error: function(){
+                    alert("ayaw");
+                }
+            });
+        });     
+    function isPasswordMatch() {
+        var password = $("#e_password").val();
+        var confirmPassword = $("#rpassword").val();
 
+        if (password != confirmPassword)
+            $("#divCheckPassword").html("Password does not match.");
+            else
+            $("#divCheckPassword").html("");
+        }
+        $("#rpassword").keyup(isPasswordMatch);
+    
     function emptyForm(){
 
         $('#e_username').val();
         $('#e_employee_id').val();
         $('#e_password').val();
+        $('#rpassword').val();
+        $('#user_image').val();
         
         $('#e_firstname').val();
         $('#e_lastname').val();
@@ -249,12 +256,13 @@
     
     }
 
-    $("#update").click(function() {
+    $("#update_user").click(function() {
         event.preventDefault();
 
         var username = $('#e_username').val();
         var employee_id = $('#e_employee_id').val();
         var password = $('#e_password').val();
+        var rpassword = $('#rpassword').val();
 
         $.ajax({
             method: "POST",
@@ -279,7 +287,7 @@
         }
         });
     });
-    $("#edit").click(function() {
+    $("#edit_user").click(function() {
         event.preventDefault();
 
         var firstname = $('#e_firstname').val();

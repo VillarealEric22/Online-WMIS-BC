@@ -37,10 +37,10 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>Order ID</td>
-                                        <td>Supplier ID</td>
-                                        <td>Total Price</td>
-                                        <td>Transaction Date</td>
+                                        <td id = "o_id">Order ID</td>
+                                        <td id = "s_id">Supplier Name</td>
+                                        <td id = "total">Total Price</td>
+                                        <td id = "date">Transaction Date</td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -212,6 +212,56 @@
         $('.btn-cancel').click(function(){
             emptyForm();
         });
+         //table sort by ascending/descending
+         function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_oid = 1;
+        var f_sid = 1;
+        var f_price = 1;
+        var f_date = 1;
+        $("#o_id").click(function(){
+            f_oid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_oid,n);
+        });
+        $("#s_id").click(function(){
+            f_sid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_sid,n);
+        });
+        $("#total").click(function(){
+            f_price *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_price,n);
+        });
+        $("#date").click(function(){
+            f_date *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_date,n);
+        });
         //add button click
         $("#addProd").click(function(e){
             e.preventDefault();
@@ -343,7 +393,7 @@
                 'order_date': tDate,
                 'product_code': product_code,
                 'quantity': quantity,
-                'item_price': price,
+                'price_ea': price,
                 'tNumber': arrtNo
             },
             success: function(data) {

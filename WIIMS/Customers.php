@@ -14,8 +14,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addCustomersModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editCustomersModal"  class = "modalBtn btn-success" id = "edit_button"> Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteCustomersModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editCustomersModal"  class = "modalBtn btn-success" id = "edit_button" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteCustomersModal" class = "modalBtn btn-danger" disabled = "disabled"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -40,11 +40,11 @@
                                 <thead>
                                     <tr>
                                     <td></td>
-                                        <td>Customer ID</td>
-                                        <td>First Name</td>
-                                        <td>Last Name</td>
-                                        <td>Address</td>
-                                        <td>Contact Number</td>
+                                        <td id = "c_id">Customer ID</td>
+                                        <td id = "fname">First Name</td>
+                                        <td id = "lname">Last Name</td>
+                                        <td id = "addres">Address</td>
+                                        <td id = "number">Contact Number</td>
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -145,7 +145,7 @@
                             <label class = modal-form-label for = "customer_id">Customer ID:</label>
                         </div>
                         <div class="input">
-                            <input type="text" id="e_customer_id" name = "customer_id">
+                            <input type="text" id="e_customer_id" name = "customer_id" disabled>
                         </div>
                     </div>
                     <div class="input-row">
@@ -220,6 +220,62 @@ $(document).ready(function(){
                 $("#sortable tbody tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+ //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_cid = 1;
+        var f_fn = 1;
+        var f_ln = 1;
+        var f_add = 1;
+        var f_cno = 1;
+        $("#c_id").click(function(){
+            f_cid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_cid,n);
+        });
+        $("#fname").click(function(){
+            f_fn *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_fn,n);
+        });
+        $("#lname").click(function(){
+            f_ln *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_ln,n);
+        });
+        $("#addres").click(function(){
+            f_add *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_add,n);
+        });
+        $("#number").click(function(){
+            f_cno *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_cno,n);
         });
     //autofill edit inputs
     $("#edit_button").click(function() {

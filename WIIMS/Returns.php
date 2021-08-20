@@ -38,14 +38,14 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>Return ID</td>
-                                        <td>Transaction No</td>
-                                        <td>Product Code</td>
-                                        <td>Quantity</td>
-                                        <td>Item Price</td>
-                                        <td>Total Price</td>
-                                        <td>Return Type</td>
-                                        <td>Return Date</td>
+                                        <td id = "r_id">Return ID</td>
+                                        <td id = "t_no">Transaction No</td>
+                                        <td id = "p_code">Product Code</td>
+                                        <td id = "qty">Quantity</td>
+                                        <td id = "item_p">Item Price</td>
+                                        <td id = "total_p">Total Price</td>
+                                        <td id = "r_type">Return Type</td>
+                                        <td id = "r_date">Return Date</td>
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -159,13 +159,86 @@
     </div>
     <!--add modal end-->
     <script>
-
     $(document).ready(function(){
         $("#searchInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
                 $("#sortable tbody tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_rid = 1;
+        var f_tno = 1;
+        var f_pcode = 1;
+        var f_qty = 1;
+        var f_itemp = 1;
+        var f_totalp = 1;
+        var f_rtype = 1;
+        var f_rdate = 1;
+        $("#r_id").click(function(){
+            f_rid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_rid,n);
+        });
+        $("#t_no").click(function(){
+            f_tno *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_tno,n);
+        });
+        $("#p_code").click(function(){
+            f_pcode *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_pcode,n);
+        });
+        $("#qty").click(function(){
+            f_qty *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_qty,n);
+        });
+        $("#item_p").click(function(){
+            f_itemp *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_itemp,n);
+        });
+        $("#total_p").click(function(){
+            f_totalp *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_totalp,n);
+        });
+        $("#r_type").click(function(){
+            f_rtype *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_rtype,n);
+        });
+        $("#r_date").click(function(){
+            f_rdate *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_rdate,n);
         });
     // fetch data from table without reload/refresh page
     loadData();

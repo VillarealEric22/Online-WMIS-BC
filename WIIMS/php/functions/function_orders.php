@@ -12,11 +12,11 @@
     }
     $func = $_POST["func"];
     if($func == "disp"){
-      $sql = "SELECT purchase_order_id, supplier_id, total_price, order_date FROM purchase_order";
+      $sql = "SELECT purchase_order_id, supplier_name AS supplier, total_price, order_date FROM purchase_order INNER JOIN supplier USING (supplier_id)";
       $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
       while($rows = mysqli_fetch_array($result)){
           $purchase_order_id = $rows['purchase_order_id'];
-          $supplier_id = $rows['supplier_id'];
+          $supplier_id = $rows['supplier'];
           $total_price = $rows['total_price'];
           $order_date = $rows['order_date'];
       ?>
@@ -33,13 +33,13 @@
     }
     else if($func == "view"){
       $purchase_order_id =  $_POST['viewID'];
-      $sql = "SELECT product_code, quantity, price FROM item_orders WHERE purchase_order_id = '$purchase_order_id'";
+      $sql = "SELECT product_code, quantity, price_ea FROM item_orders WHERE purchase_order_id = '$purchase_order_id'";
       $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
      
       while($rows = mysqli_fetch_array($result)){
           $product_code = $rows['product_code'];
           $qty = $rows['quantity'];
-          $price= $rows['price'];
+          $price= $rows['price_ea'];
       ?>
       <tr id='tr_<?= $purchase_order_id ?>' class ='tablerow'>
           <td><?= $product_code ?></td>
@@ -55,13 +55,11 @@
         $input_date = $_POST['order_date'];
         $order_date = date("Y-m-d H:i:s",strtotime($input_date));
 
-
         $product_code = $_POST['product_code'];
         $quantity = $_POST['quantity'];
-        $item_price = $_POST['item_price'];
+        $item_price = $_POST['price_ea'];
         $tNumber = $_POST['tNumber'];
         
-
         $mi = new MultipleIterator();
 
         $mi->attachIterator(new ArrayIterator($tNumber));
@@ -74,7 +72,7 @@
         $stmt->bind_param('iids', $purchase_order_id, $supplier_id, $total_price, $order_date);
 
         if ($stmt->execute()){
-        $sql2 = "INSERT INTO item_orders (purchase_order_id, product_code, quantity, price) VALUES (?,?,?,?)";
+        $sql2 = "INSERT INTO item_orders (purchase_order_id, product_code, quantity, price_ea) VALUES (?,?,?,?)";
         $stmt2 = $con->prepare($sql2);
           foreach ($mi as $value ) {
             list($tNumber, $product_code, $quantity, $item_price) = $value;

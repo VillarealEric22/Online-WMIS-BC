@@ -14,8 +14,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addInventoryModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editInventoryModal" class = "modalBtn btn-success" id = "edit_button"> Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteInventoryModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editInventoryModal" class = "modalBtn btn-success" id = "edit_button" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteInventoryModal" class = "modalBtn btn-danger" id = "delete_button" disabled = "disabled"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -40,20 +40,18 @@
                                 <thead>
                                     <tr>
                                         <td> </td>
-                                        <td>Inventory ID</td>
-                                        <td>Product Code</td>
-                                        <td>Quantity</td>
-                                        <td>Warehouse Code</td>
-                                        <td>Date Created</td>
-                                        <td>Stack Max Amount</td>
-                                        <td>Amount in Stack</td>
-                                        <td>Critical Amount</td>
+                                        <td id = "i_id">Inventory ID</td>
+                                        <td id = "date">Date Created</td>
+                                        <td id = "p_code">Product Code</td>
+                                        <td id = "B_qty">Beginning Qty</td>
+                                        <td id = "P_qty">Purchases</td>
+                                        <td id = "qty">Current Stock</td>
+                                        <td id = "crit">Critical Amount</td>                                   
+                                        <td id = "w_code">Warehouse Code</td>                                       
                                     </tr>
                                 </thead>
-                                <tbody>
                                 <tbody class="tablecontent">
                                     <!--display to table-->
-                                </tbody>
                                 </tbody>
                             </table>
                         </div>
@@ -124,10 +122,10 @@
                         </div>         
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="quantity">Quantity:</label>
+                                <label class = modal-form-label for ="quantity">Beginning Qty:</label>
                             </div>
                             <div class="input">
-                                <input type ="text" id="a_quantity" name = "quantity" required>
+                                <input type ="text" id="a_bQty" name = "quantity" required>
                             </div>
                         </div>
                         <div class="input-row">
@@ -166,26 +164,9 @@
                                 <label class = modal-form-label for = "date_created">Date Created:</label>
                             </div>                              
                             <div class="input">                               
-                                <input type ="date" id="a_date_created" name = "date_created" required> 
+                                <input type ="date" id="a_date_created" name = "date_created" value = "<?php echo date("Y-m-d");?>" required> 
                             </div>
                         </div>
-			            <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "stack_max_amt">Stack Max Amount:</label>
-                            </div>                              
-                            <div class="input">                               
-                                <input type ="text" id="a_stack_max_amt" name = "stack_max_amt" required> 
-                            </div>
-                        </div>
-			            <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "amt_in_stack">Amount in Stack:</label>
-                            </div>                              
-                            <div class="input">                               
-                                <input type ="text" id="a_amt_in_stack" name = "amt_in_stack" required> 
-                            </div>
-                        </div>
-			            <div class="input-row">
                             <div class="input-label">
                                 <label class = modal-form-label for = "critical_amt">Critical Amount:</label>
                             </div>                              
@@ -193,7 +174,6 @@
                                 <input type ="text" id="a_critical_amt" name = "critical_amt" required> 
                             </div>
                         </div>
-                    </div>
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
                     <button class ="btn-submit" type ="submit" value="Confirm" id="insert" name="insert">Confirm</button>
@@ -220,7 +200,7 @@
                                 <label class = modal-form-label for = "inventory_id">Inventory ID:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="e_inventory_id" name = "inventory_id">
+                                <input type="text" id="e_inventory_id" name = "inventory_id" disabled>
                             </div>
                         </div>
                         <div class="input-row">
@@ -256,10 +236,26 @@
                         </div>                         
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for ="quantity">Quantity:</label>
+                                <label class = modal-form-label for ="quantity">Beginning Qty:</label>
                             </div>
                             <div class="input">
-                            <input type ="text" id="e_quantity" name = "quantity">
+                                <input type ="text" id="e_bQty" name = "quantity">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for ="quantity">Current Qty:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="e_cQty" name = "quantity" disabled>
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div class="input-label">
+                                <label class = modal-form-label for ="quantity">Purchase Qty:</label>
+                            </div>
+                            <div class="input">
+                                <input type ="text" id="e_pQty" name = "quantity" disabled>
                             </div>
                         </div>
                         <div class="input-row">
@@ -303,22 +299,6 @@
                         </div>
                         <div class="input-row">
                             <div class="input-label">
-                                <label class = modal-form-label for = "stack_max_amt">Stack Max Amount:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="e_stack_max_amt" name = "stack_max_amt">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
-                                <label class = modal-form-label for = "amt_in_stack">Amount in Stack:</label>
-                            </div>
-                            <div class="input">
-                                <input type ="text" id="e_amt_in_stack" name = "amt_in_stack">
-                            </div>
-                        </div>
-                        <div class="input-row">
-                            <div class="input-label">
                                 <label class = modal-form-label for = "critical_amt">Critical Amount:</label>
                             </div>
                             <div class="input">
@@ -358,13 +338,74 @@
         </div>
     </div>
     <script>
-
     $(document).ready(function(){
         $("#searchInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
                 $("#sortable tbody tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_iid = 1;
+        var f_pcode = 1;
+        var f_qty = 1;
+        var f_wcode = 1;
+        var f_date = 1;
+        var f_crit = 1;
+        $("#i_id").click(function(){
+            f_iid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_iid,n);
+        });
+        $("#p_code").click(function(){
+            f_pcode *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_pcode,n);
+        });
+        $("#qty").click(function(){
+            f_qty *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_qty,n);
+        });
+        $("#w_code").click(function(){
+            f_wcode *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_wcode,n);
+        });
+        $("#date").click(function(){
+            f_date *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_date,n);
+        });
+        $("#crit").click(function(){
+            f_crit *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_crit,n);
         });
     //autofill edit inputs
     $("#edit_button").click(function() {
@@ -382,13 +423,12 @@
             success: function(data) {
                 $('#e_inventory_id').val(data.inventory_id);
                 $('#e_product_code').val(data.product_code);
-                $('#e_quantity').val(data.quantity);
+                $('#e_bQty').val(data.bQty);
+                $('#e_pQty').val(data.pQty);
+                $('#e_cQty').val(data.curr_quantity);
                 $('#e_warehouse_code').val(data.warehouse_code);
                 $('#e_date_created').val(data.date_created);
-                $('#e_stack_max_amt').val(data.stack_max_amt);
-                $('#e_amt_in_stack').val(data.amt_in_stack);
-                $('#e_critical_amt').val(data.critical_amt);
-                
+                $('#e_critical_amt').val(data.critical_amt); 
             },
             error: function(){
                 alert("ayaw"); //XD
@@ -422,20 +462,18 @@
 
         $('#a_inventory_id').val();
         $('#a_product_code').val();
-        $('#a_quantity').val();
+        $('#a_bQty').val();
         $('#a_warehouse_code').val();
         $('#a_date_created').val(today);
-        $('#a_stack_max_amt').val();
-        $('#a_amt_in_stack').val();
         $('#a_critical_amt').val();
 
         $('#e_inventory_id').val();
         $('#e_product_code').val();
-        $('#e_quantity').val();
+        $('#e_bQty').val();
+        $('#e_pQty').val();
+        $('#e_cQty').val();
         $('#e_warehouse_code').val();
         $('#e_date_created').val(today);
-        $('#e_stack_max_amt').val();
-        $('#e_amt_in_stack').val();
         $('#e_critical_amt').val();
 
     }
@@ -445,11 +483,9 @@
         var valid = this.form.checkValidity();
         var inventory_id = $('#a_inventory_id').val();
         var product_code = $('#a_product_code').val();
-        var quantity = $('#a_quantity').val();
+        var bQty = $('#a_bQty').val();
         var warehouse_code = $('#a_warehouse_code').val();
         var date_created = $('#a_date_created').val();
-        var stack_max_amt = $('#a_stack_max_amt').val();
-        var amt_in_stack = $('#a_amt_in_stack').val();
         var critical_amt = $('#a_critical_amt').val();
 
         // validationnnnn
@@ -466,11 +502,9 @@
             'func': "insert",
             'inventory_id': inventory_id,
             'product_code': product_code,
-            'quantity': quantity,
+            'bQty': bQty,
             'warehouse_code': warehouse_code,
             'i_date': date_created,
-            'stack_max_amt': stack_max_amt,
-            'amt_in_stack': amt_in_stack,
             'critical_amt': critical_amt
         
             },
@@ -494,11 +528,11 @@
 
             var inventory_id = $('#e_inventory_id').val();
             var product_code = $('#e_product_code').val();
-            var quantity = $('#e_quantity').val();
+            var bQty = $('#e_bQty').val();
+            var pQty = $('#e_pQty').val();
+            var cQty = $('#e_cQty').val();
             var warehouse_code = $('#e_warehouse_code').val();
             var date_created = $('#e_date_created').val();
-            var stack_max_amt = $('#e_stack_max_amt').val();
-            var amt_in_stack = $('#e_amt_in_stack').val();
             var critical_amt = $('#e_critical_amt').val();
 
             $.ajax({
@@ -510,11 +544,11 @@
                 'func': "update",
                 'inventory_id': inventory_id,
                 'product_code': product_code,
-                'quantity': quantity,
+                'bQty': bQty,
+                'pQty': pQty,
+                'cQty': cQty,
                 'warehouse_code': warehouse_code,
                 'i_date': date_created,
-                'stack_max_amt': stack_max_amt,
-                'amt_in_stack': amt_in_stack,
                 'critical_amt': critical_amt
                 },
                 success: function(data) {

@@ -12,7 +12,7 @@
     }
     $func = $_POST['func'];
     if ($func=="disp"){
-        $sql = "SELECT supplier.supplier_id, supplier.supplier_name, supplier.s_address, supplier.contact_number FROM supplier";
+        $sql = "SELECT supplier_id, supplier_name, s_address, contact_number FROM supplier";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $supplier_id = $rows['supplier_id'];
@@ -28,7 +28,6 @@
             <td><?= $contact_number ?></td>
         <?php
         }
-        echo "number of rows: " . $result->num_rows;
     }
     else if ($func == "insert"){
         $supplier_id = $_POST['supplier_id'];

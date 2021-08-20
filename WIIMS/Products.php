@@ -19,8 +19,8 @@
                     </h2>
                     <div class="CRUDbuttons">
                             <button href = "#addProductModal" class = "modalBtn btn-add"> Add <span class="las la-plus"></span></button>
-                            <button href = "#editProductModal" class = "modalBtn btn-success" id = "edit_button"> Edit <span class="las la-edit"></span></button>
-                            <button href = "#deleteProductModal" class = "modalBtn btn-danger"> Delete <span class="las la-trash"></span></button>
+                            <button href = "#editProductModal" class = "modalBtn btn-success" id = "edit_button" disabled = "disabled"> Edit <span class="las la-edit"></span></button>
+                            <button href = "#deleteProductModal" class = "modalBtn btn-danger" disabled = "disabled"> Delete <span class="las la-trash"></span></button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -45,13 +45,18 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>Product Code</td>
-                                        <td>Name</td>
-                                        <td>Manufacturer</td>
-                                        <td>Product Type</td>
-                                        <td>Capacity</td>
-                                        <td>Color</td>
-                                        <td>Price</td>
+                                        <td id = "p_code">Product Code</td>
+                                        <td id = "name">Name</td>
+                                        <td id = "manufac">Manufacturer</td>
+                                        <td id = "p_type">Product Type</td>
+                                        <td id = "capacity">Capacity</td>
+                                        <td id = "measurement">Measurement</td>
+                                        <td id = "length">Length</td>
+                                        <td id = "width">Width</td>
+                                        <td id = "height">Height</td>
+                                        <td id = "unit">Unit</td>
+                                        <td id = "color">Color</td>
+                                        <td id = "price">Price</td>
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -284,7 +289,7 @@
                                 <label class = modal-form-label for = "product_code">Product Code:</label>
                             </div>
                             <div class="input">
-                                <input type="text" id="e_product_code" name = "product_code">
+                                <input type="text" id="e_product_code" name = "product_code" disabled>
                             </div>
                         </div>
                         <div class="input-row">
@@ -413,6 +418,74 @@
                 $("#sortable tbody tr").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
+        });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_pcode = 1;
+        var f_name = 1;
+        var f_manu = 1;
+        var f_type = 1;
+        var f_cap = 1;
+        var f_col = 1;
+        var f_price = 1;
+        $("#p_code").click(function(){
+            f_pcode *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_pcode,n);
+        });
+        $("#name").click(function(){
+            f_name *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_name,n);
+        });
+        $("#manufac").click(function(){
+            f_manu *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_manu,n);
+        });
+        $("#p_type").click(function(){
+            f_type *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_type,n);
+        });
+        $("#capacity").click(function(){
+            f_cap *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_cap,n);
+        });
+        $("#color").click(function(){
+            f_col *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_col,n);
+        });
+        $("#price").click(function(){
+            f_price *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_price,n);
         });
         //autofill edit inputs
         $("#edit_button").click(function() {

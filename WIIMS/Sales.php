@@ -37,10 +37,10 @@
                                 <thead>
                                     <tr>
                                         <td></td>
-                                        <td>Transaction ID</td>
-                                        <td>Customer ID</td>
-                                        <td>Total Price</td>
-                                        <td>Transaction Date</td>
+                                        <td id = "t_id">Transaction ID</td>
+                                        <td id = "c_id">Customer Name</td>
+                                        <td id = "total">Total Price</td>
+                                        <td id = "date">Transaction Date</td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -65,7 +65,7 @@
     <!--add modal-->
     <div id = "addSalesModal" class="modal fade">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content-wide">
                 <div class="modal-header">
                     <h5 class="modal-title">Add New Item</h5>
                     <button class="close" type="button">
@@ -101,6 +101,7 @@
                                             <td>Product Code</td>
                                             <td>Qty</td>
                                             <td>Item Price</td>
+                                            <td>Price Total</td>
                                             <td></td>
                                         </tr>
                                     </thead>
@@ -109,6 +110,7 @@
                                             <td><input class ="medium-input" id = "a_product" type="string"><div id="itemList" class = "autoSuggest"></div> </td>
                                             <td><input class ="small-input" id = "a_qty" type="number" min="1"></td>
                                             <td><input class ="small-input" id = "a_iprice" type="number" min="0"></td>
+                                            <td><input class ="small-input" id = "a_tot" type="number" min="0" disabled></td>
                                             <td><button class = "addItem" id = "addProd"><span class="las la-plus"></span></button></td>
                                         </tr>     
                                     </tbody>
@@ -157,9 +159,10 @@
                         <table id="pdcsTable" class="modalTable" width = "100%">
                             <thead>
                                 <tr>
-                                    <td>Product </td>
-                                    <td>Quantity </td>
-                                    <td>Price</td>
+                                    <td>Product</td>
+                                    <td>Quantity</td>
+                                    <td>Price Each</td>
+                                    <td>Price Total</td>
                                 </tr>
                             </thead>
                             <tbody class = "tbModal">
@@ -185,8 +188,6 @@
             });
         });
         function totalPrice(){
-            var qty;
-            var price;
             var grandTotal = 0;
             $(".arow").each(function () {
                // get the values from this row:
@@ -212,13 +213,64 @@
         $('.btn-cancel').click(function(){
             emptyForm();
         });
+        //table sort by ascending/descending
+        function sortTable(f,n){
+            var rows = $('#sortable tbody tr').get();
+            rows.sort(function(a, b) {
+                var A = getVal(a);
+                var B = getVal(b);
+
+                if(A < B) {
+                    return -1*f;
+                }
+                if(A > B) {
+                    return 1*f;
+                }
+                return 0;
+            });
+            function getVal(elm){
+                var v = $(elm).children('td').eq(n).text().toUpperCase();
+                if($.isNumeric(v)){
+                    v = parseInt(v,10);
+                }
+                return v;
+            }
+            $.each(rows, function(index, row) {
+                $('#sortable').children('tbody').append(row);
+            });
+        }
+        var f_tid = 1;
+        var f_cid = 1;
+        var f_price = 1;
+        var f_date = 1;
+        $("#t_id").click(function(){
+            f_tid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_tid,n);
+        });
+        $("#c_id").click(function(){
+            f_cid *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_cid,n);
+        });
+        $("#total").click(function(){
+            f_price *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_price,n);
+        });
+        $("#date").click(function(){
+            f_date *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_date,n);
+        });
         //add button click
         $("#addProd").click(function(e){
             e.preventDefault();
             var prod = $("#a_product").val();
             var qty = $("#a_qty").val();
             var item_price = $("#a_iprice").val();
-            var insertRow= "<tr class = 'arow'><td class = 'item'>"+ prod +"</td><td><input class ='small-input itemqty' type='number' min='0' value = "+ qty +"></td><td><input class ='small-input itemprice' type='number' min='0' value = "+ item_price +"></td><td><button class = 'removeItem'><span class='las la-trash'></span></button></td></tr>";
+            var tot_price = qty * item_price;
+            var insertRow= "<tr class = 'arow'><td class = 'item'>"+ prod +"</td><td><input class ='small-input itemqty' type='number' min='0' value = "+ qty +"></td><td><input class ='small-input itemprice' type='number' min='0' value = "+ item_price +"></td><td><input class ='small-input totprice' type='number' min='0' value = "+ tot_price +"  disabled></td><td><button class = 'removeItem'><span class='las la-trash'></span></button></td></tr>";
             $("#prodCart tbody").append(insertRow);
             $("#a_product").val("");
             $("#a_qty").val("");
@@ -320,7 +372,10 @@
         var product_code = [];
         var quantity = [];
         var price = [];
+        var totprice = [];
         var arrtNo = [];
+
+        
         $("tr").find(".item").each(function(){
             product_code.push($(this).text());
         });
@@ -331,7 +386,10 @@
         $(".itemprice").each(function(){
             price.push($(this).val());
         });
-        alert(arrtNo);
+        $(".totprice").each(function(){
+            totprice.push($(this).val());
+        });
+        alert(totprice);
         $.ajax({
             method: "POST",
             url: "php/functions/function_sales.php",
@@ -346,7 +404,8 @@
                 'product_code': product_code,
                 'quantity': quantity,
                 'item_price': price,
-                'tNumber': arrtNo
+                'tNumber': arrtNo,
+                'totprice':totprice
             },
             success: function(data) {
                 $('#addSalesModal').hide();
