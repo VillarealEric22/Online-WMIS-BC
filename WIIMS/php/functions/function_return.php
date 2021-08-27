@@ -12,12 +12,12 @@
     }
     $func = $_POST['func'];
     if ($func=="disp"){
-        $sql = "SELECT item_returns.return_id, item_returns.transaction_no, item_returns.product_code, item_returns.quantity, item_returns.item_price, item_returns.total_price, item_returns.return_type, item_returns.return_date FROM item_returns";
+        $sql = "SELECT item_returns.return_id, item_returns.transaction_no, products.product_name, item_returns.quantity, item_returns.item_price, item_returns.total_price, item_returns.return_type, item_returns.return_date FROM item_returns INNER JOIN products USING (product_code)";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $return_id = $rows['return_id'];
             $transaction_no= $rows['transaction_no'];
-            $product_code = $rows['product_code'];
+            $product_name = $rows['product_name'];
             $quantity = $rows['quantity'];           
             $item_price =  $rows['item_price'];
             $total_price =  $rows['total_price'];
@@ -28,7 +28,7 @@
             <td><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $return_id  ?>'></td>
             <td><?= $return_id  ?></td>
             <td><?= $transaction_no ?></td>
-            <td><?= $product_code  ?></td>
+            <td><?= $product_name  ?></td>
             <td><?= $quantity  ?></td>
             <td><?= $item_price?></td>
             <td><?= $total_price ?></td>

@@ -12,11 +12,12 @@
     }
     $func = $_POST["func"];
     if($func == "disp"){
-      $sql = "SELECT transaction_no, CONCAT(firstname, ' ', lastname) AS customer, total_price, transaction_date FROM sales_transaction INNER JOIN customer USING (customer_id)";
+      $sql = "SELECT transaction_no, CONCAT(firstname, ' ', lastname) AS customer, itemsTotal, total_price, transaction_date FROM sales_transaction INNER JOIN customer USING (customer_id)";
       $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
       while($rows = mysqli_fetch_array($result)){
           $transaction_no = $rows['transaction_no'];
           $customer_id = $rows['customer'];
+          $itemsTotal = $rows['itemsTotal'];
           $total_price = $rows['total_price'];
           $transaction_date = $rows['transaction_date'];
       ?>
@@ -24,6 +25,7 @@
           <td><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $transaction_no ?>'> </td>
           <td><?= $transaction_no ?></td>
           <td><?= $customer_id ?></td>
+          <td><?= $itemsTotal?></td>
           <td><?= $total_price ?></td>
           <td><?= $transaction_date ?></td>
           <td><button class = 'btn_view' value='<?= $transaction_no ?>'> View <span class = 'las la-eye'></span></button></td>
@@ -53,6 +55,7 @@
     else if($func == "insert"){
         $transaction_no = $_POST['transaction_no'];
         $customer_id = $_POST['customer_ID'];
+        $itemsTotal = $_POST['itemsTotal'];
         $total_price = $_POST['total_price'];
         $input_date = $_POST['transaction_date'];
         $transaction_date = date("Y-m-d H:i:s",strtotime($input_date));
@@ -71,19 +74,39 @@
         $mi->attachIterator(new ArrayIterator($item_price));
         $mi->attachIterator(new ArrayIterator($tot_price));
         
-        $sql = "INSERT INTO sales_transaction (transaction_no, customer_ID, total_price, transaction_date) VALUES (?,?,?,?)";
+        
+        // Note for later: validate if quantity bought per item > curr_quantity
+        // if true, echo not enough stock, cannot proceed purchase or **automatically order/redirect to order**
+        $query = "SELECT product_code, curr_quantity FROM item_inventory";
+        $stmtq = $con->prepare($query);
+        foreach($mi as $val){
+          list($tNumber, $product_code, $quantity, $item_price, $tot_price) = $val;
+          $stmtq->bind_param('si',$product_code, $quantity);
+        }
+
+        //commit sale
+        $sql = "INSERT INTO sales_transaction (transaction_no, customer_ID, itemsTotal, total_price, transaction_date) VALUES (?,?,?,?,?)";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param('iids', $transaction_no, $customer_id, $total_price, $transaction_date);
+        $stmt->bind_param('iiids', $transaction_no, $customer_id, $itemsTotal, $total_price, $transaction_date);
 
         if ($stmt->execute()){
         $sql2 = "INSERT INTO cart_items (transaction_no, product_code, quantity, price_ea, price_tot) VALUES (?,?,?,?,?)";
         $stmt2 = $con->prepare($sql2);
-          foreach ($mi as $value) {
+            foreach ($mi as $value) {
             list($tNumber, $product_code, $quantity, $item_price, $tot_price) = $value;
             $stmt2->bind_param('isidd', $tNumber, $product_code, $quantity, $item_price, $tot_price);
-            $stmt2->execute();
+            if($stmt2->execute()){
+              //deduct quantity to curr_quantity
+              $sql3= "UPDATE item_inventory SET curr_quantity = (curr_quantity - ?) WHERE product_code = ?";
+              $stmt3 = $con->prepare($sql3);
+                foreach ($mi as $value1) {
+                  list($tNumber, $product_code, $quantity, $item_price, $tot_price) = $value1;
+                  $stmt3->bind_param('is', $quantity, $product_code);
+                  $stmt3->execute();
+                }
+            }   
           }
-          echo "Successfully Created New Package";
+          echo "Successfully created sales record";
         }
        else{
           echo "Data Not Saved". $con->error;

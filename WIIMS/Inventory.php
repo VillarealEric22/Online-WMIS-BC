@@ -42,12 +42,12 @@
                                         <td> </td>
                                         <td id = "i_id">Inventory ID</td>
                                         <td id = "date">Date Created</td>
-                                        <td id = "p_code">Product Code</td>
+                                        <td id = "p_code">Product Name</td>
                                         <td id = "B_qty">Beginning Qty</td>
                                         <td id = "P_qty">Purchases</td>
                                         <td id = "qty">Current Stock</td>
                                         <td id = "crit">Critical Amount</td>                                   
-                                        <td id = "w_code">Warehouse Code</td>                                       
+                                        <td id = "w_code">Warehouse Name</td>                                       
                                     </tr>
                                 </thead>
                                 <tbody class="tablecontent">
@@ -94,6 +94,7 @@
                                 <label class = modal-form-label for = "product_code">Product Code:</label>
                             </div>     
                             <div class="input-row">
+                                <input type="text" list = "d_product" id="a_product_code" required>
                                 <?php
                                     //connection info.
                                     $DATABASE_HOST = 'localhost';
@@ -109,15 +110,15 @@
                                     $sql = "SELECT product_code, product_name FROM products";
                                     $result = $con->query($sql) or die($con->error);
                                 ?>
-                                 <select id= "a_product_code">
+                                 <datalist id= "d_product">
                                     <?php
                                         while($rows= $result-> fetch_assoc())
                                         {
-                                            echo "<option value='".$rows['product_code']."'>".$rows['product_code']." - ".$rows['product_name']."</option>";
+                                            echo "<option value='".$rows['product_code']."'>".$rows['product_name']."</option>";
                                         }
                                         $con->close();
                                     ?>
-                                </select>
+                                </datalist>
                             </div>
                         </div>         
                         <div class="input-row">
@@ -513,7 +514,6 @@
                 alert(data);
                 loadData();
                 emptyForm();
-                console.log(data);
             },
             error: function(){
                 alert(data);

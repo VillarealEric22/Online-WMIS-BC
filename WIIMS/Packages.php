@@ -228,9 +228,15 @@
                         <table id="pdcsTable" class="modalTable" width = "100%">
                             <thead>
                                 <tr>
-                                    <td>Product </td>
+                                    <td>Product Code</td>
+                                    <td>Product Name </td>
                                     <td>Quantity </td>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td><input class ="medium-input product_input" id = "v_product" type="string"><div id="itemList1" class = "autoSuggest"></td>
+                                    <td><input class ="small-input" id = "v_qty" type="number" min="0"></td>
+                                    <td><button class = "addItem" id ="v_addItem"><span class="las la-plus"></span></button></td>
                                 </tr>
                             </thead>
                             <tbody class = "tbModal" id = "viewTb">
@@ -262,10 +268,13 @@
             $('#e_price').val("");
             $("#e_product").val("");
             $("#e_qty").val("");
+            $("#v_product").val("");
+            $("#v_qty").val("");
             $("#a_product").val("");
             $("#a_qty").val("");
             $('.arow').remove();
             $('.erow').remove();
+            $('.vrow').remove();
         }
         $('.close').click(function(){
             emptyForm();
@@ -340,6 +349,31 @@
             e.preventDefault();
             var id = $('.selectable:checked').val();
             var pid = $('.removeItem').val();
+            $(this).parents("tr").remove(); //Remove field html
+            $.ajax({
+                url: "php/functions/function_packages.php",
+                method: "POST",
+                cache:false,
+                data: {
+                    'func': "delete2",
+                    'deleteID' : id,
+                    'product_code': pid
+                },
+                async: false, 
+                success: function(response){
+                    $('#deletePkgModal').hide();
+                    alert(response);
+                    loadData();
+                },
+                error: function(){
+                    alert(id);
+                }
+            });
+        });
+        $("#pdcsTable").on('click', '.removeItem', function(e){
+            e.preventDefault();
+            var id = $('.selectable:checked').val();
+            var pid = $('.VremoveItem').val();
             $(this).parents("tr").remove(); //Remove field html
             $.ajax({
                 url: "php/functions/function_packages.php",
@@ -443,6 +477,7 @@
                 alert("idk what error, pero meron");
             }
         });
+        
     }
     //autofill edit inputs
     $("#edit_button").click(function(){
@@ -490,6 +525,7 @@
                 alert("ayaw");
             }
         });
+        
     });
     //insert into table without relaod/refresh page
     $("#insert").click(function() {

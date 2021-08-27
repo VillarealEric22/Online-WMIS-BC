@@ -39,6 +39,7 @@
                                         <td></td>
                                         <td id = "t_id">Transaction ID</td>
                                         <td id = "c_id">Customer Name</td>
+                                        <td id = "totalItems">Items Total</td>
                                         <td id = "total">Total Price</td>
                                         <td id = "date">Transaction Date</td>
                                         <td></td>
@@ -376,20 +377,19 @@
         var arrtNo = [];
 
         
-        $("tr").find(".item").each(function(){
+        $(".arow").find(".item").each(function(){
             product_code.push($(this).text());
         });
-        $(".itemqty").each(function(){
+        $(".arow .itemqty").each(function(){
             quantity.push($(this).val());
             arrtNo.push(transaction_no);
         });
-        $(".itemprice").each(function(){
+        $(".arow .itemprice").each(function(){
             price.push($(this).val());
         });
-        $(".totprice").each(function(){
+        $(".arow .totprice").each(function(){
             totprice.push($(this).val());
         });
-        alert(totprice);
         $.ajax({
             method: "POST",
             url: "php/functions/function_sales.php",

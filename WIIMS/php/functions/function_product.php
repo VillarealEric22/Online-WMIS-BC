@@ -110,13 +110,37 @@
 		}else{
 			echo "Data Not Saved". $con->error;;
 		}
-
     }
      else if($func == "auto_input"){
         $edit_id = $_POST['edit_id'];
         $sql = "SELECT product_code, product_name, manufacturer, capacity, product_type, color, lenght, width, height, item_price, supplier_id FROM products WHERE product_code = '$edit_id'";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-        $rows = mysqli_fetch_array($result);
+        $rows = mysqli_fetch_array($result); 
         echo json_encode($rows);
+    }
+    else if ($func == "add_ptype"){
+        $product_type = $_POST['product_type'];
+        $description = $_POST['description'];
+
+        $sql = "INSERT INTO product_category (product_type, description) VALUES (?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param('ss', $product_type, $description);
+        // Close connection
+        if ($stmt->execute()){
+            echo "New record created successfully";
+        } else {
+            echo "Data Not Saved". $con->error;
+        }
+        $stmt->close();
+        $con->close();
+    }
+    else if($func == "category"){
+        $sql = "SELECT product_type, description FROM product_category";
+        $result = mysqli_query($con,$sql) or die($con->error);
+        $array = array();
+        while($row = mysqli_fetch_array($result)){
+            $array[] = $row;
+        }
+        echo json_encode($array);
     }
 ?>

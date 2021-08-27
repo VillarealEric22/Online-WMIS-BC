@@ -29,16 +29,18 @@
     }
     else if($func == "view"){
       $package_code =  $_POST['viewID'];
-      $sql = "SELECT product_code, quantity FROM package_items WHERE package_code = '$package_code'";
+      $sql = "SELECT product_code, product_name, quantity FROM package_items INNER JOIN products USING (product_code) WHERE package_code = '$package_code'";
       $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
      
       while($rows = mysqli_fetch_array($result)){
           $product_code = $rows['product_code'];
+          $product_name = $rows['product_name'];
           $qty = $rows['quantity'];
       ?>
-      <tr id='tr_<?= $package_code ?>' class ='tablerow'>
-          <td><?= $product_code ?></td>
-          <td><?= $qty ?></td>
+      <tr id='<?= $product_code ?>' class ='vrow'>
+          <td class = 'v_pkgitem'><?= $product_code ?></td>
+          <td><input class ='small-input e_itemqty' type='number' min='0' value = "<?= $qty ?>"></td>
+          <td><button class = 'VremoveItem' value="<?= $product_code ?>"><span class='las la-trash'></span></button></td></tr>
       <?php
       }
     }

@@ -38,3 +38,22 @@ for (var i = 0; i < cancel.length; i++) {
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
   }
+
+//disable button until something is selected, then disable edit button when more than 1 is selected
+$(document).ready(function () {
+    $("#sortable").on("click",'.selectable',function() {
+        if ($('.selectable:checked').length === 0) {
+            $('#delete_button').attr('disabled', 'disabled');
+            $('#edit_button').attr('disabled', 'disabled');
+        }
+        else if ($('.selectable:checked').length >= 2) {
+            $('#delete_button').removeAttr('disabled');
+            $('#edit_button').attr('disabled', 'disabled');
+        }
+        else {
+            $('#edit_button').removeAttr('disabled');
+            $('#delete_button').removeAttr('disabled');
+            
+        }
+    })
+});

@@ -11,16 +11,16 @@
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
     $func = $_POST['func'];
-    if ($func=="disp"){
-        $sql = "SELECT inventory_id, product_code, curr_quantity, bQty, pQty, warehouse_code, date_created, critical_amt FROM item_inventory ORDER BY date_created DESC";
+    if ($func=="disp"){ //use inner join if mag ddisplay ka ng name; see suppliers/customers
+        $sql = "SELECT inventory_id, product_name, curr_quantity, bQty, pQty, warehouse_name, date_created, critical_amt FROM item_inventory INNER JOIN products USING (product_code) INNER JOIN warehouses USING (warehouse_code) ORDER BY date_created DESC";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $inventory_id = $rows['inventory_id'];
-            $product_code = $rows['product_code'];
+            $product_name = $rows['product_name'];
             $cquantity = $rows['curr_quantity'];
             $bq = $rows['bQty'];
             $pq = $rows['pQty'];
-            $warehouse_code= $rows['warehouse_code'];           
+            $warehouse_name= $rows['warehouse_name'];           
             $date_created =  $rows['date_created'];
             $critical_amt =  $rows['critical_amt'];
         ?>
@@ -28,12 +28,12 @@
             <td><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $inventory_id ?>'></td>
             <td><?= $inventory_id ?></td>
             <td><?= $date_created ?></td>
-            <td><?= $product_code ?></td>
+            <td><?= $product_name ?></td>
             <td><?= $bq?></td>
             <td><?= $pq?></td>
             <td><?= $cquantity?></td>
             <td><?= $critical_amt ?></td>
-            <td><?= $warehouse_code?></td>
+            <td><?= $warehouse_name?></td>
         <?php
         }
         echo "number of rows: " . $result->num_rows;
@@ -48,8 +48,6 @@
         $date_created = $_POST['i_date'];
         $i_date = date("Y-m-d H:i:s",strtotime($date_created));
         $critical_amt =$_POST['critical_amt'];
-
-        echo($inventory_id);
 
         $sql = "INSERT INTO item_inventory (inventory_id, product_code, curr_quantity, bQty, pQty, warehouse_code, date_created, critical_amt) VALUES (?,?,?,?,?,?,?,?)";
         $stmt = $con->prepare($sql);

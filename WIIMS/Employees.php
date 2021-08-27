@@ -268,7 +268,6 @@
     </div>
     <script>
     
-
     $(document).ready(function(){
         $("#searchInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();

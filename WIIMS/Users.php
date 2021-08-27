@@ -434,7 +434,6 @@
                 <div class="modal-footer">
                     <button class="btn-cancel" type="button">Cancel</button>
                     <a class ="btn-submit" value="Confirm" id="okay" name="insert">Confirm</a>
-                   <!-- <a class="btn-confirm" id="okay">Confirm</a>-->
                 </div>
             </div>
         </div>
@@ -561,8 +560,6 @@
             $(this).parents("tr").remove(); //Remove field html
         });
     }
-    
-
     
     function emptyForm(){
 

@@ -410,8 +410,57 @@
             </div>
         </div>
     </div>
-    <script>
+<!--delete modal end-->
+<!--product type modal-->
+    <div id = "productTypeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Product Type</h5>
+                    <button class="close" type="button">
+                        <span>×</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-message">
+                        <table id="ptypeTable" class="modalTable" width = "100%">
+                                <thead>
+                                    <tr>
+                                        <td>Product Type</td>
+                                        <td>Description</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input class ="medium-input" id = "1type" type="string"></td>
+                                        <td><input class ="medium-input" id = "2type" type="string"></td>
+                                        <td><button id = "addType"><span class="las la-plus"></span></button></td>
 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                       <!-- <td>Oven</td>
+                                        <td class = "description">Oven tol</td> -->
+                                        
+                                    </tr>
+                                    <tr>
+                                       <!-- <td>Oven</td>
+                                        <td class = "description">Oven tol</td>
+                                        <td><button><span class="las la-trash"></span></button></td> -->
+                                    </tr>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" type="button">Cancel</button>
+                   <!-- <button class ="btn-submit" value="Confirm" id="delete" name="delete">Confirm</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+<!--modal end-->
+    <script>
     $(document).ready(function(){
         $("#searchInput").on("keyup", function() {
             var value = $(this).val().toLowerCase();
@@ -537,7 +586,33 @@
                     alert("Something went wrong");
                 }
             });
-        }
+        $.ajax({    //create an ajax request to display.php
+            type: "POST",
+            url: "php/functions/function_product.php",
+            cache: false,
+            async: false,
+            dataType:"json",
+            data: {
+                'func':"category",
+            },                             
+            success: function(data){  
+                $("#addType").click(function(e){
+                var prod = $("#a_product_type").val();
+                var prod2 = $("#a_pdescirption").val();
+                var insertRec = "<tr class = 'arow'><td class = '1ptype'><td class = '2ptype'>"+ prod + prod2+"</td>" + "<td><button class = 'removeItem'><span class='las la-trash'></span></button></td></td></tr>";
+                $("#ptypeTable tbody").append(insertRec);
+                
+                })
+            },
+            error: function(){
+                alert("Something went wrong");
+            }
+        });
+        $("#ptypeTable").on('click', '.removeItem', function(e){
+            e.preventDefault();
+            $(this).parents("tr").remove(); //Remove field html
+        });
+    }
         function emptyForm(){
 
             $('#a_product_code').val();
@@ -552,6 +627,9 @@
             $('#a_item_price').val();
             $('#a_supplier_id').val();
 
+            $('#a_product_type').val();
+            $('#a_description').val();
+
             $('#e_product_code').val();
             $('#e_product_name').val();
             $('#e_manufacturer').val();
@@ -564,6 +642,37 @@
             $('#e_item_price').val();
             $('#e_supplier_id').val();
         }
+
+        $("#addType").click(function(){
+            var product_type = $('#a_product_type').val();
+            var description = $('#a_description').val();
+            
+            event.preventDefault(); 
+
+            $.ajax({
+                method: "POST",
+                url: "php/functions/function_product.php",
+                cache:false,
+                async: false,
+                data: {
+                    'func': "add_ptype",
+                    'product_type':product_type, 
+                    'description':description,
+                },
+                
+                success: function(data) {
+                    $('#addProductModal').hide();
+                    alert(data);
+                    loadData();
+                    emptyForm();
+                    console.log(data);
+                },
+                error: function(){
+                    alert(data);
+                    alert("hagorn")
+            }
+            });
+        });
         //insert into table without relaod/refresh page
         $("#insert").click(function(){
             var valid = this.form.checkValidity();
@@ -689,54 +798,8 @@
             });
         });
     });
+    
     </script>
-    <!--delete modal end-->
-    <div id = "productTypeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Product Type</h5>
-                    <button class="close" type="button">
-                        <span>×</span>
-                        </button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-message">
-                        <table id="ptypeTable" class="modalTable" width = "100%">
-                                <thead>
-                                    <tr>
-                                        <td>Product Type</td>
-                                        <td>Description</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input class ="medium-input" type="string"></td>
-                                        <td><input class ="medium-input" type="string"></td>
-                                        <td><button><span class="las la-plus"></span></button></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Oven</td>
-                                        <td class = "description">Oven tol</td>
-                                        <td><button><span class="las la-trash"></span></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Oven</td>
-                                        <td class = "description">Oven tol</td>
-                                        <td><button><span class="las la-trash"></span></button></td>
-                                    </tr>
-                                </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-cancel" type="button">Cancel</button>
-                    <button class ="btn-submit" value="Confirm" id="delete" name="delete">Confirm</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </main>
 <?php
     include('php/includes/footer.php');

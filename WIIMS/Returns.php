@@ -40,7 +40,7 @@
                                         <td></td>
                                         <td id = "r_id">Return ID</td>
                                         <td id = "t_no">Transaction No</td>
-                                        <td id = "p_code">Product Code</td>
+                                        <td id = "p_code">Product Name</td>
                                         <td id = "qty">Quantity</td>
                                         <td id = "item_p">Item Price</td>
                                         <td id = "total_p">Total Price</td>
