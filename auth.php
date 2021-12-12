@@ -2,9 +2,9 @@
     session_start();
     //connection info.
     $DATABASE_HOST = 'localhost';
-    $DATABASE_USER = 'root';
-    $DATABASE_PASS = '';
-    $DATABASE_NAME = 'db_inventory';
+    $DATABASE_USER = 'u696566447_bcadmin';
+    $DATABASE_PASS = 'Bakerscraft2021';
+    $DATABASE_NAME = 'u696566447_db_inventory';
     //connect using data above.
     $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
     if (mysqli_connect_errno() ) {
