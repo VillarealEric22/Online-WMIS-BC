@@ -3,7 +3,7 @@ include('../db.php');
 
 $func = $_POST['func'];
 if ($func == "product"){
-    $sql = "SELECT product_code, product_img, product_name, manufacturer, product_type, color, rop_min, critical_amt, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) GROUP BY product_code";
+    $sql = "SELECT product_code, product_img, product_name, manufacturer, product_type, color, ro_categ, rop_min, critical_amt, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) GROUP BY product_code";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $product_img = $rows['product_img'];
@@ -12,11 +12,12 @@ if ($func == "product"){
         $manufacturer = $rows['manufacturer'];
         $product_type =  $rows['product_type'];            
         $color =  $rows['color'];
+        $ro_categ = $rows['ro_categ'];
         $rop = $rows['rop_min'];
         $crit = $rows['critical_amt'];
         $qty =  $rows['qty'];
         $item_price =  $rows['item_price'];
-        if($qty>$rop){
+        if($ro_categ == 'JIT' || $qty>$rop){
             ?>
             <tr id='tr_<?= $product_code ?>' class ='tablerow'>
                 <td class = "table-main" ><input type='checkbox' id = toggle name='selectable[]' class = "selectable" value='<?= $product_code ?>'></td>
