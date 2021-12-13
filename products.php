@@ -537,9 +537,6 @@ $(document).ready(function(){
             }
         }
         else{
-            for (var value of fd.values()) {
-                console.log(value);
-                }
             // validationnnnn
             $("#valid").html(valid);
             if (valid) {
