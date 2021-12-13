@@ -49,9 +49,6 @@
                 <ul class = pagination>
                 </ul>
             </div>
-            <div class="table-info">
-                Total rows: 9999
-            </div>
         </div>
     </div>
 </div>
