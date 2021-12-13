@@ -557,7 +557,7 @@ $(document).ready(function(){
                         console.log(data);
                     },
                     error: function(data){
-                        console.log(JSON.stringify(error));
+                        alert(data);
                     }
                 });
             }
