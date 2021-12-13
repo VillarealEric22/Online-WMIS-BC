@@ -510,36 +510,31 @@ $(document).ready(function(){
         fd.append('desc',desc);
 
         var input = $('#form-submit').val();
-        if(input == 'Insert'){
-                // validationnnnn
-            $("#valid").html(valid);
-            if (valid) {
-                event.preventDefault(); 
-                $.ajax({
-                    type: "POST",
-                    url: "includes/functions/add_function.php",
-                    cache:false,
-                    async: false,
-                    processData: false,
-                    contentType: false,
-                    data: fd,
-                    success: function(data) {
-                        emptyProductForm();
-                        $('#product').hide();
-                        alert(data);
-                        loadData();
-                    },
-                    error: function(){
-                        alert(data);
-                        alert("hagorn");
-                    }
-                });
-            }
-        }
-        else{
-            // validationnnnn
-            $("#valid").html(valid);
-            if (valid) {
+        // validationnnnn
+        $("#valid").html(valid);
+        if (valid) {
+            f(input == 'Insert'){
+                    event.preventDefault(); 
+                    $.ajax({
+                        type: "POST",
+                        url: "includes/functions/add_function.php",
+                        cache:false,
+                        async: false,
+                        processData: false,
+                        contentType: false,
+                        data: fd,
+                        success: function(data) {
+                            emptyProductForm();
+                            $('#product').hide();
+                            alert(data);
+                            loadData();
+                        },
+                        error: function(data){
+                            alert(data);
+                        }
+                    });
+                }
+            else{
                 event.preventDefault(); 
                 $.ajax({
                     type: "POST",
@@ -558,6 +553,7 @@ $(document).ready(function(){
                     },
                     error: function(data){
                         alert(data);
+                        console.log(data);
                     }
                 });
             }
