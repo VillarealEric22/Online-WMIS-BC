@@ -50,8 +50,6 @@
                 <ul class = pagination>
                 </ul>
             </div>
-            <div class="table-info">
-            </div>
         </div>
     </div>
 </div>
