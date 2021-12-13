@@ -31,7 +31,6 @@
                     <input type="text" name="username" placeholder="Username" id="username" autocomplete="off" required>
                     <input type="password" name="password" placeholder="Password" id="password" autocomplete="off" required>   
                     <input type = "submit" value="Sign-In" class="sign-in"> 
-                    <label class="rememberme" for="remember"><input type="checkbox" name="remember"> Remember me</label>
                 </form> 
             </div>
         </div>
