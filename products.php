@@ -514,31 +514,10 @@ $(document).ready(function(){
         $("#valid").html(valid);
         if (valid) {
             if(input == 'Insert'){
-                    event.preventDefault(); 
-                    $.ajax({
-                        type: "POST",
-                        url: "includes/functions/add_function.php",
-                        cache:false,
-                        async: false,
-                        processData: false,
-                        contentType: false,
-                        data: fd,
-                        success: function(data) {
-                            emptyProductForm();
-                            $('#product').hide();
-                            alert(data);
-                            loadData();
-                        },
-                        error: function(data){
-                            alert(data);
-                        }
-                    });
-                }
-            else{
                 event.preventDefault(); 
                 $.ajax({
                     type: "POST",
-                    url: "includes/functions/update_function.php",
+                    url: "includes/functions/add_function.php",
                     cache:false,
                     async: false,
                     processData: false,
@@ -549,13 +528,14 @@ $(document).ready(function(){
                         $('#product').hide();
                         alert(data);
                         loadData();
-                        console.log(data);
                     },
                     error: function(data){
                         alert(data);
-                        console.log(data);
                     }
                 });
+            }
+            else{
+                alert('Ajax is the issue');
             }
         }
     });
