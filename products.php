@@ -509,14 +509,14 @@ $(document).ready(function(){
         fd.append('supplier_id',supplier_id);
         fd.append('desc',desc);
 
-        var input = $('#form-submit').val();
-        // validationnnnn
-        $("#valid").html(valid);
-        if (valid) {
-            if(input == 'Insert'){
+         var input = $('#form-submit').val();
+        if(input == 'Insert'){
+                // validationnnnn
+            $("#valid").html(valid);
+            if (valid) {
                 event.preventDefault(); 
                 $.ajax({
-                    type: "POST",
+                    method: "POST",
                     url: "includes/functions/add_function.php",
                     cache:false,
                     async: false,
@@ -529,13 +529,37 @@ $(document).ready(function(){
                         alert(data);
                         loadData();
                     },
-                    error: function(data){
+                    error: function(){
                         alert(data);
+                        alert("hagorn");
                     }
                 });
             }
-            else{
-                alert('Ajax is the issue');
+        }
+        else{
+            // validationnnnn
+            $("#valid").html(valid);
+            if (valid) {
+                event.preventDefault(); 
+                $.ajax({
+                    method: "POST",
+                    url: "includes/functions/update_function.php",
+                    cache:false,
+                    async: false,
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function(data) {
+                        emptyProductForm();
+                        $('#product').hide();
+                        alert(data);
+                        loadData();
+                        console.log(data);
+                    },
+                    error: function(){
+                        alert(data);
+                    }
+                });
             }
         }
     });
