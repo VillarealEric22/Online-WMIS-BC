@@ -40,10 +40,13 @@ if ($func == "product"){
                     $pathclean =  str_replace("../../", "", $path);
                     $insert = $con->query("UPDATE products SET `product_img` = '$pathclean' WHERE product_code = '$product_code'");
                 }
-            } 
+            }
             else {
                 echo 'invalid file';
             }
+        }
+        else{
+            
         }
         
     } else { 
