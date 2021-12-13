@@ -516,7 +516,7 @@ $(document).ready(function(){
             if (valid) {
                 event.preventDefault(); 
                 $.ajax({
-                    method: "POST",
+                    type: "POST",
                     url: "includes/functions/add_function.php",
                     cache:false,
                     async: false,
@@ -542,7 +542,7 @@ $(document).ready(function(){
             if (valid) {
                 event.preventDefault(); 
                 $.ajax({
-                    method: "POST",
+                    type: "POST",
                     url: "includes/functions/update_function.php",
                     cache:false,
                     async: false,
