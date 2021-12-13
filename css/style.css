@@ -831,7 +831,7 @@ form .extra-details{
 		overflow-x: auto;
 	}
 	.details .table-view table{
-		width: 600px;
+		width: 100%;
 	} 
 	.cardHeader h2{
 		font-weight: 600;
