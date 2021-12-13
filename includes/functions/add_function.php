@@ -34,7 +34,7 @@ if ($func == "product"){
     // Close connection
     if ($stmt->execute()){
         echo "New record created successfully";
-        if(isset()){
+        if(isset($_FILES['file']['name'];)){
             $img = $_FILES['file']['name'];
             $tmp = $_FILES['file']['tmp_name'];
             // get uploaded file's extension
