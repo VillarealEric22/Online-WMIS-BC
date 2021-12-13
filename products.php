@@ -556,8 +556,8 @@ $(document).ready(function(){
                         loadData();
                         console.log(data);
                     },
-                    error: function(){
-                        alert(data);
+                    error: function(data){
+                        console.log(JSON.stringify(error));
                     }
                 });
             }
