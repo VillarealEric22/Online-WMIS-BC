@@ -513,7 +513,7 @@ $(document).ready(function(){
         // validationnnnn
         $("#valid").html(valid);
         if (valid) {
-            f(input == 'Insert'){
+            if(input == 'Insert'){
                     event.preventDefault(); 
                     $.ajax({
                         type: "POST",
