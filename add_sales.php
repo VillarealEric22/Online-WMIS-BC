@@ -120,7 +120,7 @@
                     </div>
                     <div class="input-box">
                         <span class="label">Contact No.</span>
-                        <input type="text" id = "contact" maxlength = '11' onkeypress='return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))' placeholder="Contact No." required>
+                        <input type="text" id = "contact" maxlength = '11' onkeypress='return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))' placeholder="Contact No.">
                     </div>
                 </div>
                 <div class="action-button">
