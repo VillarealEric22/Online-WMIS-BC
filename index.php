@@ -33,11 +33,6 @@
                     <input type = "submit" value="Sign-In" class="sign-in"> 
                     <label class="rememberme" for="remember"><input type="checkbox" name="remember"> Remember me</label>
                 </form> 
-                <a href="#" class="forgot">Forgot Password?</a>  
-                <div class="contact">
-                    <p>Having problems signing in?</p>
-                    <a href="#" class="contact-admin"> Contact an Administrator</a>
-                </div>
             </div>
         </div>
     </div> 
