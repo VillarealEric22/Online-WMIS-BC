@@ -85,7 +85,7 @@ if ($func == "product-pos"){
     }
 }
 else if ($func == "categ"){
-    $sql = "SELECT id, product_type, IFNULL(count(product_code),0) AS total FROM product_category LEFT JOIN products USING (product_type) GROUP BY product_type";
+    $sql = "SELECT id, product_type, IFNULL(count(product_code),0) AS total FROM product_category LEFT JOIN products p product_category.id = p.product_type GROUP BY product_type";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $id = $rows['id'];
@@ -101,7 +101,7 @@ else if ($func == "categ"){
     }
 }
 else if ($func == "warranty"){
-    $sql = "SELECT id, warranty_code, IFNULL(count(product_code),0) AS total, CONCAT(rep_dur, ' ',tp1) AS `refund`, CONCAT(s_warranty, ' ',tp2) AS warranty, CONCAT(sp_warranty,  ' ',tp3) AS supplier FROM warranty LEFT JOIN products USING (warranty_code) GROUP BY warranty_code";
+    $sql = "SELECT id, warranty_code, IFNULL(count(product_code),0) AS total, CONCAT(rep_dur, ' ',tp1) AS `refund`, CONCAT(s_warranty, ' ',tp2) AS warranty, CONCAT(sp_warranty,  ' ',tp3) AS supplier FROM warranty LEFT JOIN products p ON warranty.id = p.warranty_code GROUP BY warranty_code";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $id = $rows['id'];
@@ -159,7 +159,7 @@ else if($func == "supplier"){
     }
 }
 else if($func == "sales"){
-    $sql = "SELECT `transaction_no`, `c_name`, `itemsTotal`, `total_price`, `transaction_date`, CONCAT(employee.firstname, ' ', employee.lastname) AS employee FROM sales_transaction LEFT JOIN customer USING (customer_id) INNER JOIN employee USING(employee_id) ORDER BY transaction_no";
+    $sql = "SELECT `transaction_no`, `c_name`, `itemsTotal`, `total_price`, `transaction_date`, CONCAT(employee.firstname, ' ', employee.lastname) AS employee FROM sales_transaction LEFT JOIN customer USING (customer_id) INNER JOIN employee USING(employee_id) ORDER BY transaction_no DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $transaction_no = $rows['transaction_no'];
