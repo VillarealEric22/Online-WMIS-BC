@@ -30,7 +30,7 @@ if ($func == "product"){
 
     $sql = "INSERT INTO `products`(`product_code`, `product_name`, `manufacturer`, `product_type`, `color`, `item_price`, `critical_amt`, `rop_min`, `ro_categ`, `description`, `supplier_id`, `warranty_code`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param('ssssssdissis', $product_code, $product_name, $manufacturer, $product_type, $color,  $item_price, $critical, $reorder, $ro_categ, $desc, $supplier_id, $wty);
+    $stmt->bind_param('ssssssdissii', $product_code, $product_name, $manufacturer, $product_type, $color,  $item_price, $critical, $reorder, $ro_categ, $desc, $supplier_id, $wty);
     // Close connection
     if ($stmt->execute()){
         echo "New record created successfully";
