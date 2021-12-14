@@ -55,7 +55,7 @@
 <div id="user" class="modal">
     <!-- Modal content -->
     <div class="input-container">
-        <div class="title-box"><div class="title"><span id = 'action'> Add </span> Customer </div><div class="close-div"><a href="#" class = "link-2 close"></a></button></div></div>
+        <div class="title-box"><div class="title"><span id = 'action'> Add </span> User </div><div class="close-div"><a href="#" class = "link-2 close"></a></button></div></div>
         <div class="content">
             <form action="#">
                 <div class="extra-details">
