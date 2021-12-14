@@ -32,6 +32,7 @@
                     <tr>
                         <td></td>
                         <td id = 'id-h'>ID</td>
+                        <td id = 'id-h2'>ID</td>
                         <td id = 'item-h'>Total Items</td>
                         <td id = 'value-h'>Total Value</td>
                         <td id = 'date-h'>Date</td>
@@ -56,6 +57,12 @@
         <div class="content">
             <form action="#">
                 <input type = 'hidden' value ='0' id = 'counter'>
+                <div class="extra-details">
+                    <div class="input-box">
+                        <span class="label">Purchase Order #</span>
+                        <input type="text" placeholder="Purchase Order Reference #" value ='1' id = 'purchase_order_id' required disabled = "disabled">
+                    </div>
+                </div>
                 <div class="input-details">
                     <div class="input-box">
                         <span class="label">Pullout Reference #</span>
@@ -124,6 +131,7 @@ function sortTable(f,n){
             });
         }
         var f_id = 1;
+        var f_id2 = 1;
         var f_item = 1;
         var f_value = 1;
         var f_date = 1;
@@ -131,6 +139,11 @@ function sortTable(f,n){
             f_id *= -1;
             var n = $(this).prevAll().length;
             sortTable(f_id,n);
+        });
+        $("#id-h2").click(function(){
+            f_id2 *= -1;
+            var n = $(this).prevAll().length;
+            sortTable(f_id2,n);
         });
         $("#item-h").click(function(){
             f_item *= -1;
@@ -176,6 +189,7 @@ function loadData(){
             },
             dataType:"json",
             success: function(data) {
+                $('#purchase_order_id').val(data.purchase_order_id);
                 $('#pullout_id').val(data.pullout_id);
                 $('#transaction_date').val(data.date);
                 $('#grandTotal').html(data.total_price);
