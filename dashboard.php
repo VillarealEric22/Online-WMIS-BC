@@ -50,37 +50,41 @@
         <div class = "cardHeader">
             <h2>Low Stock</h2>
         </div>
-        <table style = 'display:block; overflow-y:auto; max-height: 400px;'>
-            <thead>
-                <tr>
-                    <td>Product Code</td>
-                    <td>Name</td>
-                    <td>Qty Available</td>
-                </tr>
-            </thead>
-            <tbody id = 'table-data'>
-                
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Product Code</td>
+                        <td>Name</td>
+                        <td>Qty Available</td>
+                    </tr>
+                </thead>
+                <tbody id = 'table-data'>
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class = "table-view">
         <div class = "cardHeader">
             <h2>Recent Sales</h2>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <td>Transaction #</td>
-                    <td>Customer</td>
-                    <td>Total Items</td>
-                    <td>Grand Total</td>
-                    <td>Date</td>
-                </tr>
-            </thead>
-            <tbody id = 'sales-data'>
-                
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Transaction #</td>
+                        <td>Customer</td>
+                        <td>Total Items</td>
+                        <td>Grand Total</td>
+                        <td>Date</td>
+                    </tr>
+                </thead>
+                <tbody id = 'sales-data'>
+                    
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class = "recentCustomers">
         <div class = "cardHeader">
@@ -102,7 +106,7 @@
         <div class = "cardHeader">
             <h2>Recent Orders</h2>
         </div>
-        <table style = 'display:block; overflow-y:auto; max-height: 400px;'>
+        <table>
             <thead>
                 <tr>
                     <td>Purchase Order #</td>
@@ -113,6 +117,9 @@
             <tbody id = 'order-data'>
                 
             </tbody>
+            <tfoot>
+                
+            </tfoot>
         </table>
     </div>
 </div>
