@@ -132,6 +132,7 @@ $(document).ready(function(){
         $('#c_name').html('');
         $('#c_add').html('');
         $('#c_cont').html('');
+        id_return();
     }
     function clearTb(){
         $('.pdIn').each(function(){
