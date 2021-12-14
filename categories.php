@@ -48,6 +48,9 @@
                 <ul class = pagination>
                 </ul>
             </div>
+            <div class="table-info">
+                Total rows: <span class = "t-rows"></span>
+            </div>
         </div>
     </div>
 </div>
@@ -57,17 +60,19 @@
         <div class="title-box"><div class="title"><span id = 'action'> View </span> Product Type</div><div class="close-div"><a href="" class = "link-2 close"></a></button></div></div>
         <div class="content">
         <li class = 'prod-content'><strong>Product Type: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vptype'></span></li>
-            <table id ="sortable" class="modalTable" width = "100%" style = 'display:block; overflow-y:auto; max-height: 600px;'>
-                <thead>
-                    <tr>
-                        <td style = 'font-weight:500;'>Product code</td>
-                        <td style = 'font-weight:500;'>Product name</td>           
-                    </tr>
-                </thead>   
-                <tbody id = "itemRows">
-                    
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table id ="sortable" class="modalTable" width = "100%">
+                    <thead>
+                        <tr>
+                            <td style = 'font-weight:500;'>Product code</td>
+                            <td style = 'font-weight:500;'>Product name</td>           
+                        </tr>
+                    </thead>   
+                    <tbody id = "itemRows">
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
