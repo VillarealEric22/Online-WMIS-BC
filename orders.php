@@ -203,7 +203,7 @@ $(document).ready(function(){
             success: function(data) {
                 $('#supplier_id-v').val(data.supplier_name);
                 $('#purchase_order_id').val(data.purchase_order_id);
-                $('#transaction_date').val(data.transaction_date);
+                $('#transaction_date').val(data.order_date);
                 $('#grandTotal').html(data.total_price);
                 $('#remark').val(data.remarks);
                 $('#s_add').html(data.supplier_address);
