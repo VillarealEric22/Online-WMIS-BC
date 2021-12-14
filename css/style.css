@@ -390,7 +390,7 @@ footer {
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 10px;
-	height: 500px;
+	max-height: 500px;
 	overflow-y:auto;
 }
 .details-tb table{
@@ -401,14 +401,50 @@ footer {
 thead tr:hover{
 	cursor: pointer;
 }
+.input-container table thead td{
+	font-weight: 600;
+}
+.input-container thead td{
+	position: -webkit-sticky;
+	position: sticky;
+}
+.input-container table tfoot, .details table tfoot th{
+	position: -webkit-sticky;
+	position: sticky;
+}
+.input-container .table-container{
+	position: relative;
+	max-height: 600px;
+	overflow-y: auto;
+}
 .details table thead td{
 	font-weight: 600;
+}
+.details thead td{
+	position: -webkit-sticky;
+	position: sticky;
+}
+.details .table-view .table-container{
+	position: relative;
+  	max-height: 600px;
+	overflow-y: auto;
+}
+.details table tfoot, .details table tfoot th{
+	position: -webkit-sticky;
+	position: sticky;
+}
+.transaction-split .table-view .content-row{
+	position: relative;
+  	max-height: 800px;
 }
 .transaction-split table{
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 10px;
-	
+}
+.transaction-split thead td{
+	position: -webkit-sticky;
+	position: sticky;
 }
 .transaction-split thead td{
 	font-weight: 600;
@@ -426,19 +462,24 @@ thead tr:hover{
 .transaction-split .table-view table td img{
 	width: 100px;
 }
-.transaction-split .table-view table tbody tr td:last-child,
-.transaction-split .table-view table thead tr td:last-child{
-	text-align: right;
-}
-.transaction-split .table-view table tbody tr td:nth-child(3),
-.transaction-split .table-view table thead tr td:nth-child(3){
-	text-align: center;
-}
 .transaction-split .input-tb table thead tr td,
 .transaction-split .input-tb table tbody tr td p{
 	text-align: center;
 }
-
+.input-container table tr{
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.input-container table tbody tr:hover{
+	background: #03a9f4;
+	color: #ffffff;
+}
+.input-container table tr td{
+	padding: 9px 5px;
+}
+.input-container table tbody tr td:last-child,
+.input-container table thead tr td:last-child{
+	text-align: center;
+}
 .details .table-view table tr{
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 }
@@ -550,8 +591,7 @@ thead tr:hover{
 }
 .input-container{
 	position: relative;
-	max-height: 100vh;
-	min-height: 800px;
+	max-height: 90vh;
 	max-width: 800px;
 	width: 100%;
 	background-color: #fff;
@@ -787,7 +827,7 @@ form .extra-details{
 		margin-bottom: 15px;
 	}
 	.content form{
-		max-height: 400px;
+		max-height: 600px;
 		overflow-y: scroll;
 	}
 	form::-webkit-scrollbar{
@@ -832,7 +872,7 @@ form .extra-details{
 		overflow-x: auto;
 	}
 	.details .table-view table{
-		width: 100%;
+		width: 600px;
 	} 
 	.cardHeader h2{
 		font-weight: 600;
