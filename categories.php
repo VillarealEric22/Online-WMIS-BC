@@ -49,7 +49,7 @@
                 </ul>
             </div>
             <div class="table-info">
-                Total rows: <span class = "t-rows"></span>
+
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="input-container">
         <div class="title-box"><div class="title"><span id = 'action'> View </span> Product Type</div><div class="close-div"><a href="" class = "link-2 close"></a></button></div></div>
         <div class="content">
-        <li class = 'prod-content'><strong>Product Type: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vptype'></span></li>
+            <li class = 'prod-content'><strong>Product Type: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vptype'></span></li>
             <div class="table-container">
                 <table id ="sortable" class="modalTable" width = "100%">
                     <thead>
