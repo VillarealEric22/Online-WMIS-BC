@@ -101,7 +101,7 @@ else if ($func == "categ"){
     }
 }
 else if ($func == "warranty"){
-    $sql = "SELECT id, warranty_code, IFNULL(count(product_code),0) AS total, CONCAT(rep_dur, ' ',tp1) AS `refund`, CONCAT(s_warranty, ' ',tp2) AS warranty, CONCAT(sp_warranty,  ' ',tp3) AS supplier FROM warranty LEFT JOIN products p ON warranty.id = p.warranty_code GROUP BY warranty_code";
+    $sql = "SELECT id, warranty.warranty_code, IFNULL(count(product_code),0) AS total, CONCAT(rep_dur, ' ',tp1) AS `refund`, CONCAT(s_warranty, ' ',tp2) AS warranty, CONCAT(sp_warranty,  ' ',tp3) AS supplier FROM warranty LEFT JOIN products p ON warranty.id = p.warranty_code GROUP BY warranty_code";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $id = $rows['id'];
