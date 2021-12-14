@@ -54,6 +54,17 @@ $('#maxRows').on('change', function(){
 });
 
 $(document).ready(function(){
+    //restrict to alpha numeric
+    $('input').on('input', function() {
+      var c = this.selectionStart,
+          r = /[^a-z0-9]/gi,
+          v = $(this).val();
+      if(r.test(v)) {
+        $(this).val(v.replace(r, ''));
+        c--;
+      }
+      this.setSelectionRange(c, c);
+    });
     //set date today
     date();
     function date(){
