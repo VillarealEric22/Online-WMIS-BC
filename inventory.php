@@ -260,8 +260,8 @@ $(document).ready(function(){
     }
     $('#sortable').on('click', '.btn_view', function(){
         var id = this.value;
-        view(id);
         clearTb();
+        view(id);       
         $('#view').css("display", "flex");
         $('#view').show();
     });
