@@ -193,6 +193,19 @@ $(document).ready(function(){
             }
         });
     }
+    function clearTb(){
+        $('.pdIn').each(function(){
+            var pid = $(this).attr('id');
+            var arr = pid.split('-');
+            var id = arr[1];
+            $('#p'+ pid).remove();
+            $('#w'+ pid).remove();
+            $('#r'+ pid).remove();
+            $('#row-' + id).remove();
+            $('#counter').val('0');
+            grandTotal();
+        });
+    }
     function view(id){
         var id = id;   
         var cvalue = $('#counter').val();
@@ -248,6 +261,7 @@ $(document).ready(function(){
     $('#sortable').on('click', '.btn_view', function(){
         var id = this.value;
         view(id);
+        clearTb();
         $('#view').css("display", "flex");
         $('#view').show();
     });
