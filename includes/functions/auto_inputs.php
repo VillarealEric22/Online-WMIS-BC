@@ -28,7 +28,7 @@ if ($func == "product"){
 }
 else if($func == 'sales'){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `transaction_no`, `customer_id`, `c_address`, `contact_number`, `itemsTotal`, `total_price`, `transaction_date`, `employee_id`, `remarks` FROM sales_transaction INNER JOIN customer USING (customer_id) WHERE transaction_no = '$edit_id'";
+    $sql = "SELECT `transaction_no`, `customer_id`, `c_name`, `c_address`, `contact_number`, `itemsTotal`, `total_price`, `transaction_date`, `employee_id`, `remarks` FROM sales_transaction LEFT JOIN customer USING (customer_id) WHERE transaction_no = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
@@ -93,7 +93,7 @@ else if($func == "orders"){
 }
 else if ($func == "order-1"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT`purchase_order_id`, `supplier_id`, `supplier_address`, `contact_number`, `total_price`, `order_date`, `remarks`  FROM purchase_order INNER JOIN supplier USING (supplier_id) WHERE purchase_order_id = '$edit_id'";
+    $sql = "SELECT`purchase_order_id`, `supplier_id`, `supplier_name`, `supplier_address`, `contact_number`, `total_price`, `order_date`, `remarks`  FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE purchase_order_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
@@ -110,7 +110,7 @@ else if ($func == "order-2"){
 }
 else if($func == "order-data"){
     $o_id = $_POST['o_id'];
-    $sql = "SELECT purchase_order_id, supplier_id, supplier_address, contact_number FROM purchase_order INNER JOIN supplier USING (supplier_id) WHERE purchase_order_id = '$o_id'";
+    $sql = "SELECT purchase_order_id, supplier_id, supplier_name, supplier_address, contact_number FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE purchase_order_id = '$o_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
@@ -286,7 +286,7 @@ else if($func == "pullout-id"){
 }
 else if ($func == "pullout-1"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `pullout_id`, `date`, `total_price`, `remarks` FROM pullout WHERE pullout_id = '$edit_id'";
+    $sql = "SELECT `pullout_id`, `purchase_order_id`, `date`, `total_price`, `remarks` FROM pullout WHERE pullout_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
