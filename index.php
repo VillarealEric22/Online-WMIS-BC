@@ -13,7 +13,7 @@
 <body>
     <div class="main">
         <nav class = "nav">
-            <a href="#" class="logo">Baker's Craft</a>
+            <a href="#" class="logo"><img src = 'Images/Backgrounds/bclogo.png'></a>
         </nav>
         <div class="main-content">           
             <div class="main-col-left">
