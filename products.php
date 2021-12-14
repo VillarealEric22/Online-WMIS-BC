@@ -116,7 +116,7 @@
                 <div class="extra-details">
                     <div class="input-box">
                         <span class="label">Re-order strategy</span>
-                        <select id="ro_style" autocomplete="off" style = "width:100%">
+                        <select id="ro_style" autocomplete="off" style = "width:100%" required>
                             <option value ='Safety'>Safety Stock</option>    
                             <option value ='JIT'>JIT</option>
                         </select>
