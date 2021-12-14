@@ -24,7 +24,7 @@
     }
     else if($func == "productCategory"){
 
-        $query = "SELECT product_type FROM product_category";
+        $query = "SELECT id, product_type FROM product_category";
         $result = mysqli_query($con,$query) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $array = array();
         while($row = mysqli_fetch_array($result)){
@@ -34,7 +34,7 @@
     }
     else if($func == "warrantyCode"){
 
-        $query = "SELECT warranty_code FROM warranty";
+        $query = "SELECT id, warranty_code FROM warranty";
         $result = mysqli_query($con,$query) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $array = array();
         while($row = mysqli_fetch_array($result)){
