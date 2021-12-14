@@ -550,7 +550,7 @@ thead tr:hover{
 }
 .input-container{
 	position: relative;
-	max-height: 90vh;
+	max-height: 100vh;
 	max-width: 800px;
 	width: 100%;
 	background-color: #fff;
