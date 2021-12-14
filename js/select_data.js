@@ -146,7 +146,7 @@ function warranty(){
         dataType:"json",
         success: function(data) {
             $.each(data, function(){
-                var insert = "<option class = 'warranty' value='" + this.warranty_code + "'>" + this.warranty_code + "</option>";
+                var insert = "<option class = 'warranty' value='" + this.id + "'>" + this.warranty_code + "</option>";
                 $("#warranty_code").append(insert);
             })
         },
