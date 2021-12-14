@@ -51,6 +51,9 @@
                 <ul class = pagination>
                 </ul>
             </div>
+            <div class="table-info">
+
+            </div>
         </div>
     </div>
 </div>
@@ -63,17 +66,19 @@
             <li class = 'prod-content'><strong>Replace / Refund: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vrefund'></span></li>
             <li class = 'prod-content'><strong>Store Warranty: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vwarranty'></span></li>
             <li class = 'prod-content'><strong>Manufacturer Warranty: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vmfgr'></span></li>
-            <table id ="sortable" class="modalTable" style = 'display:block; overflow-y:auto; max-height: 600px;'>
-                <thead>
-                    <tr>
-                        <td style = 'font-weight:500;'>Product code</td>
-                        <td style = 'font-weight:500;'>Product name</td>           
-                    </tr>
-                </thead>   
-                <tbody id = "itemRows">
-                    
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table id ="sortable" class="modalTable" width = "100%">
+                    <thead>
+                        <tr>
+                            <td style = 'font-weight:500;'>Product code</td>
+                            <td style = 'font-weight:500;'>Product name</td>           
+                        </tr>
+                    </thead>   
+                    <tbody id = "itemRows">
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
