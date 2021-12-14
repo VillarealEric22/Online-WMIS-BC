@@ -370,6 +370,7 @@ else if($func == "return"){
 }
 else if($func == "pullout"){
     $return_id = $_POST['pullout_id'];
+    $po_id = $_POST['po_id'];
     $total_price = $_POST['total_price'];
     $itemsTotal = $_POST['itemsTotal'];  
     $return_date = $_POST['r_date'];
@@ -386,8 +387,7 @@ else if($func == "pullout"){
     $return_type = $_POST['return_type'];
 
     $mi = new MultipleIterator();
-
-    $mi->attachIterator(new ArrayIterator($rID));
+    
     $mi->attachIterator(new ArrayIterator($product_code));
     $mi->attachIterator(new ArrayIterator($quantity));
     $mi->attachIterator(new ArrayIterator($item_price));
@@ -395,9 +395,9 @@ else if($func == "pullout"){
     $mi->attachIterator(new ArrayIterator($wh_source));
     $mi->attachIterator(new ArrayIterator($return_type));
 
-    $sql = "INSERT INTO pullout (`pullout_id`, `total_items`, `total_price`, `date`, `remarks`) VALUES (?,?,?,?,?)";
+    $sql = "INSERT INTO pullout (`pullout_id`, `purchase_order_id`, `total_items`, `total_price`, `date`, `remarks`) VALUES (?,?,?,?,?,?)";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param('iidss', $return_id, $itemsTotal, $total_price, $r_date, $remarks);
+    $stmt->bind_param('iiidss', $return_id, $po_id, $itemsTotal, $total_price, $r_date, $remarks);
     if ($stmt->execute()){
 
         $sql2 = "INSERT INTO pullout_items (pullout_id, product_code, quantity, item_price, price_total, return_type, warehouse_code) VALUES (?,?,?,?,?,?,?)";
