@@ -787,7 +787,7 @@ form .extra-details{
 		margin-bottom: 15px;
 	}
 	.content form{
-		max-height: 600px;
+		max-height: 400px;
 		overflow-y: scroll;
 	}
 	form::-webkit-scrollbar{
