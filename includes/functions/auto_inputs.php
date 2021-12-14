@@ -21,7 +21,7 @@ $stmt1->close();
 $func = $_POST['func'];
 if ($func == "product"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `product_code`, `product_img`, `product_name`, `manufacturer`, `product_type`, `color`, `item_price`, `critical_amt`, `rop_min`, `ro_categ`, `product_img`, `description`, `supplier_id`, w.warranty_code FROM `products` INNER JOIN warranty w ON products.warranty_code = w.id WHERE `product_code` = '$edit_id'";
+    $sql = "SELECT `product_code`, `product_img`, `product_name`, `manufacturer`, `product_type`, `color`, `item_price`, `critical_amt`, `rop_min`, `ro_categ`, `product_img`, `description`, `supplier_id`, w.warranty_code AS warranty_code FROM `products` INNER JOIN warranty w ON products.warranty_code = w.id WHERE `product_code` = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result); 
     echo json_encode($rows);
