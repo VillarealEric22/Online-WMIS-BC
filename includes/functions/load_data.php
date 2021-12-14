@@ -461,7 +461,7 @@ else if($func == 'wh_items'){
 else if($func == "check_validity"){
     $pcode = $_POST['pcode'];
     $t_no = $_POST['t_no'];
-    $query = "SELECT transaction_no, transaction_date, product_code, warranty_code, CONCAT ('-', rep_dur, tp1) AS replacement, CONCAT('-', s_warranty, tp2) AS s_warranty FROM sales_transaction INNER JOIN cart_items USING (transaction_no) INNER JOIN products USING (product_code) INNER JOIN warranty USING (warranty_code) WHERE product_code = '$pcode' AND transaction_no = '$t_no'";
+    $query = "SELECT transaction_no, transaction_date, product_code, warranty_code, CONCAT ('-', rep_dur, tp1) AS replacement, CONCAT('-', s_warranty, tp2) AS s_warranty FROM sales_transaction INNER JOIN cart_items USING (transaction_no) INNER JOIN products USING (product_code) INNER JOIN warranty w ON w.id = products.warranty_code  WHERE product_code = '$pcode' AND transaction_no = '$t_no'";
     $result = mysqli_query($con, $query) or die($con->error);
 
     while($row = mysqli_fetch_array($result)) {
@@ -485,7 +485,7 @@ else if($func == "check_validity"){
   else if($func == "check_validity_s"){
     $pcode = $_POST['pcode'];
     $t_no = $_POST['t_no'];
-    $query = "SELECT purchase_order_id, order_date, product_code, warranty_code, CONCAT('-', sp_warranty, tp3) AS M_warranty FROM purchase_order INNER JOIN item_orders USING (purchase_order_id) INNER JOIN products USING (product_code) INNER JOIN warranty USING (warranty_code) WHERE product_code = '$pcode' AND purchase_order_id = '$t_no'";
+    $query = "SELECT purchase_order_id, order_date, product_code, warranty_code, CONCAT('-', sp_warranty, tp3) AS M_warranty FROM purchase_order INNER JOIN item_orders USING (purchase_order_id) INNER JOIN products USING (product_code) INNER JOIN warranty w ON w.id = products.warranty_code WHERE product_code = '$pcode' AND purchase_order_id = '$t_no'";
     $result = mysqli_query($con, $query) or die($con->error);
     while($row = mysqli_fetch_array($result)) {
       $m_warranty = $row['M_warranty'];
