@@ -75,11 +75,8 @@
                     </div>
                     <div class="input-box">
                         <span class="label">Role</span>
-                        <select id="role" class = "u_role" autocomplete="off" style = "width:100%">
-                            <option value = 'Default'> Default </option>
+                        <select id="role" class = "u_role" autocomplete="off" style = "width:100%"> 
                             <option value = 'Admin'> Admin </option>
-                            <option value = 'Sales'> Sales </option>
-                            <option value = 'Warehouse'> Warehouse Manager</option>
                         </select>
                     </div>
                 </div>
