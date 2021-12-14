@@ -198,7 +198,7 @@ $(document).ready(function(){
             },
             dataType:"json",
             success: function(data) {
-                $('#supplier_id-v').val(data.supplier_id);
+                $('#supplier_id-v').val(data.supplier_name);
                 $('#purchase_order_id').val(data.purchase_order_id);
                 $('#transaction_date').val(data.order_date);
                 $('#grandTotal').html(data.total_price);
