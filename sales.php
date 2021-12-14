@@ -201,7 +201,7 @@ $(document).ready(function(){
             },
             dataType:"json",
             success: function(data) {
-                $('#customer_id-v').val(data.customer_id);
+                $('#customer_id-v').val(data.c_name);
                 $('#transaction_no').val(data.transaction_no);
                 $('#transaction_date').val(data.transaction_date);
                 $('#grandTotal').html(data.total_price);
