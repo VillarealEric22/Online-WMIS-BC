@@ -469,13 +469,6 @@ thead tr:hover{
 .input-container table tr{
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 }
-.input-container table tbody tr:hover{
-	background: #03a9f4;
-	color: #ffffff;
-}
-.input-container table tr td{
-	padding: 9px 5px;
-}
 .input-container table tbody tr td:last-child,
 .input-container table thead tr td:last-child{
 	text-align: center;
