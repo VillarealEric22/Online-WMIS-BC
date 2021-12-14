@@ -18,10 +18,11 @@ if ($func == "product"){
     $ro_categ = $_POST['ro_categ'];
     $desc = $_POST['desc'];
     $supplier_id = $_POST['supplier_id'];
+    $wty = $_POST['wty'];
     
-    $sql = "UPDATE `products` SET `product_name`=?,`manufacturer`=?,`product_type`=?,`color`=?,`item_price`=?,`critical_amt`=?,`rop_min`=?,`ro_categ`=?,`description`=?,`supplier_id`= ? WHERE product_code = ?";
+    $sql = "UPDATE `products` SET `product_name`=?,`manufacturer`=?,`product_type`=?,`color`=?,`item_price`=?,`critical_amt`=?,`rop_min`=?,`ro_categ`=?, `warranty_code`, `description`=?,`supplier_id`= ? WHERE product_code = ?";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param('sssssdissis', $product_name, $manufacturer, $product_type, $color,  $item_price, $critical, $reorder, $ro_categ, $desc, $supplier_id, $product_code);
+    $stmt->bind_param('sssssdisisis', $product_name, $manufacturer, $product_type, $color,  $item_price, $critical, $reorder, $ro_categ, $wty, $desc, $supplier_id, $product_code);
     // Close connection
     if ($stmt->execute()){
         echo $product_code. "'s record updated successfully";
