@@ -417,7 +417,7 @@ $(document).ready(function(){
                 $('#critical_amt').val(data.critical_amt);
                 $('#rop').val(data.rop_min);
                 $('#ro_style').val(data.ro_categ).change();
-                $('#warranty_code').val(data.warranty_code).change();
+                $('#warranty_code').val(data.id).change();
                 $('#supplier_id').val(data.supplier_id).change();
                 $('#descr').val(data.description);
             },
