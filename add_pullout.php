@@ -279,7 +279,8 @@ $(document).ready(function(){
                     'itemsTotal':itemsTotal,
                     'return_type':return_type,
                     'r_date':return_date,
-                    'remarks':remarks
+                    'remarks':remarks,
+                    'po_id':purchase_id
                 },
                 success: function(data) {
                     emptyPullOutForm();
