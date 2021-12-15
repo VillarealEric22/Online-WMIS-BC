@@ -18,10 +18,15 @@ if ($func == "product"){
             $sql = "SELECT product_img FROM products WHERE product_code = '$value'";
             $res = mysqli_query($con, $sql) or die($con->error);
                 while($rows = mysqli_fetch_array($res)){
-                    $path = $rows['product_img'];
-                    unlink('../../'.$path);
-                    $sqlDel = "DELETE FROM products WHERE product_code = '$value'";
-                    $res1 = mysqli_query($con, $sqlDel) or die($con->error);
+			if (empty($rows['product_img'])) { 
+				$sqlDel = "DELETE FROM products WHERE product_code = '$value'";
+                    		$res1 = mysqli_query($con, $sqlDel) or die($con->error); 
+			}else{
+				$path = $rows['product_img'];
+			    	unlink('../../'.$path);
+			    	$sqlDel = "DELETE FROM products WHERE product_code = '$value'";
+			    	$res1 = mysqli_query($con, $sqlDel) or die($con->error);
+			}
                 }
         }
     }
