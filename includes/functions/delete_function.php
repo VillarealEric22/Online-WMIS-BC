@@ -209,7 +209,7 @@ else if($func == "warranty"){
     $array = array();
 
     foreach($supplier_id as $value){
-        $sql_check = "SELECT warranty_code FROM warranty INNER JOIN products USING (warranty_code) WHERE id = '$value' LIMIT 1";
+        $sql_check = "SELECT warranty_code FROM warranty INNER JOIN products p ON warranty.id = p.warranty_code WHERE id = '$value' LIMIT 1";
         $result = mysqli_query($con, $sql_check);
         if (mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_array($result)){
