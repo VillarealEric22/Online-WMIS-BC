@@ -57,7 +57,7 @@ $(document).ready(function(){
     //restrict to alpha numeric
     $('input').on('input', function() {
         var c = this.selectionStart,
-            r = /[^A-Za-z0-9_-]+\s*/gi,
+            r = /[^A-Za-z0-9_-\s]/gi,
             v = $(this).val();
         if(r.test(v)) {
           $(this).val(v.replace(r, ''));
