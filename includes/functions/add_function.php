@@ -387,12 +387,13 @@ else if($func == "pullout"){
 
     $mi = new MultipleIterator();
     
+    $mi->attachIterator(new ArrayIterator($rID));
     $mi->attachIterator(new ArrayIterator($product_code));
     $mi->attachIterator(new ArrayIterator($quantity));
     $mi->attachIterator(new ArrayIterator($item_price));
     $mi->attachIterator(new ArrayIterator($tot_price));
-    $mi->attachIterator(new ArrayIterator($wh_source));
     $mi->attachIterator(new ArrayIterator($return_type));
+    $mi->attachIterator(new ArrayIterator($wh_source));
 
     $sql = "INSERT INTO pullout (`pullout_id`, `purchase_order_id`, `total_items`, `total_price`, `date`, `remarks`) VALUES (?,?,?,?,?,?)";
     $stmt = $con->prepare($sql);
