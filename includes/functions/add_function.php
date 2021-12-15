@@ -415,6 +415,7 @@ else if($func == "pullout"){
             list($rID, $product_code, $quantity, $item_price, $tot_price, $wh_source) = $value;
             $stmt3->bind_param('iss', $quantity, $wh_source, $product_code);
             $stmt3->execute();
+            echo ($quantity. $wh_source. $product_code);
         }
         echo "Stocks has been updated";
 
