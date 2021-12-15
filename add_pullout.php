@@ -256,7 +256,7 @@ $(document).ready(function(){
             for (var i = 0; i < quantity.length; i++) {
                 itemsTotal += quantity[i] << 0;
             }
-
+        console.log(whCode);
         // validationnnnn
         $("#valid").html(valid);
         if (valid) {
