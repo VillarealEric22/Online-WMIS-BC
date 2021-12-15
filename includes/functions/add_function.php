@@ -375,7 +375,6 @@ else if($func == "pullout"){
     $itemsTotal = $_POST['itemsTotal'];  
     $return_date = $_POST['r_date'];
     $remarks = $_POST['remarks'];
-    $whCode = $_POST['whCode'];
     $r_date = date("Y-m-d H:i:s",strtotime($return_date));
 
     $rID = $_POST['arrNo'];
