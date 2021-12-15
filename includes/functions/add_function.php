@@ -403,7 +403,7 @@ else if($func == "pullout"){
         $sql2 = "INSERT INTO pullout_items (pullout_id, product_code, quantity, item_price, price_total, return_type, warehouse_code) VALUES (?,?,?,?,?,?,?)";
         $stmt2 = $con->prepare($sql2);
         foreach ($mi as $value ) {
-            list($rID, $product_code, $quantity, $item_price, $tot_price, $wh_source, $return_type) = $value;
+            list($rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source) = $value;
             $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source);
             $stmt2->execute();
         }
