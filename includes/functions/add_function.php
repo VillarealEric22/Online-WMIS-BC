@@ -344,7 +344,7 @@ else if($func == "return"){
             list($rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType) = $value;
             $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType);
             $stmt2->execute();
-            if($retType == "refund"){
+            if($retType == "Refund"){
                 $sql3 = "UPDATE whse_items SET quantity = (quantity + ?) WHERE product_code = ? AND warehouse_code = ?";
                 $stmt3 = $con->prepare($sql3);
                 
