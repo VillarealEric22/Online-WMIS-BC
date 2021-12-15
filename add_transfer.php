@@ -223,6 +223,7 @@ $(document).ready(function(){
                     emptyTransferForm();
                     alert(data);
                     clearTb();
+                    id_transfer();
                 },
                 error: function(){
                     alert(data);
