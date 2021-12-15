@@ -350,7 +350,7 @@ else if($func == "return"){
                 
                 foreach ($mi as $value ) {
                 list($rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType) = $value;
-                $stmt3->bind_param('isi', $quantity, $product_code, $whCode);
+                $stmt3->bind_param('iss', $quantity, $product_code, $whCode);
                 $stmt3->execute();
                 }
                 echo "updated stocks";
