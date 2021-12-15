@@ -17,7 +17,7 @@ if ($func == "product"){
         $crit = $rows['critical_amt'];
         $qty =  $rows['qty'];
         $item_price =  $rows['item_price'];
-        if($ro_categ == 'JIT' || $qty>$rop){
+        if($ro_categ != 'JIT' && $qty>$rop){
             ?>
             <tr id='tr_<?= $product_code ?>' class ='tablerow'>
                 <td class = "table-main" ><input type='checkbox' id = toggle name='selectable[]' class = "selectable" value='<?= $product_code ?>'></td>
@@ -31,7 +31,7 @@ if ($func == "product"){
             </tr>
             <?php
         }
-        else if($qty<=$rop && $qty>$crit){
+        else if($ro_categ != 'JIT' && $qty<=$rop && $qty>$crit){
             ?>
             <tr id='tr_<?= $product_code ?>' class ='tablerow'>
                 <td class = "table-main" ><input type='checkbox' id = toggle name='selectable[]' class = "selectable" value='<?= $product_code ?>'></td>
@@ -45,7 +45,7 @@ if ($func == "product"){
             </tr>
             <?php
         }
-        else{
+        else if($ro_categ != 'JIT' &&  $qty<=$rop && $qty<=$crit){
             ?>
             <tr id='tr_<?= $product_code ?>' class ='tablerow'>
                 <td class = "table-main" ><input type='checkbox' id = toggle name='selectable[]' class = "selectable" value='<?= $product_code ?>'></td>
@@ -59,7 +59,20 @@ if ($func == "product"){
             </tr>
             <?php
         }
-    
+        else{
+            ?>
+            <tr id='tr_<?= $product_code ?>' class ='tablerow'>
+                <td class = "table-main" ><input type='checkbox' id = toggle name='selectable[]' class = "selectable" value='<?= $product_code ?>'></td>
+                <td class = "table-main" ><img src='<?=$product_img?>' width="50px" height="50px" alt="Product_image"></td>
+                <td class = "table-main" ><?= $product_code ?></td>
+                <td class = "table-main" ><?= $product_name ?></td>
+                <td class = "table-main" ><?= $product_type ?></td>
+                <td class = "table-main" ><?= $qty?></td>
+                <td class = "table-main" ><?=$item_price ?></td>
+                <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $product_code ?>'>View <span class = 'las la-eye'></span></button></td>
+            </tr>
+            <?php
+        }
     }
 }
 if ($func == "product-pos"){
