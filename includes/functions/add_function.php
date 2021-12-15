@@ -412,7 +412,7 @@ else if($func == "pullout"){
         $sql3 = "UPDATE whse_items SET quantity = (quantity - ?) WHERE warehouse_code = ? AND product_code = ?";
         $stmt3 = $con->prepare($sql3);
         foreach ($mi as $value) {
-            list($rID, $product_code, $quantity, $item_price, $tot_price, $wh_source) = $value;
+            list($rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source) = $value;
             $stmt3->bind_param('iss', $quantity, $wh_source, $product_code);
             $stmt3->execute();
             echo ($quantity. $wh_source. $product_code);
