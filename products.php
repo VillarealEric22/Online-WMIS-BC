@@ -468,6 +468,7 @@ $(document).ready(function(){
     $('#add_btn').click(function(){
         $('#form-submit').val("Insert");
         $('#action').text('Add New');
+        emptyProductForm();
     });
     $("#form-submit").click(function(){
 
