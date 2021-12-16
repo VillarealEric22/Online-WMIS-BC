@@ -273,6 +273,7 @@ $(document).ready(function(){
     $('#add_btn').click(function(){
         $('#warranty-submit').val("Insert");
         $('#action_span').html('Add New');
+	emptyWarrantyForm();
     });
     $("#warranty-submit").click(function(){
 
