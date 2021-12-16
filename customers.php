@@ -200,6 +200,7 @@
     $('#add_btn').click(function(){
         $('#form-submit').val("Insert");
         $('#action').text('Add New');
+        emptyCustomerForm();
     });
     $("#form-submit").click(function() {
             var valid = this.form.checkValidity();
