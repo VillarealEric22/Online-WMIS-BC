@@ -239,7 +239,7 @@ else if($func == "inventory"){
         $stmt2->bind_param('isidd', $tNumber, $product_code, $quantity, $item_price, $totPrice);
         $stmt2->execute();
         }
-        echo "Data Saved ";
+        echo "Data Saved. ";
         $sql3 = "INSERT INTO whse_items (product_code, quantity, warehouse_code) VALUES (?,?,?) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)";
         $stmt3 = $con->prepare($sql3);
         foreach ($mi as $value ) {
@@ -247,7 +247,7 @@ else if($func == "inventory"){
         $stmt3->bind_param('sis', $product_code, $quantity, $whseCode);
         $stmt3->execute();
         }
-        echo ". Stocks has been updated";
+        echo " Stocks has been updated";
 
         $sql4 = "UPDATE item_orders SET remain_qty = (remain_qty - ?) WHERE purchase_order_id = ? AND product_code = ?";
         $stmt4 = $con->prepare($sql4);
@@ -302,7 +302,7 @@ else if($func == "transfer"){
         $stmt2->bind_param('isii', $tNumber, $product_code, $quantity, $quantity);
         $stmt2->execute();
         }
-        echo "Data Saved ";
+        echo "Data Saved. ";
     }
     else{
         echo "Data Not Saved". $con->error;
@@ -412,7 +412,7 @@ else if($func == "pullout"){
             $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source);
             $stmt2->execute();
         }
-        echo "Data Saved ";
+        echo "Data Saved";
 
         $sql3 = "UPDATE whse_items SET quantity = (quantity - ?) WHERE warehouse_code = ? AND product_code = ?";
         $stmt3 = $con->prepare($sql3);
@@ -422,7 +422,7 @@ else if($func == "pullout"){
             $stmt3->execute();
             echo ($quantity. $wh_source. $product_code);
         }
-        echo "Stocks has been updated";
+        echo ". Stocks has been updated";
 
     }
     else {
