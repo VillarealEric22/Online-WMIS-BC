@@ -76,7 +76,7 @@ if ($func == "product"){
     }
 }
 if ($func == "product-pos"){
-    $sql = "SELECT product_code, product_img, product_name, product_type, color, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) WHERE quantity != 0 GROUP BY product_code";
+    $sql = "SELECT product_code, product_img, product_name, c.product_type, color, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) LEFT JOIN product_category c ON c.id = products.product_type WHERE quantity != 0 GROUP BY product_code";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $product_img = $rows['product_img'];
