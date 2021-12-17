@@ -104,7 +104,7 @@ function categ(){
         dataType:"json",
         success: function(data){
             $.each(data, function(){
-                var insert = "<option class = 'product_type' value='" + this.id + "'>" + this.product_type + "</option>";
+                var insert = "<option class = 'product_type' value='" + this.id + "'>" + this.id + "</option>";
                 $("#product_type").append(insert);
             })
         },
