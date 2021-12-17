@@ -105,7 +105,7 @@
                         <input type="text" id ="color" placeholder="Color/Variation" required>
                     </div>
                     <div class="input-box">
-                        <span class="label">Safety Stock</span>
+                        <span class="label">Safety Stock/ Critical Amount</span>
                         <input type="number" value = "0" min = "0" id = "critical_amt" placeholder="Critical Amount" required>
                     </div>
                     <div class="input-box">
@@ -150,18 +150,18 @@
                 </div>
                 <div class="info-content">
                     <ul>
-                        <li class = 'prod-content'><strong>Product Code: </strong><span class = 'info' id = 'vproduct_code'></span></li>
-                        <li class = 'prod-content'><strong>Product Name: </strong><span class = 'info' id = 'vproduct_name'></span></li>
-                        <li class = 'prod-content'><strong>Supplier: </strong><span class = 'info' id = 'vsupplier_id'></span></li>
-                        <li class = 'prod-content'><strong>Manufacturer: </strong><span class = 'info' id = 'vmanufacturer'></span></li>
-                        <li class = 'prod-content'><strong>Product Type: </strong><span class = 'info' id = 'vproduct_type'></span></li>
-                        <li class = 'prod-content'><strong>Item Price: </strong><span class = 'info' id = 'vprice'></span></li>
-                        <li class = 'prod-content'><strong>Warranty: </strong><span class = 'info' id = 'vwarranty_code'></span></li>
-                        <li class = 'prod-content'><strong>Color/Variant: </strong><span class = 'info' id = 'vcolor'></span></li>
-                        <li class = 'prod-content'><strong>Critical Amount: </strong><span class = 'info' id = 'vcritical_amt'></span></li>
-                        <li class = 'prod-content'><strong>Re-order Point: </strong><span class = 'info' id = 'vrop'></span></li>
-                        <li class = 'prod-content'><strong>Restock Style: </strong><span class = 'info' id = 'vro_style'></span></li>
-                        <li class = 'prod-content'><strong>Additional Info: </strong><span class = 'info' id = 'vdescr'></span></li>
+                        <li class = 'prod-content'><strong>Product Code: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vproduct_code'></span></li>
+                        <li class = 'prod-content'><strong>Product Name: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vproduct_name'></span></li>
+                        <li class = 'prod-content'><strong>Supplier: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vsupplier_id'></span></li>
+                        <li class = 'prod-content'><strong>Manufacturer: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vmanufacturer'></span></li>
+                        <li class = 'prod-content'><strong>Product Type: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vproduct_type'></span></li>
+                        <li class = 'prod-content'><strong>Item Price: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vprice'></span></li>
+                        <li class = 'prod-content'><strong>Warranty: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vwarranty_code'></span></li>
+                        <li class = 'prod-content'><strong>Color/Variant: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vcolor'></span></li>
+                        <li class = 'prod-content'><strong>Critical Amount: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vcritical_amt'></span></li>
+                        <li class = 'prod-content'><strong>Re-order Point: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vrop'></span></li>
+                        <li class = 'prod-content'><strong>Restock Style: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vro_style'></span></li>
+                        <li class = 'prod-content'><strong>Additional Info: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vdescr'></span></li>
                     </ul>
                 </div>
             </div>
