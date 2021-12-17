@@ -411,7 +411,7 @@ $(document).ready(function(){
                 $('#product_code').val(data.product_code);
                 $('#product_name').val(data.product_name);
                 $('#manufacturer').val(data.manufacturer);   
-                $('#product_type').val(data.id_pt).change();
+                $('#product_type').val(data.id_w).change();
                 $('#color').val(data.color);
                 $('#price').val(data.item_price);
                 $('#critical_amt').val(data.critical_amt);
@@ -451,7 +451,7 @@ $(document).ready(function(){
                 $('#vrop').html(data.rop_min);
                 $('#vro_style').html(data.ro_categ);
                 $('#vwarranty_code').html(data.warranty_code);
-                $('#vsupplier_id').html(data.supplier_id);
+                $('#vsupplier_id').html(data.supplier_name);
                 $('#vdescr').html(data.description);
 
             },
