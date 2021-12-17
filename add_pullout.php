@@ -195,7 +195,6 @@ $(document).ready(function(){
                         $('#row-' + id).remove();
                         alert("an item in order is past its warranty coverage, item is removed from table");
                         grandTotal();
-                        emptyPullOutForm();
                     }
                     else{
                         
