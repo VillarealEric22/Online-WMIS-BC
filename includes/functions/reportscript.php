@@ -204,7 +204,7 @@ if($func == 'sales_report'){
         $todate = date("Y-m-d",strtotime($_POST['to']));
         
         $sql = "SELECT p.product_code AS products, IFNULL(ii.quantity,0) AS available, IFNULL(itemsold,0) AS itemsold, IFNULL(itemsreturned,0) AS itemsreturned_c, IFNULL(total,0) AS total, IFNULL(itembought,0) AS item_bought, IFNULL(total_buy,0) AS total_buy, ROUND(IFNULL(IFNULL(ci.itemsold/ioi.itembought,0)*100,0),2) AS sellthrough
-        FROM (SELECT product_code from products) p 
+        FROM (SELECT product_code from products WHERE ro_categ != 'JIT') p 
         LEFT JOIN (SELECT product_code, quantity FROM whse_items GROUP BY product_code) ii ON (p.product_code = ii.product_code) 
         LEFT JOIN (SELECT cart_items.transaction_no, product_code, quantity, price_ea, IFNULL(SUM(quantity), 0) AS itemsold, IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price_ea,0)),0) AS total FROM cart_items, (SELECT sales_transaction.transaction_no, transaction_date FROM sales_transaction WHERE sales_transaction.transaction_date BETWEEN '$fromdate' AND '$todate') AS st WHERE cart_items.transaction_no = st.transaction_no GROUP BY product_code) ci ON (p.product_code = ci.product_code)
         LEFT JOIN (SELECT item_orders.purchase_order_id, product_code, quantity, price, IFNULL(SUM(quantity), 0) AS itembought, IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price,0)),0) AS total_buy FROM item_orders, (SELECT purchase_order.purchase_order_id, order_date FROM purchase_order WHERE purchase_order.order_date BETWEEN '$fromdate' AND '$todate') AS io WHERE item_orders.purchase_order_id = io.purchase_order_id GROUP BY product_code) ioi ON (p.product_code = ioi.product_code)
