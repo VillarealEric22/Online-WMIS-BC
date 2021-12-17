@@ -171,7 +171,8 @@ $(document).ready(function(){
     }
     function checkValid(){
         var count;
-        $('.pdIn').each(function(){
+        $('.pdIn').each(function(count){
+            var count = count;
             var pid = $(this).attr('id');
             var arr = pid.split('-');
             var id = arr[1];
@@ -188,7 +189,8 @@ $(document).ready(function(){
                     't_no':t_no
                 },
                 dataType:"json",
-                success: function(data) {
+                success: function(data, count) {
+                    var count = count;
                     if(data == "invalid"){
                         $('#p'+ pid).remove();
                         $('#w'+ pid).remove();
@@ -196,6 +198,7 @@ $(document).ready(function(){
                         $('#row-' + id).remove();
                         grandTotal();
                         count++;
+                        return count;
                     }
                     else{
                         
