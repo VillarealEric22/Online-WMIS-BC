@@ -193,12 +193,13 @@ $(document).ready(function(){
                         $('#w'+ pid).remove();
                         $('#r'+ pid).remove();
                         $('#row-' + id).remove();
-                        alert("an item in order is past its warranty coverage, item is removed from table");
+                        
                         grandTotal();
                     }
                     else{
                         
                     }
+                    alert("Items in order past its warranty coverage are removed from table");
                 },
                 error: function(data){
                     alert(data);
