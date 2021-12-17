@@ -312,121 +312,133 @@ else if($func == "transfer"){
     $con->close();
 }
 else if($func == "return"){
-    $return_id = $_POST['return_id'];
-    $transaction_no = $_POST['transaction_no'];
-    $total_price = $_POST['total_price'];
-    $itemsTotal = $_POST['itemsTotal'];
-    $return_date = $_POST['r_date'];
-    $r_date = date("Y-m-d H:i:s",strtotime($return_date));
-    $remarks = $_POST['remarks'];
+    if(isset($_POST['product_code'])){
+        $return_id = $_POST['return_id'];
+        $transaction_no = $_POST['transaction_no'];
+        $total_price = $_POST['total_price'];
+        $itemsTotal = $_POST['itemsTotal'];
+        $return_date = $_POST['r_date'];
+        $r_date = date("Y-m-d H:i:s",strtotime($return_date));
+        $remarks = $_POST['remarks'];
 
-    $retType = $_POST['retType'];
+        $retType = $_POST['retType'];
 
-    $rID = $_POST['arrNo'];
-    $product_code= $_POST['product_code'];
-    $quantity = $_POST['quantity'];
-    $item_price = $_POST['item_price'];
-    $tot_price = $_POST['totPrice'];
-    $whCode = $_POST['whCode'];
+        $rID = $_POST['arrNo'];
+        $product_code= $_POST['product_code'];
+        $quantity = $_POST['quantity'];
+        $item_price = $_POST['item_price'];
+        $tot_price = $_POST['totPrice'];
+        $whCode = $_POST['whCode'];
 
-    $mi = new MultipleIterator();
+        $mi = new MultipleIterator();
 
-    $mi->attachIterator(new ArrayIterator($rID));
-    $mi->attachIterator(new ArrayIterator($product_code));
-    $mi->attachIterator(new ArrayIterator($quantity));
-    $mi->attachIterator(new ArrayIterator($item_price));
-    $mi->attachIterator(new ArrayIterator($tot_price));
-    $mi->attachIterator(new ArrayIterator($whCode));
-    $mi->attachIterator(new ArrayIterator($retType));
+        $mi->attachIterator(new ArrayIterator($rID));
+        $mi->attachIterator(new ArrayIterator($product_code));
+        $mi->attachIterator(new ArrayIterator($quantity));
+        $mi->attachIterator(new ArrayIterator($item_price));
+        $mi->attachIterator(new ArrayIterator($tot_price));
+        $mi->attachIterator(new ArrayIterator($whCode));
+        $mi->attachIterator(new ArrayIterator($retType));
 
-    $sql = "INSERT INTO item_returns (`return_id`, `transaction_no`, `items_total`, `total_price`, `remarks`, `return_date`) VALUES (?,?,?,?,?,?)";
-    $stmt = $con->prepare($sql);
-    $stmt->bind_param('iiidss', $return_id, $transaction_no, $itemsTotal, $total_price, $remarks, $r_date);
-    if ($stmt->execute()){
-        $sql2 = "INSERT INTO `item_returns_pd` (`return_id`, `product_code`, `quantity`, `item_price`, `price_total`, `warehouse_code`, `return_type`) VALUES (?,?,?,?,?,?,?)";
-        $stmt2 = $con->prepare($sql2);
-        foreach ($mi as $value ) {
-            list($rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType) = $value;
-            $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType);
-            $stmt2->execute();
-            if($retType == "Refund"){
-                $sql3 = "UPDATE whse_items SET quantity = (quantity + ?) WHERE product_code = ? AND warehouse_code = ?";
-                $stmt3 = $con->prepare($sql3);
-                
-                foreach ($mi as $value ) {
+        $sql = "INSERT INTO item_returns (`return_id`, `transaction_no`, `items_total`, `total_price`, `remarks`, `return_date`) VALUES (?,?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param('iiidss', $return_id, $transaction_no, $itemsTotal, $total_price, $remarks, $r_date);
+        if ($stmt->execute()){
+            $sql2 = "INSERT INTO `item_returns_pd` (`return_id`, `product_code`, `quantity`, `item_price`, `price_total`, `warehouse_code`, `return_type`) VALUES (?,?,?,?,?,?,?)";
+            $stmt2 = $con->prepare($sql2);
+            foreach ($mi as $value ) {
                 list($rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType) = $value;
-                $stmt3->bind_param('iss', $quantity, $product_code, $whCode);
-                $stmt3->execute();
+                $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType);
+                $stmt2->execute();
+                if($retType == "Refund"){
+                    $sql3 = "UPDATE whse_items SET quantity = (quantity + ?) WHERE product_code = ? AND warehouse_code = ?";
+                    $stmt3 = $con->prepare($sql3);
+
+                    foreach ($mi as $value ) {
+                    list($rID, $product_code, $quantity, $item_price, $tot_price, $whCode, $retType) = $value;
+                    $stmt3->bind_param('iss', $quantity, $product_code, $whCode);
+                    $stmt3->execute();
+                    }
+                    echo "Updated stocks. ";
                 }
-                echo "Updated stocks. ";
+                else if($retType == "Warranty"){
+                    echo "warranty service";
+                }
+                else{
+                    echo ". Item refunded ";
+                }
             }
-            else if($retType == "Warranty"){
-                echo "warranty service";
-            }
-            else{
-                echo ". Item refunded ";
-            }
+            echo "Data Saved. ";       
         }
-        echo "Data Saved. ";       
+        else {
+            echo "Data Not Saved". $con->error;
+        }
     }
-    else {
-        echo "Data Not Saved". $con->error;
+    else{
+        echo "No items in transaction. Transaction not saved";
     }
+    
 }
 else if($func == "pullout"){
-    $return_id = $_POST['pullout_id'];
-    $po_id = $_POST['po_id'];
-    $total_price = $_POST['total_price'];
-    $itemsTotal = $_POST['itemsTotal'];  
-    $return_date = $_POST['r_date'];
-    $remarks = $_POST['remarks'];
-    $r_date = date("Y-m-d H:i:s",strtotime($return_date));
+    if(isset($_POST['product_code'])){
+        $return_id = $_POST['pullout_id'];
+        $po_id = $_POST['po_id'];
+        $total_price = $_POST['total_price'];
+        $itemsTotal = $_POST['itemsTotal'];  
+        $return_date = $_POST['r_date'];
+        $remarks = $_POST['remarks'];
+        $r_date = date("Y-m-d H:i:s",strtotime($return_date));
 
-    $rID = $_POST['arrNo'];
-    $product_code= $_POST['product_code'];
-    $quantity = $_POST['quantity'];
-    $item_price = $_POST['item_price'];
-    $tot_price = $_POST['totPrice'];
-    $wh_source = $_POST['whCode'];
-    $return_type = $_POST['return_type'];
+        $rID = $_POST['arrNo'];
+        $product_code= $_POST['product_code'];
+        $quantity = $_POST['quantity'];
+        $item_price = $_POST['item_price'];
+        $tot_price = $_POST['totPrice'];
+        $wh_source = $_POST['whCode'];
+        $return_type = $_POST['return_type'];
 
-    $mi = new MultipleIterator();
+        $mi = new MultipleIterator();
+
+        $mi->attachIterator(new ArrayIterator($rID));
+        $mi->attachIterator(new ArrayIterator($product_code));
+        $mi->attachIterator(new ArrayIterator($quantity));
+        $mi->attachIterator(new ArrayIterator($item_price));
+        $mi->attachIterator(new ArrayIterator($tot_price));
+        $mi->attachIterator(new ArrayIterator($return_type));
+        $mi->attachIterator(new ArrayIterator($wh_source));
+
+        $sql = "INSERT INTO pullout (`pullout_id`, `purchase_order_id`, `total_items`, `total_price`, `date`, `remarks`) VALUES (?,?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param('iiidss', $return_id, $po_id, $itemsTotal, $total_price, $r_date, $remarks);
+        if ($stmt->execute()){
+
+            $sql2 = "INSERT INTO pullout_items (pullout_id, product_code, quantity, item_price, price_total, return_type, warehouse_code) VALUES (?,?,?,?,?,?,?)";
+            $stmt2 = $con->prepare($sql2);
+            foreach ($mi as $value ) {
+                list($rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source) = $value;
+                $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source);
+                $stmt2->execute();
+            }
+            echo "Data Saved. ";
+
+            $sql3 = "UPDATE whse_items SET quantity = (quantity - ?) WHERE warehouse_code = ? AND product_code = ?";
+            $stmt3 = $con->prepare($sql3);
+            foreach ($mi as $value) {
+                list($rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source) = $value;
+                $stmt3->bind_param('iss', $quantity, $wh_source, $product_code);
+                $stmt3->execute();
+            }
+            echo "Stocks has been updated. ";
+
+        }
+        else {
+            echo "Data Not Saved". $con->error;
+        }
+    }
+    else{
+        echo "No items in transaction. Transaction not saved";
+    }
     
-    $mi->attachIterator(new ArrayIterator($rID));
-    $mi->attachIterator(new ArrayIterator($product_code));
-    $mi->attachIterator(new ArrayIterator($quantity));
-    $mi->attachIterator(new ArrayIterator($item_price));
-    $mi->attachIterator(new ArrayIterator($tot_price));
-    $mi->attachIterator(new ArrayIterator($return_type));
-    $mi->attachIterator(new ArrayIterator($wh_source));
-
-    $sql = "INSERT INTO pullout (`pullout_id`, `purchase_order_id`, `total_items`, `total_price`, `date`, `remarks`) VALUES (?,?,?,?,?,?)";
-    $stmt = $con->prepare($sql);
-    $stmt->bind_param('iiidss', $return_id, $po_id, $itemsTotal, $total_price, $r_date, $remarks);
-    if ($stmt->execute()){
-
-        $sql2 = "INSERT INTO pullout_items (pullout_id, product_code, quantity, item_price, price_total, return_type, warehouse_code) VALUES (?,?,?,?,?,?,?)";
-        $stmt2 = $con->prepare($sql2);
-        foreach ($mi as $value ) {
-            list($rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source) = $value;
-            $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source);
-            $stmt2->execute();
-        }
-        echo "Data Saved. ";
-
-        $sql3 = "UPDATE whse_items SET quantity = (quantity - ?) WHERE warehouse_code = ? AND product_code = ?";
-        $stmt3 = $con->prepare($sql3);
-        foreach ($mi as $value) {
-            list($rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source) = $value;
-            $stmt3->bind_param('iss', $quantity, $wh_source, $product_code);
-            $stmt3->execute();
-        }
-        echo "Stocks has been updated. ";
-
-    }
-    else {
-        echo "Data Not Saved". $con->error;
-    }
 }
 else if($func == "warehouse"){
   $warehouse_code = $_POST['warehouse_code'];
