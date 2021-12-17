@@ -83,6 +83,7 @@ $(document).ready(function(){
     var cvalue = $("#counter").val();
     $("#warehouse_code").on('select2:select', function (){
         var val = this.value;
+        $('.wh_code1').remove();
         if($('#warehouse_code option').filter(function(){
             return this.value.toUpperCase() === val.toUpperCase();        
         }).length) {
