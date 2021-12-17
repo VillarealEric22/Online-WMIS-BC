@@ -3,7 +3,7 @@ include('../db.php');
 
 $func = $_POST['func'];
 if ($func == "product"){
-    $sql = "SELECT product_code, product_img, product_name, manufacturer, product_type, color, ro_categ, rop_min, critical_amt, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) GROUP BY product_code";
+    $sql = "SELECT product_code, product_img, product_name, manufacturer, c.product_type, color, ro_categ, rop_min, critical_amt, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) LEFT JOIN product_category c ON c.id = products.product_code GROUP BY product_code";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $product_img = $rows['product_img'];
@@ -98,14 +98,14 @@ if ($func == "product-pos"){
     }
 }
 else if ($func == "categ"){
-    $sql = "SELECT id, product_type, IFNULL(count(product_code),0) AS total FROM product_category LEFT JOIN products USING (product_type) GROUP BY product_type";
+    $sql = "SELECT id, product_type, IFNULL(count(product_code),0) AS total FROM product_category LEFT JOIN products ON product_category.id = products.product_code GROUP BY product_type";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $id = $rows['id'];
         $product_type = $rows['product_type'];
         $total = $rows['total'];
     ?>
-    <tr id='tr_<?= $customer_id ?>' class ='tablerow'>
+    <tr id='tr_<?= $id ?>' class ='tablerow'>
         <td class = "table-main" ><input type='checkbox' name='selectable[]' class = "selectable" value='<?= $id ?>'></td>
         <td class = "table-main" ><?= $product_type ?></td>
         <td class = "table-main" ><?= $total ?></td>
