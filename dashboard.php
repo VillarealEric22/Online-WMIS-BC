@@ -230,6 +230,7 @@ $(document).ready(function(){
                             label: '# of Sales',
                             backgroundColor: color,
                             color:'#fff',
+                            borderColor: "rgba(0,0,0,0.1)",
                             fill: false,
                             data: items
                         }
