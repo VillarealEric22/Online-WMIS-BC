@@ -138,10 +138,10 @@ else if($func == "employee"){
     $sid = implode(",", $array);
 
     if(count($array) == 1){
-        echo "cannot delete: ".$sid. " as it is being referenced by active products.";
+        echo "cannot delete: ".$sid. " as it is being referenced by active users.";
     }
     else if(count($array)>1){
-        echo "cannot delete: ".$sid. " as it is being referenced by active products, other items deleted.";
+        echo "cannot delete: ".$sid. " as it is being referenced by active users, other items deleted.";
     }
     else{
         echo "successfully deleted ". $total. " items";
