@@ -176,6 +176,7 @@ $(document).ready(function(){
             var id = arr[1];
             var pcode = $('#sel-product-code_'+id).val();
             var t_no = $("#purchase_id").val();
+            var count;
             $.ajax({
                 method: "POST",
                 url: "includes/functions/load_data.php",
@@ -193,18 +194,23 @@ $(document).ready(function(){
                         $('#w'+ pid).remove();
                         $('#r'+ pid).remove();
                         $('#row-' + id).remove();
-                        
+                        count++;
                         grandTotal();
                     }
                     else{
                         
                     }
-                    alert("Items in order past its warranty coverage are removed from table");
                 },
                 error: function(data){
                     alert(data);
                 }
-            });   
+            });
+            if(count > 0 ){
+                alert("Items in order past its warranty coverage are removed from table");
+            }
+            else{
+            
+            }
         });
     }
     $('#form-submit').click(function (){
