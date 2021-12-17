@@ -200,18 +200,18 @@ $(document).ready(function(){
                     else{
                         
                     }
+                    if(count > 0 ){
+                        alert("Items in order past its warranty coverage are removed from table");
+                    }
+                    else{
+
+                    }
                 },
                 error: function(data){
                     alert(data);
                 }
-                
             });
-            if(count > 0 ){
-                alert("Items in order past its warranty coverage are removed from table");
-            }
-            else{
             
-            }
         });
     }
     $('#form-submit').click(function (){
