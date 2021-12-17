@@ -260,7 +260,7 @@ else if($func == "inventory"){
         $stmt5 = $con->prepare($sql5);
         $stmt5->bind_param('ii', $purchase_order_id, $purchase_order_id);
         if ($stmt5->execute()){
-        echo "Order Status updated";
+        echo ". Order Status updated";
         }
     }
     else{
