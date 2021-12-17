@@ -153,7 +153,7 @@ $func = $_POST['func'];
         }
     }
     else if ($func == "lowStock2"){
-        $sql = "SELECT IFNULL(COUNT(p.product_code),0) AS total_items FROM (SELECT product_code, rop_min FROM products) p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE qty < rop_min";
+        $sql = "SELECT IFNULL(COUNT(p.product_code),0) AS total_items FROM (SELECT product_code, rop_min FROM products) p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE qty <= rop_min";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $rows = mysqli_fetch_array($result);
         echo json_encode($rows);       
@@ -398,20 +398,5 @@ $func = $_POST['func'];
             );
         }
         echo json_encode($data);
-    }
-    else if($func == 'download-abc'){
-
-    }
-    else if($func == 'download-ppi'){
-
-    }
-    else if($func == 'download-sales'){
-
-    }
-    else if($func == 'download-product'){
-
-    }
-    else if($func == 'download-customer'){
-
     }
 ?>
