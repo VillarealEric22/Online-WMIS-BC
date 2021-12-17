@@ -170,9 +170,8 @@ $(document).ready(function(){
         })
     }
     function checkValid(){
-        var count;
-        $('.pdIn').each(function(count){
-            var count = count;
+        alert("Items in order past its warranty coverage are removed automatically from table");
+        $('.pdIn').each(function(){
             var pid = $(this).attr('id');
             var arr = pid.split('-');
             var id = arr[1];
@@ -197,8 +196,6 @@ $(document).ready(function(){
                         $('#r'+ pid).remove();
                         $('#row-' + id).remove();
                         grandTotal();
-                        count++;
-                        return count;
                     }
                     else{
                         
@@ -211,12 +208,6 @@ $(document).ready(function(){
             });
             
         });
-        if(count > 0 ){
-            alert("Items in order past its warranty coverage are removed from table");
-        }
-        else{
-
-        }
     }
     $('#form-submit').click(function (){
         event.preventDefault();
