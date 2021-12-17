@@ -45,7 +45,7 @@ if ($func == "product"){
             if(in_array($ext, $valid_extensions)) { 
                 $path = $path.strtolower($final_image); 
                 if(move_uploaded_file($tmp,$path)) {
-                    echo "Image Uploaded";
+                    echo ". Image Uploaded";
                     $pathclean =  str_replace("../../", "", $path);
                     $insert = $con->query("UPDATE products SET `product_img` = '$pathclean' WHERE product_code = '$product_code'");
                 }
