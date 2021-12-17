@@ -98,7 +98,7 @@ if ($func == "product-pos"){
     }
 }
 else if ($func == "categ"){
-    $sql = "SELECT id, product_type, IFNULL(count(product_code),0) AS total FROM product_category LEFT JOIN products ON product_category.id = products.product_code GROUP BY product_type";
+    $sql = "SELECT id, product_category.product_type, IFNULL(count(product_code),0) AS total FROM product_category LEFT JOIN products ON product_category.id = products.product_code GROUP BY product_type";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $id = $rows['id'];
