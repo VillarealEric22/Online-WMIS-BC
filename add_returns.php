@@ -148,6 +148,7 @@ $(document).ready(function(){
         });
     }
     function checkValid(){
+        alert("Items in sales transaction past its refund and warranty coverage are removed from table");
         $('.pdIn').each(function(){
             var pid = $(this).attr('id');
             var arr = pid.split('-');
@@ -181,8 +182,7 @@ $(document).ready(function(){
                     }
                     else{
                         
-                    }
-                    alert("Items in order past its warranty coverage are removed from table");
+                    }  
                 },
                 error: function(data){
                     alert(data);
