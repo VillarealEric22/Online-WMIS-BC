@@ -148,7 +148,7 @@ $(document).ready(function(){
         });
     }
     function checkValid(){
-        alert("Items in sales transaction past its refund and warranty coverage are removed from table");
+        alert("Items in sales transaction past its refund and warranty coverage are automatically removed from table");
         $('.pdIn').each(function(){
             var pid = $(this).attr('id');
             var arr = pid.split('-');
@@ -173,7 +173,7 @@ $(document).ready(function(){
                         $('#w'+ pid).remove();
                         $('#r'+ pid).remove();
                         $('#row-' + id).remove();
-                        
+                        grandTotal();
                         return false;
                     }
                     else if(data == "wty_only"){
