@@ -411,7 +411,7 @@ $(document).ready(function(){
                 $('#product_code').val(data.product_code);
                 $('#product_name').val(data.product_name);
                 $('#manufacturer').val(data.manufacturer);   
-                $('#product_type').val(data.product_type).change();
+                $('#product_type').val(data.id_p).change();
                 $('#color').val(data.color);
                 $('#price').val(data.item_price);
                 $('#critical_amt').val(data.critical_amt);
