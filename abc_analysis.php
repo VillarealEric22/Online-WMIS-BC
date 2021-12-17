@@ -49,7 +49,6 @@
                 </ul>
             </div>
             <div class="table-info">
-                Total rows: <span class = "t-rows"></span>
             </div>
         </div>
     </div>
