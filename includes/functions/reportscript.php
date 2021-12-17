@@ -185,7 +185,7 @@ if($func == 'sales_report'){
     }
     else if ($func == "wty_stats"){
         $edit_id = $_POST['id'];
-        $sql = "SELECT product_code, product_name FROM warranty INNER JOIN products ON warranty.id = prodcuts.warranty_code WHERE id = $edit_id";
+        $sql = "SELECT product_code, product_name FROM warranty INNER JOIN products ON warranty.id = products.warranty_code WHERE id = $edit_id";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $product_code = $rows['product_code'];
