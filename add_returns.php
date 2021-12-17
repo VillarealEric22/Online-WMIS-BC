@@ -173,7 +173,6 @@ $(document).ready(function(){
                         $('#r'+ pid).remove();
                         $('#row-' + id).remove();
                         
-                        alert("an item in order is past its warranty coverage, item is removed from table");
                         return false;
                     }
                     else if(data == "wty_only"){
@@ -183,6 +182,7 @@ $(document).ready(function(){
                     else{
                         
                     }
+                    alert("Items in order past its warranty coverage are removed from table");
                 },
                 error: function(data){
                     alert(data);
