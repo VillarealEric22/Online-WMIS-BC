@@ -188,7 +188,6 @@ $(document).ready(function(){
                             label: '# of Sales',
                             backgroundColor: color,
                             color:'#fff',
-                            borderColor: "00ADB5",
                             data: items
                         }
                     ]
@@ -231,6 +230,7 @@ $(document).ready(function(){
                             label: '# of Sales',
                             backgroundColor: color,
                             color:'#fff',
+                            borderColor: "00ADB5",
                             fill: false,
                             data: items
                         }
