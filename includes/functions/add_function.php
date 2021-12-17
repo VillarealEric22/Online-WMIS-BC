@@ -100,56 +100,61 @@ else if($func == "supplier"){
     $con->close();
 }
 else if($func == "sales"){
-    $transaction_no = $_POST['transaction_no'];
-    $customer_id = $_POST['customer_ID'];
-    $itemsTotal = $_POST['itemsTotal'];
-    $total_price = $_POST['total_price'];
-    $input_date = $_POST['transaction_date'];
-    $transaction_date = date("Y-m-d H:i:s",strtotime($input_date));
-    $remarks = $_POST['remarks'];
+    if(isset($_POST['product_code'])){
+        $transaction_no = $_POST['transaction_no'];
+        $customer_id = $_POST['customer_ID'];
+        $itemsTotal = $_POST['itemsTotal'];
+        $total_price = $_POST['total_price'];
+        $input_date = $_POST['transaction_date'];
+        $transaction_date = date("Y-m-d H:i:s",strtotime($input_date));
+        $remarks = $_POST['remarks'];
 
-    $product_code = $_POST['product_code'];
-    $quantity = $_POST['quantity'];
-    $item_price = $_POST['item_price'];
-    $tot_price = $_POST['totprice'];
-    $tNumber = $_POST['tNumber'];
-    $wh_code = $_POST['wh_code'];
-    
-    $mi = new MultipleIterator();
+        $product_code = $_POST['product_code'];
+        $quantity = $_POST['quantity'];
+        $item_price = $_POST['item_price'];
+        $tot_price = $_POST['totprice'];
+        $tNumber = $_POST['tNumber'];
+        $wh_code = $_POST['wh_code'];
 
-    $mi->attachIterator(new ArrayIterator($tNumber));
-    $mi->attachIterator(new ArrayIterator($product_code));
-    $mi->attachIterator(new ArrayIterator($quantity));
-    $mi->attachIterator(new ArrayIterator($item_price));
-    $mi->attachIterator(new ArrayIterator($tot_price));
-    $mi->attachIterator(new ArrayIterator($wh_code));
-    //If(quantity>whseItems stock){ reject sale, return message not enought items for the sale request}
-    $sql = "INSERT INTO sales_transaction (`transaction_no`, `customer_id`, `itemsTotal`, `total_price`, `transaction_date`, `employee_id`, `remarks`) VALUES (?,?,?,?,?,?,?)";
-    $stmt = $con->prepare($sql);
-    $stmt->bind_param('iiidsis', $transaction_no, $customer_id, $itemsTotal, $total_price, $transaction_date, $e_id, $remarks);
+        $mi = new MultipleIterator();
 
-    if ($stmt->execute()){
-    $sql2 = "INSERT INTO cart_items (transaction_no, product_code, quantity, price_ea, price_tot) VALUES (?,?,?,?,?)";
-    $stmt2 = $con->prepare($sql2);
-        foreach ($mi as $value) {
-            list($tNumber, $product_code, $quantity, $item_price, $tot_price,  $wh_code) = $value;
-            $stmt2->bind_param('isidd', $tNumber, $product_code, $quantity, $item_price, $tot_price);
-            $stmt2->execute();
+        $mi->attachIterator(new ArrayIterator($tNumber));
+        $mi->attachIterator(new ArrayIterator($product_code));
+        $mi->attachIterator(new ArrayIterator($quantity));
+        $mi->attachIterator(new ArrayIterator($item_price));
+        $mi->attachIterator(new ArrayIterator($tot_price));
+        $mi->attachIterator(new ArrayIterator($wh_code));
+        //If(quantity>whseItems stock){ reject sale, return message not enought items for the sale request}
+        $sql = "INSERT INTO sales_transaction (`transaction_no`, `customer_id`, `itemsTotal`, `total_price`, `transaction_date`, `employee_id`, `remarks`) VALUES (?,?,?,?,?,?,?)";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param('iiidsis', $transaction_no, $customer_id, $itemsTotal, $total_price, $transaction_date, $e_id, $remarks);
+
+        if ($stmt->execute()){
+        $sql2 = "INSERT INTO cart_items (transaction_no, product_code, quantity, price_ea, price_tot) VALUES (?,?,?,?,?)";
+        $stmt2 = $con->prepare($sql2);
+            foreach ($mi as $value) {
+                list($tNumber, $product_code, $quantity, $item_price, $tot_price,  $wh_code) = $value;
+                $stmt2->bind_param('isidd', $tNumber, $product_code, $quantity, $item_price, $tot_price);
+                $stmt2->execute();
+            }
+        $sql3= "UPDATE whse_items SET quantity = (quantity - ?) WHERE product_code = ? AND warehouse_code = ?";
+        $stmt3 = $con->prepare($sql3);
+            foreach ($mi as $value1) {
+                list($tNumber, $product_code, $quantity, $item_price, $tot_price) = $value1;
+                $stmt3->bind_param('iss', $quantity, $product_code, $wh_code);
+                $stmt3->execute();
+            }
+            echo "Successfully created sales record";
         }
-    $sql3= "UPDATE whse_items SET quantity = (quantity - ?) WHERE product_code = ? AND warehouse_code = ?";
-    $stmt3 = $con->prepare($sql3);
-        foreach ($mi as $value1) {
-            list($tNumber, $product_code, $quantity, $item_price, $tot_price) = $value1;
-            $stmt3->bind_param('iss', $quantity, $product_code, $wh_code);
-            $stmt3->execute();
+        else{
+            echo "Data Not Saved". $con->error;
         }
-        echo "Successfully created sales record";
+        $stmt->close();
+        $con->close();
     }
     else{
-        echo "Data Not Saved". $con->error;
+        echo "No items in transaction. Transaction not saved";
     }
-    $stmt->close();
-    $con->close();
 }
 else if($func == "orders"){
     $purchase_order_id = $_POST['purchase_order_id'];
