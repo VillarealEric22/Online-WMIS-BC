@@ -170,13 +170,13 @@ $(document).ready(function(){
         })
     }
     function checkValid(){
+        var count;
         $('.pdIn').each(function(){
             var pid = $(this).attr('id');
             var arr = pid.split('-');
             var id = arr[1];
             var pcode = $('#sel-product-code_'+id).val();
             var t_no = $("#purchase_id").val();
-            var count;
             $.ajax({
                 method: "POST",
                 url: "includes/functions/load_data.php",
@@ -188,24 +188,19 @@ $(document).ready(function(){
                     't_no':t_no
                 },
                 dataType:"json",
-                success: function(data, count) {
+                success: function(data) {
                     if(data == "invalid"){
                         $('#p'+ pid).remove();
                         $('#w'+ pid).remove();
                         $('#r'+ pid).remove();
                         $('#row-' + id).remove();
-                        count++;
                         grandTotal();
+                        count++;
                     }
                     else{
                         
                     }
-                    if(count > 0 ){
-                        alert("Items in order past its warranty coverage are removed from table");
-                    }
-                    else{
-
-                    }
+                    
                 },
                 error: function(data){
                     alert(data);
@@ -213,6 +208,12 @@ $(document).ready(function(){
             });
             
         });
+        if(count > 0 ){
+            alert("Items in order past its warranty coverage are removed from table");
+        }
+        else{
+
+        }
     }
     $('#form-submit').click(function (){
         event.preventDefault();
