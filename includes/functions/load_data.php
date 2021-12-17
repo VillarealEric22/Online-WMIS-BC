@@ -220,7 +220,7 @@ else if($func == "orders"){
     }
 }
 else if($func == "orders-c"){
-    $sql = "SELECT `purchase_order_id`,`supplier_name` ,`items_total`, `total_price`, `order_date`, `status` FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE status = 'completed'";
+    $sql = "SELECT `purchase_order_id`,`supplier_name` ,`items_total`, `total_price`, `order_date`, `status` FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE status = 'completed' ORDER BY purchase_order_id DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $purchase_order_id = $rows['purchase_order_id'];
@@ -244,7 +244,7 @@ else if($func == "orders-c"){
     }
 }
 else if($func == "inventory"){
-    $sql = "SELECT `inventory_id`, `purchase_order_id`, `items_total`, `totalVal`, `date_created`, `warehouse_name` FROM `inventory` LEFT JOIN warehouses USING (warehouse_code) ORDER BY date_created DESC";
+    $sql = "SELECT `inventory_id`, `purchase_order_id`, `items_total`, `totalVal`, `date_created`, `warehouse_name` FROM `inventory` LEFT JOIN warehouses USING (warehouse_code) ORDER BY purchase_order_id DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $inventory_id = $rows['inventory_id'];
