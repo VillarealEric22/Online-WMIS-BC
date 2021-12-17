@@ -358,7 +358,7 @@ else if($func == "return"){
                 $stmt3->bind_param('iss', $quantity, $product_code, $whCode);
                 $stmt3->execute();
                 }
-                echo ". Updated stocks";
+                echo "Updated stocks. ";
             }
             else if($retType == "Warranty"){
                 echo "warranty service";
@@ -367,7 +367,7 @@ else if($func == "return"){
                 echo ". Item refunded ";
             }
         }
-        echo "Data Saved";       
+        echo "Data Saved. ";       
     }
     else {
         echo "Data Not Saved". $con->error;
