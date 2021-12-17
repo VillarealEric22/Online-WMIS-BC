@@ -342,7 +342,7 @@ else if($func == "transfer-completed"){
     }
 }
 else if($func == "returns"){
-    $sql = "SELECT return_id, transaction_no, items_total, total_price, remarks, return_date FROM item_returns";
+    $sql = "SELECT return_id, transaction_no, items_total, total_price, remarks, return_date FROM item_returns ORDER BY return_id DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $return_id = $rows['return_id'];
