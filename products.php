@@ -411,7 +411,7 @@ $(document).ready(function(){
                 $('#product_code').val(data.product_code);
                 $('#product_name').val(data.product_name);
                 $('#manufacturer').val(data.manufacturer);   
-                $('#product_type').val(data.id_w).change();
+                $('#product_type').val(data.id_pt).change();
                 $('#color').val(data.color);
                 $('#price').val(data.item_price);
                 $('#critical_amt').val(data.critical_amt);
@@ -420,6 +420,7 @@ $(document).ready(function(){
                 $('#warranty_code').val(data.id_w).change();
                 $('#supplier_id').val(data.supplier_id).change();
                 $('#descr').val(data.description);
+                alert(data.id_pt);
             },
             error: function(){
                 alert("ayaw"); //XD
