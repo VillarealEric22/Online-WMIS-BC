@@ -27,6 +27,9 @@
             </div>
         </div>
         <div class="content-row">
+            <li class = 'prod-content'><strong>Sales Total: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vwty_code'></span></li>
+            <li class = 'prod-content'><strong>Transactions Total: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vrefund'></span></li>
+            <li class = 'prod-content'><strong>Total Items sold: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vwarranty'></span></li>
             <table id ="sortable">
                 <thead>
                     <tr>
@@ -142,12 +145,31 @@
                     $('#sales-rep').hide();
                     $('#table-data').html(data);
                     makeChart();
+                    info();
                 },
                 error: function(){
                     alert("Something went wrong");
                 }
             });
         });
+        function info(){
+                type: "POST",
+                url: "includes/functions/reportscript.php",
+                data: {
+                    'func':"SalesTot",
+                    'from':from,
+                    'to':to,
+                },                             
+                success: function(data) {
+                    $('#vwty_code').html(data.total_sales);
+                    $('#vrefund').html(data.transactions);
+                    $('#vwarranty').html(data.itemsold);   
+                },
+                error: function(data){
+                    alert(data);
+                }
+            });
+        }
         function makeChart(){
             var from = $('#date_range').data('daterangepicker').startDate.format("YYYY/MM/DD");
             var to = $('#date_range').data('daterangepicker').endDate.format("YYYY/MM/DD");
