@@ -67,7 +67,7 @@ else if ($func == "customer"){
     $stmt->bind_param('sssi', $name, $c_address, $contact_number, $customer_id);
     // Close connection
     if ($stmt->execute()){
-        echo " record updated successfully";
+        echo "Record updated successfully";
     } else { 
         
         echo "Data Not Saved". $con->error;
@@ -96,7 +96,8 @@ else if($func == "supplier"){
 }
 else if($func == "transfer"){
     $transfer_id = $_POST['id'];
-
+    $count = 0;
+    
     $sql = "SELECT `product_code`, `quantity`, `warehouse_source` FROM `transfer_items` INNER JOIN `transfer` USING (`transfer_id`) WHERE `transfer_id` = '$transfer_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
@@ -106,7 +107,7 @@ else if($func == "transfer"){
 
         $quer = "SELECT `product_code`,`quantity` FROM whse_items WHERE product_code = '$pcode' AND warehouse_code = '$wh_code'";
         $res = mysqli_query($con, $quer);
-        $count = 0;
+        
         while($crow = mysqli_fetch_array($res)){
             $qty_avl = $crow['quantity'];
             if($qty_avl >= $request_qty){
@@ -134,12 +135,12 @@ else if($func == "transfer"){
                 
             }
         }
-        if($count == 0){
-            echo json_encode("Request approved, stocks updated");
-        }
-        else{
-            echo json_encode('cannot update');
-        }
+    }
+    if($count == 0){
+        echo json_encode("Request approved, stocks updated");
+    }
+    else{
+        echo json_encode('cannot update');
     }
 }
 else if($func == "transfer-receive"){
@@ -176,7 +177,7 @@ else if($func == "transfer-receive"){
         $stmt3->bind_param('sis', $product_code, $quantity, $warehouse_dest);
         $stmt3->execute();
     }
-    echo "updated stocks";
+    echo " Updated stocks";
 
     $sql4 = "UPDATE transfer_items SET remain_qty = (remain_qty - ?) WHERE transfer_id = ? AND product_code = ?";
     $stmt4 = $con->prepare($sql4);
@@ -190,7 +191,7 @@ else if($func == "transfer-receive"){
     $stmt5 = $con->prepare($sql5);
     $stmt5->bind_param('ii', $inventory_id, $inventory_id);
     if ($stmt5->execute()){
-        echo "Order Status updated";
+        echo " Order Status updated";
     }
     else{
         echo "Data Not Saved". $con->error;
