@@ -188,7 +188,7 @@ $(document).ready(function(){
                     't_no':t_no
                 },
                 dataType:"json",
-                success: function(data) {
+                success: function(data, count) {
                     if(data == "invalid"){
                         $('#p'+ pid).remove();
                         $('#w'+ pid).remove();
@@ -204,6 +204,7 @@ $(document).ready(function(){
                 error: function(data){
                     alert(data);
                 }
+                
             });
             if(count > 0 ){
                 alert("Items in order past its warranty coverage are removed from table");
