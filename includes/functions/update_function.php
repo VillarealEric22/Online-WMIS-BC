@@ -122,7 +122,7 @@ else if($func == "transfer"){
                     $sqlUp1 = "UPDATE `whse_items` SET `quantity` = (`quantity` - $request_qty), `committed` = (`committed` + $request_qty) WHERE product_code = '$pcode' AND warehouse_code = '$wh_code'";
                     $result3 = mysqli_query($con, $sqlUp1);
                     if ($result3 === true) {
-                        echo json_encode("Request approved, stocks updated");
+                        
                     }
                 }
                 else{
@@ -131,8 +131,14 @@ else if($func == "transfer"){
                 
             }
             else{
-                echo json_encode('cannot update');
+                
             }
+        }
+        if($count == 0){
+            echo json_encode("Request approved, stocks updated");
+        }
+        else{
+            echo json_encode('cannot update');
         }
     }
 }
