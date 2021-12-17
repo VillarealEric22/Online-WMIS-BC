@@ -427,7 +427,8 @@ for (var i = 0; i < btn.length; i++) {
 for (var i = 0; i < span.length; i++) {
     span[i].onclick = function() {
        for (var index in modals) {
-        if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";    
+        if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+           event.preventDefault();
        }
     }
 }
@@ -435,7 +436,8 @@ for (var i = 0; i < span.length; i++) {
 for (var i = 0; i < cancel.length; i++) {
     cancel[i].onclick = function() {
        for (var index in modals) {
-        if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";    
+        if (typeof modals[index].style !== 'undefined') modals[index].style.display = "none";
+           event.preventDefault();
        }
     }
 }
