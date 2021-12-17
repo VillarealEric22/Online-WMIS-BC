@@ -153,8 +153,11 @@
             });
         });
         function info(){
+            var from = $('#date_range').data('daterangepicker').startDate.format("YYYY/MM/DD");
+            var to = $('#date_range').data('daterangepicker').endDate.format("YYYY/MM/DD");
                 type: "POST",
                 url: "includes/functions/reportscript.php",
+                dataType: 'JSON',
                 data: {
                     'func':"SalesTot",
                     'from':from,
