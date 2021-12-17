@@ -412,7 +412,7 @@ else if($func == "pullout"){
             $stmt2->bind_param('isiddss', $rID, $product_code, $quantity, $item_price, $tot_price, $return_type, $wh_source);
             $stmt2->execute();
         }
-        echo "Data Saved";
+        echo "Data Saved. ";
 
         $sql3 = "UPDATE whse_items SET quantity = (quantity - ?) WHERE warehouse_code = ? AND product_code = ?";
         $stmt3 = $con->prepare($sql3);
@@ -422,7 +422,7 @@ else if($func == "pullout"){
             $stmt3->execute();
             echo ($quantity. $wh_source. $product_code);
         }
-        echo ". Stocks has been updated";
+        echo "Stocks has been updated. ";
 
     }
     else {
