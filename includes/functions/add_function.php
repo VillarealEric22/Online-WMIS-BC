@@ -247,7 +247,7 @@ else if($func == "inventory"){
         $stmt3->bind_param('sis', $product_code, $quantity, $whseCode);
         $stmt3->execute();
         }
-        echo "Stocks has been updated";
+        echo ". Stocks has been updated";
 
         $sql4 = "UPDATE item_orders SET remain_qty = (remain_qty - ?) WHERE purchase_order_id = ? AND product_code = ?";
         $stmt4 = $con->prepare($sql4);
@@ -358,16 +358,16 @@ else if($func == "return"){
                 $stmt3->bind_param('iss', $quantity, $product_code, $whCode);
                 $stmt3->execute();
                 }
-                echo "updated stocks";
+                echo ". Updated stocks";
             }
             else if($retType == "Warranty"){
                 echo "warranty service";
             }
             else{
-                echo "item refunded ";
+                echo ". Item refunded ";
             }
         }
-        echo "Data Saved ";       
+        echo "Data Saved";       
     }
     else {
         echo "Data Not Saved". $con->error;
