@@ -127,6 +127,14 @@
 $(document).ready(function(){
     var from = moment().startOf('month').format('YYYY-MM-DD hh:mm');
     var to = moment().endOf('month').format('YYYY-MM-DD hh:mm');
+    
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    
     lowStock();
     cardLow();
     var cvalue = $("#counter").val();
@@ -296,7 +304,7 @@ $(document).ready(function(){
             dataType: 'JSON',
             data: {
                 'func':"trans-today",
-                'from':from
+                'from':today
             },                             
             success: function(data){                    
                 $("#trans-today").html(data.total_items); 
@@ -313,7 +321,7 @@ $(document).ready(function(){
             dataType: 'JSON',
             data: {
                 'func':"sales-today",
-                'from':from
+                'from':today
             },                             
             success: function(data){                    
                 $("#sales-today").text(data.total_items); 
