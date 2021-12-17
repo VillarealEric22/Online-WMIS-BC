@@ -135,7 +135,7 @@ $func = $_POST['func'];
         }
     }
     else if ($func == "lowStock"){
-        $sql = "SELECT p.product_code, p.product_name, p.product_type, p.item_price, w.qty FROM (SELECT product_code, product_name, product_type, item_price, rop_min FROM products)p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE qty <= rop_min GROUP BY product_code";
+        $sql = "SELECT p.product_code, p.product_name, p.product_type, p.item_price, w.qty, ro_categ FROM (SELECT product_code, product_name, ro_categ, product_type, item_price, rop_min FROM products)p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE ro_categ != 'JIT' && qty <= rop_min GROUP BY product_code";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $product_code = $rows['product_code'];
@@ -153,7 +153,7 @@ $func = $_POST['func'];
         }
     }
     else if ($func == "lowStock2"){
-        $sql = "SELECT IFNULL(COUNT(p.product_code),0) AS total_items FROM (SELECT product_code, rop_min FROM products) p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE qty <= rop_min";
+        $sql = "SELECT IFNULL(COUNT(p.product_code),0) AS total_items FROM (SELECT product_code, rop_min FROM products) p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE ro_categ != 'JIT' && qty <= rop_min ";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $rows = mysqli_fetch_array($result);
         echo json_encode($rows);       
