@@ -187,7 +187,44 @@ $(document).ready(function(){
                 itemsTotal +=
                  quantity[i] << 0;
             }
-        alert(arrWhse);
+                
+        // validation
+        $("#valid").html(valid);
+        if (valid) {
+            event.preventDefault(); 
+            $.ajax({
+                method: "POST",
+                url: "includes/functions/add_function.php",
+                cache:false,
+                async: false,
+                data: {
+                    'func': "inventory",
+                    'inventory_id':inventory_id,
+                    'purchaseorder': purchaseorder,
+                    'warehouse_code': warehouse_code,
+                    'total_price': total_price,
+                    'transaction_date': tDate,
+                    'product_code': product_code,
+                    'quantity': quantity,
+                    'price_ea': price,
+                    'totPrice': totPrice,
+                    'itemsTotal': itemsTotal,
+                    'tNumber': arrtNo,        
+                    'whseCode':arrWhse,
+                    'order_id':arro_id,
+                    'desc':remarks
+                },
+                success: function(data) {
+                    alert(data);
+                    emptyInventoryForm();
+                    clearTb();
+                },
+                error: function(){
+                    alert(data);
+                    alert("hagorn");
+                }
+            });
+        }
     });
 });
 </script>
