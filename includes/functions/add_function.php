@@ -244,7 +244,7 @@ else if($func == "inventory"){
         $stmt3 = $con->prepare($sql3);
         foreach ($mi as $value ) {
         list($tNumber, $product_code, $quantity, $item_price, $totPrice, $whseCode, $order_id) = $value;
-        $stmt3->bind_param('sis', $product_code, $quantity, $whseCode);
+        $stmt3->bind_param('sis', $product_code, $quantity, $warehouse_code);
         $stmt3->execute();
         }
         echo " Stocks has been updated";
