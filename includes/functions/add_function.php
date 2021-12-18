@@ -227,45 +227,7 @@ else if($func == "inventory"){
     $mi->attachIterator(new ArrayIterator($whseCode));
     $mi->attachIterator(new ArrayIterator($order_id));
 
-    $sql = "INSERT INTO inventory (inventory_id, purchase_order_id, items_total, totalVal, date_created, warehouse_code, remarks) VALUES (?,?,?,?,?,?,?)";
-    $stmt = $con->prepare($sql);
-    $stmt->bind_param('iiidsss', $inventory_id, $purchase_order_id, $itemsTotal, $total_price, $date_created, $warehouse_code, $remarks);
-
-    if ($stmt->execute()){
-    $sql2 = "INSERT INTO inventory_items (inventory_id, product_code, quantity, unit_price, total_price) VALUES (?,?,?,?,?)";
-    $stmt2 = $con->prepare($sql2);
-        foreach ($mi as $value ) {
-        list($tNumber, $product_code, $quantity, $item_price, $totPrice, $whseCode, $order_id) = $value;
-        $stmt2->bind_param('isidd', $tNumber, $product_code, $quantity, $item_price, $totPrice);
-        $stmt2->execute();
-        }
-        echo "Data Saved. ";
-        $sql3 = "INSERT INTO whse_items (product_code, quantity, warehouse_code) VALUES (?,?,?) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)";
-        $stmt3 = $con->prepare($sql3);
-        foreach ($mi as $value ) {
-        list($tNumber, $product_code, $quantity, $item_price, $totPrice, $whseCode, $order_id) = $value;
-        $stmt3->bind_param('sis', $product_code, $quantity, $warehouse_code);
-        $stmt3->execute();
-        }
-        echo " Stocks has been updated";
-
-        $sql4 = "UPDATE item_orders SET remain_qty = (remain_qty - ?) WHERE purchase_order_id = ? AND product_code = ?";
-        $stmt4 = $con->prepare($sql4);
-        foreach ($mi as $value) {
-        list($tNumber, $product_code, $quantity, $item_price, $totPrice, $whseCode, $order_id) = $value;
-        $stmt4->bind_param('iis', $quantity, $order_id, $product_code);
-        $stmt4->execute();
-        }
-        $sql5 = "UPDATE purchase_order AS a INNER JOIN (SELECT SUM(remain_qty) AS remain, purchase_order_id FROM item_orders GROUP BY purchase_order_id) AS b USING (purchase_order_id) SET a.status= (CASE WHEN (b.remain > 0) THEN 'incomplete' ELSE 'completed' END) WHERE a.purchase_order_id = ? AND b.purchase_order_id = ?";
-        $stmt5 = $con->prepare($sql5);
-        $stmt5->bind_param('ii', $purchase_order_id, $purchase_order_id);
-        if ($stmt5->execute()){
-        echo ". Order Status updated";
-        }
-    }
-    else{
-        echo "Data Not Saved". $con->error;
-    }
+    echo $whseCode. " ". $warehouse_code
     echo $con->error;
     $stmt->close();
     $con->close();
