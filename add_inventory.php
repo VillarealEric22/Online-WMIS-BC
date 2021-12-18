@@ -100,7 +100,9 @@ $(document).ready(function(){
         }
         items();
     });
-
+    $('#warehouse_code').on("select2:select", function(){
+        alert(this.value);
+    });
     function emptyInventoryForm(){
         $('#purchase_id').val('').change();
         $('#inventory_id').val('');
