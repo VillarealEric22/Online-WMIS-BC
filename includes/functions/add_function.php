@@ -227,7 +227,7 @@ else if($func == "inventory"){
     $mi->attachIterator(new ArrayIterator($whseCode));
     $mi->attachIterator(new ArrayIterator($order_id));
 
-    echo $whseCode. " ". $warehouse_code
+    echo $whseCode. " ". $warehouse_code;
     echo $con->error;
     $stmt->close();
     $con->close();
