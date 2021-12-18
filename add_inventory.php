@@ -100,9 +100,6 @@ $(document).ready(function(){
         }
         items();
     });
-    $('#warehouse_code').on("select2:select", function(){
-        alert(this.value);
-    });
     function emptyInventoryForm(){
         $('#purchase_id').val('').change();
         $('#inventory_id').val('');
@@ -169,7 +166,7 @@ $(document).ready(function(){
         var arrtNo = [];
         var arrWhse = [];
         var arro_id = [];
-
+        
         $(".row-total").each(function(){
             totPrice.push($(this).val());
         });
@@ -190,43 +187,7 @@ $(document).ready(function(){
                 itemsTotal +=
                  quantity[i] << 0;
             }
-        // validation
-        $("#valid").html(valid);
-        if (valid) {
-            event.preventDefault(); 
-            $.ajax({
-                method: "POST",
-                url: "includes/functions/add_function.php",
-                cache:false,
-                async: false,
-                data: {
-                    'func': "inventory",
-                    'inventory_id':inventory_id,
-                    'purchaseorder': purchaseorder,
-                    'warehouse_code': warehouse_code,
-                    'total_price': total_price,
-                    'transaction_date': tDate,
-                    'product_code': product_code,
-                    'quantity': quantity,
-                    'price_ea': price,
-                    'totPrice': totPrice,
-                    'itemsTotal': itemsTotal,
-                    'tNumber': arrtNo,        
-                    'whseCode':arrWhse,
-                    'order_id':arro_id,
-                    'desc':remarks
-                },
-                success: function(data) {
-                    emptyInventoryForm();
-                    clearTb();
-                    alert(data);
-                },
-                error: function(){
-                    alert(data);
-                    alert("hagorn");
-                }
-            });
-        }
+        alert(arrWhse);
     });
 });
 </script>
