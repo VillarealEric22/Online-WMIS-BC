@@ -30,7 +30,7 @@ if($func == 'sales_report'){
 		$fromdate = date("Y-m-d",strtotime($_POST['from']));
 		$todate = date("Y-m-d",strtotime($_POST['to']));
 		$sql = "SELECT SUM(s.itemsold) AS itemsold, SUM(s.transactions) AS transactions, SUM(s.total) AS total_sales FROM (SELECT product_code, COUNT(cart_items.transaction_no) AS transactions, IFNULL(SUM(quantity), 0) AS itemsold, IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price_ea,0)),0) AS total FROM cart_items, 
-		(SELECT sales_transaction.transaction_no, transaction_date FROM sales_transaction WHERE sales_transaction.transaction_date BETWEEN '2021-10-30' AND '2021-11-30') so WHERE cart_items.transaction_no = so.transaction_no
+		(SELECT sales_transaction.transaction_no, transaction_date FROM sales_transaction WHERE sales_transaction.transaction_date BETWEEN '".$fromdate."' AND '".$todate."') so WHERE cart_items.transaction_no = so.transaction_no
 		GROUP BY product_code) s";
 		$result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
 		$rows = mysqli_fetch_array($result);
