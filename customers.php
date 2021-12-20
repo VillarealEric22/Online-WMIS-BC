@@ -14,9 +14,22 @@
             <div class = "cardHeader">
                 <h2>Customers</h2>
                 <div class="crud-buttons">
-                    <button href = "#customer" class = "btn modalbtn blue" id = "add_btn">Add</button>
-                    <button href = "#customer" class = "btn modalbtn green" id = "edit_btn" disabled = "disabled">Edit</button>
-                    <button href = "#delete" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Delete</button>
+                    <?php
+                        if ($_SESSION["userrole"] == "Admin") {
+                        ?>
+                            <button href = "#customer" class = "btn modalbtn blue" id = "add_btn">Add</button>
+                            <button href = "#customer" class = "btn modalbtn green" id = "edit_btn" disabled = "disabled">Edit</button>
+                            <button href = "#delete" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Delete</button>
+                        <?php
+                        }
+                        else if($_SESSION["userrole"] == "Sales"){
+                            ?>
+                            <button href = "#customer" class = "btn modalbtn blue" id = "add_btn">Add</button>
+                            <button href = "#customer" class = "btn modalbtn green" id = "edit_btn" disabled = "disabled">Edit</button>
+                            <?
+                        }
+                    ?>
+                    
                 </div>
             </div>
             <div class="content-row">
