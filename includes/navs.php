@@ -230,6 +230,12 @@
 						</a>
 					</li>
 					<li>
+						<a href = "warehouse.php">
+							<span class = "icon"><i class="fa fa-warehouse" aria-hidden="true"></i></span>
+							<span class = "title">Warehouse</span>
+						</a>
+					</li>
+					<li>
 						<a href = "transfer.php">
 							<span class = "icon"><i class="fa fa-people-carry" aria-hidden="true"></i></span>
 							<span class = "title">Transfer</span>
