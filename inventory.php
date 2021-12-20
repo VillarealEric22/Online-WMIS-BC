@@ -98,7 +98,7 @@
                     <div class="extra-details">
                     <div class="input-box">
                             <span class="label">Grand Total</span>
-                            Php <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
+                            &#8639; <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
                         </div>
                         <div class="input-box">
                             <span class="label">Warehouse</span>
