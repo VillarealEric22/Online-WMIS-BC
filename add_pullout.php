@@ -1,5 +1,12 @@
-    <?php
+<?php
     include('includes/navs.php');
+?>
+<?php
+    if ($_SESSION["userrole"]!= "Admin") {
+        header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+
+       die("Invalid access, you do not have permission to be in this page");
+    }
 ?>
 <div class = "transaction-single">
     <div class="input-container">
