@@ -14,8 +14,19 @@
             <div class = "cardHeader">
                 <h2>Approved Transfer</h2>
                 <div class="crud-buttons">
-                    <button onclick = "location.href = 'receive_transfer.php'" class = "btn blue" id = "add_btn">Receive</button>
-                    <button href = "#cancel" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Cancel</button>
+                    <?php
+                        if ($_SESSION["userrole"] == "Admin") {
+                            ?>
+                                <button onclick = "location.href = 'receive_transfer.php'" class = "btn blue" id = "add_btn">Receive</button>
+                                <button href = "#cancel" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Cancel</button>
+                            <?php
+                        }
+                        else if ($_SESSION["userrole"] == "Inventory_clerk") {
+                            ?>
+                                <button onclick = "location.href = 'receive_transfer.php'" class = "btn blue" id = "add_btn">Receive</button>
+                            <?php
+                        }
+                    ?>
                 </div>
             </div>
             <div class="content-row">
