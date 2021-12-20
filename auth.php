@@ -42,7 +42,6 @@
                             $_SESSION['loggedin'] = TRUE;
                             $_SESSION['username'] = $_POST['username'];
                             $_SESSION['userrole'] = $userrole;
-                            echo ($userrole);
                             header('Location: dashboard.php');
                         }
                         else if($userrole == 'Sales'){
@@ -50,7 +49,6 @@
                             $_SESSION['loggedin'] = TRUE;
                             $_SESSION['username'] = $_POST['username'];
                             $_SESSION['userrole'] = $userrole;
-                            echo ($_SESSION['userrole']);
                             header('Location: sales.php');
                         }
                         else if($userrole == 'Inventory_clerk'){
@@ -58,7 +56,6 @@
                             $_SESSION['loggedin'] = TRUE;
                             $_SESSION['username'] = $_POST['username'];
                             $_SESSION['userrole'] = $userrole;
-                            echo ($_SESSION['userrole']);
                             header('Location: transfer.php');
                         }
                     }
