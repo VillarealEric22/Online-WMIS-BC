@@ -56,7 +56,7 @@
                             $_SESSION['loggedin'] = TRUE;
                             $_SESSION['username'] = $_POST['username'];
                             $_SESSION['userrole'] = $userrole;
-                            header('Location: transfer.php');
+                            header('Location: whse_items.php');
                         }
                     }
                 }
