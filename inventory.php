@@ -4,7 +4,7 @@
 
         header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
 
-       die();
+       die("Invalid access, please do not do that again :)");
     }
 ?>
 <?php
