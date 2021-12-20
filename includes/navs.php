@@ -27,41 +27,41 @@
 			{
 				?>
 				<ul class = "nav-links">
-				<li>
-					<a href = "dashboard.php">
-						<span class = "icon"><i class="fa fa-apple" aria-hidden="true"></i></span>
-						<span class = "title"><h2>Baker's Craft</h2></span>
-					</a>
-				</li>
-				<li>
-					<a href = "dashboard.php">
-						<span class = "icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-						<span class = "title">Dashboard</span>
-					</a>
-				</li>
-				<li>
-			    <a href="products.php">
-				<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
-				<span class="title">Products</span>
-			    </a>
+					<li>
+						<a href = "dashboard.php">
+							<span class = "icon"><i class="fa fa-apple" aria-hidden="true"></i></span>
+							<span class = "title"><h2>Baker's Craft</h2></span>
+						</a>
 					</li>
 					<li>
-			    <a href="categories.php">
-				<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
-				<span class="title">Categories</span>
-			    </a>
+						<a href = "dashboard.php">
+							<span class = "icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+							<span class = "title">Dashboard</span>
+						</a>
 					</li>
 					<li>
-			    <a href="warranties.php">
-				<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
-				<span class="title">Warranties</span>
-			    </a>
+					    	<a href="products.php">
+							<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+							<span class="title">Products</span>
+					    	</a>
+					</li>
+					<li>
+						    <a href="categories.php">
+							<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+							<span class="title">Categories</span>
+						    </a>
+					</li>
+					<li>
+						<a href="warranties.php">
+							<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+							<span class="title">Warranties</span>
+						</a>
 					</li>
 					<li>
 						<a href="inventory.php">
-				<span class = "icon"><i class="fa fa-cubes" aria-hidden="true"></i></span>
-				<span class="title">Inventory</span>
-			    </a>
+							<span class = "icon"><i class="fa fa-cubes" aria-hidden="true"></i></span>
+							<span class="title">Inventory</span>
+					    	</a>
 					</li>
 					<li>
 						<a href = "sales.php">
@@ -186,6 +186,12 @@
 						</a>
 					</li>
 					<li>
+					    	<a href="products.php">
+							<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+							<span class="title">Products</span>
+					    	</a>
+					</li>
+					<li>
 						<a href = "sales.php">
 							<span class = "icon"><i class="fa fa-cash-register" aria-hidden="true"></i></span>
 							<span class = "title">Sales</span>
@@ -210,6 +216,12 @@
 							<span class = "icon"><i class="fa fa-apple" aria-hidden="true"></i></span>
 							<span class = "title"><h2>Baker's Craft</h2></span>
 						</a>
+					</li>
+					<li>
+					    	<a href="products.php">
+							<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+							<span class="title">Products</span>
+					    	</a>
 					</li>
 					<li>
 						<a href = "whse_items.php">
