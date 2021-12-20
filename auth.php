@@ -7,7 +7,7 @@
     $DATABASE_NAME = 'u696566447_db_inventory';
     //connect using data above.
     $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-    if (mysqli_connect_errno() ) {
+   if (mysqli_connect_errno() ) {
         // If there is an error with the connection, stop the script and display the error.
         exit('Failed to connect to MySQL: ' . mysqli_connect_error());
     }
@@ -29,12 +29,42 @@
             //Account exists, now we verify the password.
             if(password_verify($_POST['password'],$password)){
                 //Create sessions.
-                session_regenerate_id();
-                $_SESSION['loggedin'] = TRUE;
-                $_SESSION['username'] = $_POST['username'];
-                
-                header('Location: dashboard.php');
-            } else {
+                if ($stmt2 = $con->prepare('SELECT user_role FROM user WHERE username = ?')) {
+                    //Bind parameters
+                    $stmt2->bind_param('s', $_POST['username']);
+                    $stmt2->execute();
+                    $stmt2->store_result();
+                    if ($stmt2->num_rows > 0){
+                        $stmt2->bind_result($userrole);
+                        $stmt2->fetch();
+                        if($userrole == 'Admin'){
+                            session_regenerate_id();
+                            $_SESSION['loggedin'] = TRUE;
+                            $_SESSION['username'] = $_POST['username'];
+                            $_SESSION['userrole'] = $userrole;
+                            echo ($userrole);
+                            header('Location: dashboard.php');
+                        }
+                        else if($userrole == 'Sales'){
+                            session_regenerate_id();
+                            $_SESSION['loggedin'] = TRUE;
+                            $_SESSION['username'] = $_POST['username'];
+                            $_SESSION['userrole'] = $userrole;
+                            echo ($_SESSION['userrole']);
+                            header('Location: sales.php');
+                        }
+                        else if($userrole == 'Inventory_clerk'){
+                            session_regenerate_id();
+                            $_SESSION['loggedin'] = TRUE;
+                            $_SESSION['username'] = $_POST['username'];
+                            $_SESSION['userrole'] = $userrole;
+                            echo ($_SESSION['userrole']);
+                            header('Location: transfer.php');
+                        }
+                    }
+                }
+            }
+            else {
                 //Incorrect password
                 header("location:index.php?msg=failed");
             }
