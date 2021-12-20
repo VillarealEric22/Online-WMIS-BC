@@ -52,7 +52,7 @@
                     </a>
 				</li>
 				<li>
-					<a href="inventory.php">
+					<a href="#" onClick = window.location.replace("https://bcadmin.online/inventory.php");>
                         <span class = "icon"><i class="fa fa-cubes" aria-hidden="true"></i></span>
                         <span class="title">Inventory</span>
                     </a>
