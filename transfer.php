@@ -22,15 +22,12 @@
                                 <button href = "#decline" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Decline</button>
                         <?php
                         }
-                    ?>
-                    <?php
                         else if ($_SESSION["userrole"] == "Inventory_clerk") {
                             ?>
                                 <button onclick = "location.href = 'add_transfer.php'" class = "btn blue" id = "add_btn">Add</button>
                         <?php
                         }
                     ?>
-                    
                 </div>
             </div>
             <div class="content-row">
