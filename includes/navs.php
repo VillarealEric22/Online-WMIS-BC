@@ -236,6 +236,10 @@
 						</a>
 					</li>
 				</ul>
+			<?php
+			}
+			else{
+				header("location:index.php");
 			}
 			?>
 		</div>
