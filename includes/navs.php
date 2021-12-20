@@ -180,10 +180,10 @@
 				?>
 				<ul class = "nav-links">
 					<li>
-					    <a href="products.php">
-						<span class = "icon"><i class="fa fa-tags" aria-hidden="true"></i></span>
-						<span class="title">Products</span>
-					    </a>
+						<a href = "#">
+							<span class = "icon"><i class="fa fa-apple" aria-hidden="true"></i></span>
+							<span class = "title"><h2>Baker's Craft</h2></span>
+						</a>
 					</li>
 					<li>
 						<a href = "sales.php">
@@ -202,9 +202,21 @@
 			
 			<?php
 			}
-			else if($_SESSION[""] == 'Inventory_clerk'){
+			else if($_SESSION["userrole"] == 'Inventory_clerk'){
 				?>
 				<ul class = "nav-links">
+					<li>
+						<a href = "#">
+							<span class = "icon"><i class="fa fa-apple" aria-hidden="true"></i></span>
+							<span class = "title"><h2>Baker's Craft</h2></span>
+						</a>
+					</li>
+					<li>
+						<a href = "whse_items.php">
+							<span class = "icon"><i class="fa fa-warehouse" aria-hidden="true"></i></span>
+							<span class = "title">Warehouse Items</span>
+						</a>
+					</li>
 					<li>
 						<a href = "transfer.php">
 							<span class = "icon"><i class="fa fa-people-carry" aria-hidden="true"></i></span>
@@ -222,19 +234,7 @@
 							<span class = "icon"><i class="fa fa-people-carry" aria-hidden="true"></i></span>
 							<span class = "title">Transfer(Completed)</span>
 						</a>
-					</li>
-					<li>
-						<a href = "warehouse.php">
-							<span class = "icon"><i class="fa fa-warehouse" aria-hidden="true"></i></span>
-							<span class = "title">Warehouse</span>
-						</a>
-					</li>
-					<li>
-						<a href = "whse_items.php">
-							<span class = "icon"><i class="fa fa-warehouse" aria-hidden="true"></i></span>
-							<span class = "title">Warehouse Items</span>
-						</a>
-					</li>
+					</li>	
 				</ul>
 			<?php
 			}
