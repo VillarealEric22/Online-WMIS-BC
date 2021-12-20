@@ -8,12 +8,15 @@
                 <h2>Products</h2>
                 <div class="crud-buttons">
                     <?php
-                        if ($_SESSION["userrole"] != "Admin") {
+                        if ($_SESSION["userrole"] == "Admin") {
                             ?>
                             <button href = "#product" class = "btn modalbtn blue" id = "add_btn">Add</button>
                             <button href = "#product" class = "btn modalbtn green" id = "edit_btn" disabled = "disabled">Edit</button>
                             <button href = "#delete" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Delete</button>
                          <?php
+                        }
+                        else{
+                        
                         }
                     ?>                    
                 </div>
