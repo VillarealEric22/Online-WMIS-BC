@@ -47,7 +47,7 @@
                 <div class="extra-details">
                 <div class="input-box">
                         <span class="label">Grand Total</span>
-                        Php <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
+                         &#8369; <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
                     </div>
                     <div class="input-box">
                         <span class="label">Warehouse</span>
@@ -135,7 +135,7 @@ $(document).ready(function(){
             dataType:"json",
             success: function(data) {
                 $.each(data, function(cvalue){
-                    var dat = "<tr id='ppid-"+cvalue+"'><td class = 'table-input' colspan='4'><select id = 'sel-product_code"+cvalue+"' class='sel-product_code' autocomplete='off' style = 'width:100%' disabled = 'disabled' required><option value = '"+this.product_code+"'>"+this.product_code+"</option></select></td></tr><tr id = 'wpid-"+cvalue+"'><td class = 'table-input'><input type='number' min ='0' placeholder ='0' value = '"+this.remain_qty+"' max = '"+this.remain_qty+"' id='amount_"+cvalue+"' class = 'qty' required></td><td class = 'table-input'><input type='number' min ='0' placeholder = '0' id='price_"+cvalue+"' class = 'price_ea' value = '"+this.price+"' disabled = 'disbaled' required></td><td class = 'table-input'><input type = 'hidden' class = 'pdIn' id='pid-"+cvalue+"'><p>Php<input type = 'hidden' id = 'rowTot"+cvalue+"' class = 'row-total' value = '"+this.price_tot+"'><span id = 'rowTotal-"+cvalue+"' class = 'rowTotal'>"+this.price_tot+"</span></td><td class = 'table-input'><button formnovalidate='formnovalidate' class = 'removeItem'>remove</button></td></tr>";
+                    var dat = "<tr id='ppid-"+cvalue+"'><td class = 'table-input' colspan='4'><select id = 'sel-product_code"+cvalue+"' class='sel-product_code' autocomplete='off' style = 'width:100%' disabled = 'disabled' required><option value = '"+this.product_code+"'>"+this.product_code+"</option></select></td></tr><tr id = 'wpid-"+cvalue+"'><td class = 'table-input'><input type='number' min ='0' placeholder ='0' value = '"+this.remain_qty+"' max = '"+this.remain_qty+"' id='amount_"+cvalue+"' class = 'qty' required></td><td class = 'table-input'><span class='unit'> &#8369; </span><input type='number' min ='0' placeholder = '0' id='price_"+cvalue+"' class = 'price_ea' value = '"+this.price+"' disabled = 'disbaled' required></td><td class = 'table-input'><input type = 'hidden' class = 'pdIn' id='pid-"+cvalue+"'><p> &#8369;<input type = 'hidden' id = 'rowTot"+cvalue+"' class = 'row-total' value = '"+this.price_tot+"'><span id = 'rowTotal-"+cvalue+"' class = 'rowTotal'>"+this.price_tot+"</span></td><td class = 'table-input'><button formnovalidate='formnovalidate' class = 'removeItem'>remove</button></td></tr>";
                     cvalue+1;
                     $('#itemRows').append(dat);
                 });

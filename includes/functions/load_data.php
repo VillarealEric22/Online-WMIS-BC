@@ -3,7 +3,7 @@ include('../db.php');
 
 $func = $_POST['func'];
 if ($func == "product"){
-    $sql = "SELECT product_code, product_img, product_name, manufacturer, c.product_type, color, ro_categ, rop_min, critical_amt, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) LEFT JOIN product_category c ON c.id = products.product_type GROUP BY product_code";
+    $sql = "SELECT product_code, product_img, product_name, manufacturer, c.product_type, color, ro_categ, rop_min, critical_amt, FORMAT(item_price,2) as item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) LEFT JOIN product_category c ON c.id = products.product_type GROUP BY product_code";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $product_img = $rows['product_img'];
@@ -26,7 +26,7 @@ if ($func == "product"){
                 <td class = "table-main" ><?= $product_name ?></td>
                 <td class = "table-main" ><?= $product_type ?></td>
                 <td class = "table-main" ><?= $qty?></td>
-                <td class = "table-main" ><?=$item_price ?></td>
+                <td class = "table-main" >&#8369;<?=$item_price ?></td>
                 <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $product_code ?>'>View <span class = 'las la-eye'></span></button></td>
             </tr>
             <?php
@@ -40,7 +40,7 @@ if ($func == "product"){
                 <td class = "table-main" ><?= $product_name ?></td>
                 <td class = "table-main" ><?= $product_type ?></td>
                 <td class = "table-main" ><div class="status pending"><?= $qty?></div></td>
-                <td class = "table-main" ><?=$item_price ?></td>
+                <td class = "table-main" >&#8369;<?=$item_price ?></td>
                 <td class = "table-main" ><button href = "#view" class = 'btn_view' value='<?= $product_code ?>'>View <span class = 'las la-eye'></span></button></td>
             </tr>
             <?php
@@ -54,7 +54,7 @@ if ($func == "product"){
                 <td class = "table-main" ><?= $product_name ?></td>
                 <td class = "table-main" ><?= $product_type ?></td>
                 <td class = "table-main" ><div class="status return"><?= $qty?></div></td>
-                <td class = "table-main" ><?=$item_price ?></td>
+                <td class = "table-main" >&#8369;<?=$item_price ?></td>
                 <td class = "table-main" ><button href = "#view" class = 'btn_view' value='<?= $product_code ?>'>View <span class = 'las la-eye'></span></button></td>
             </tr>
             <?php
@@ -68,7 +68,7 @@ if ($func == "product"){
                 <td class = "table-main" ><?= $product_name ?></td>
                 <td class = "table-main" ><?= $product_type ?></td>
                 <td class = "table-main" ><?= $qty?></td>
-                <td class = "table-main" ><?=$item_price ?></td>
+                <td class = "table-main" >&#8369;<?=$item_price ?></td>
                 <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $product_code ?>'>View <span class = 'las la-eye'></span></button></td>
             </tr>
             <?php
@@ -76,7 +76,7 @@ if ($func == "product"){
     }
 }
 if ($func == "product-pos"){
-    $sql = "SELECT product_code, product_img, product_name, c.product_type, color, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) LEFT JOIN product_category c ON c.id = products.product_type WHERE quantity != 0 GROUP BY product_code";
+    $sql = "SELECT product_code, product_img, product_name, c.product_type, color, FORMAT(item_price,2) as item_price2, item_price, IFNULL(SUM(quantity),0) AS qty FROM products LEFT JOIN whse_items USING (product_code) LEFT JOIN product_category c ON c.id = products.product_type WHERE quantity != 0 GROUP BY product_code";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $product_img = $rows['product_img'];
@@ -86,6 +86,7 @@ if ($func == "product-pos"){
         $color =  $rows['color'];
         $qty =  $rows['qty'];
         $item_price =  $rows['item_price'];
+        $item_price2 =  $rows['item_price2'];
     ?>
     <tr  data-pcode= '<?= $product_code ?>' data-price= '<?= $item_price ?>' id='tr_<?= $product_code ?>' class = 'select_pos_item'>
         <td class = "table-main" ><img src='<?=$product_img?>' width="50px" alt="Product_image"></td>
@@ -93,7 +94,7 @@ if ($func == "product-pos"){
         <td class = "table-main" ><?= $product_name ?></td>
         <td class = "table-main" ><?= $product_type ?></td>
         <td class = "table-main" ><?= $qty?></td>
-        <td class = "table-main" ><?= $item_price ?></td>
+        <td class = "table-main" >&#8369;<?= $item_price2 ?></td>
     <?php
     }
 }
@@ -172,7 +173,7 @@ else if($func == "supplier"){
     }
 }
 else if($func == "sales"){
-    $sql = "SELECT `transaction_no`, `c_name`, `itemsTotal`, `total_price`, `transaction_date`, CONCAT(employee.firstname, ' ', employee.lastname) AS employee FROM sales_transaction LEFT JOIN customer USING (customer_id) INNER JOIN employee USING(employee_id) ORDER BY transaction_no DESC";
+    $sql = "SELECT `transaction_no`, `c_name`, `itemsTotal`, FORMAT(`total_price`,2) as total_price, `transaction_date`, CONCAT(employee.firstname, ' ', employee.lastname) AS employee FROM sales_transaction LEFT JOIN customer USING (customer_id) INNER JOIN employee USING(employee_id) ORDER BY transaction_no DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $transaction_no = $rows['transaction_no'];
@@ -188,7 +189,7 @@ else if($func == "sales"){
         <td class = "table-main" ><?= $transaction_date ?></td>
         <td class = "table-main" ><?= $customer_id ?></td>
         <td class = "table-main" ><?= $itemsTotal?></td>
-        <td class = "table-main" ><?= $total_price ?></td>
+        <td class = "table-main" >&#8369;<?= $total_price ?></td>
         <td class = "table-main" ><?= $employee ?></td>
         <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $transaction_no ?>'> View <span class = 'las la-eye'></span></button></td>
     </tr>
@@ -196,7 +197,7 @@ else if($func == "sales"){
     }
 }
 else if($func == "orders"){
-    $sql = "SELECT `purchase_order_id`,`supplier_name` ,`items_total`, `total_price`, `order_date`, `status` FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE status != 'completed'";
+    $sql = "SELECT `purchase_order_id`,`supplier_name` ,`items_total`, FORMAT(`total_price`,2) as total_price, `order_date`, `status` FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE status != 'completed'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $purchase_order_id = $rows['purchase_order_id'];
@@ -211,7 +212,7 @@ else if($func == "orders"){
         <td class = "table-main" ><?= $purchase_order_id ?></td>
         <td class = "table-main" ><?= $supplier_id ?></td>
         <td class = "table-main" ><?= $itemsTotal ?></td>
-        <td class = "table-main" ><?= $total_price ?></td>
+        <td class = "table-main" >&#8369;<?= $total_price ?></td>
         <td class = "table-main" ><?= $order_date ?></td>
         <td class = "table-main" ><?= $status ?></td>
         <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $purchase_order_id ?>'> View <span class = 'las la-eye'></span></button></td>
@@ -220,7 +221,7 @@ else if($func == "orders"){
     }
 }
 else if($func == "orders-c"){
-    $sql = "SELECT `purchase_order_id`,`supplier_name` ,`items_total`, `total_price`, `order_date`, `status` FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE status = 'completed' ORDER BY purchase_order_id DESC";
+    $sql = "SELECT `purchase_order_id`,`supplier_name` ,`items_total`, FORMAT(`total_price`,2) as total_price, `order_date`, `status` FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE status = 'completed' ORDER BY purchase_order_id DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $purchase_order_id = $rows['purchase_order_id'];
@@ -235,7 +236,7 @@ else if($func == "orders-c"){
         <td class = "table-main" ><?= $purchase_order_id ?></td>
         <td class = "table-main" ><?= $supplier_id ?></td>
         <td class = "table-main" ><?= $itemsTotal ?></td>
-        <td class = "table-main" ><?= $total_price ?></td>
+        <td class = "table-main" >&#8369;<?= $total_price ?></td>
         <td class = "table-main" ><?= $order_date ?></td>
         <td class = "table-main" ><?= $status ?></td>
         <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $purchase_order_id ?>'> View <span class = 'las la-eye'></span></button></td>
@@ -244,7 +245,7 @@ else if($func == "orders-c"){
     }
 }
 else if($func == "inventory"){
-    $sql = "SELECT `inventory_id`, `purchase_order_id`, `items_total`, `totalVal`, `date_created`, `warehouse_name` FROM `inventory` LEFT JOIN warehouses USING (warehouse_code) ORDER BY purchase_order_id DESC";
+    $sql = "SELECT `inventory_id`, `purchase_order_id`, `items_total`, FORMAT(`totalVal`,2) as totalVal, `date_created`, `warehouse_name` FROM `inventory` LEFT JOIN warehouses USING (warehouse_code) ORDER BY purchase_order_id DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $inventory_id = $rows['inventory_id'];
@@ -260,7 +261,7 @@ else if($func == "inventory"){
         <td class = "table-main" ><?= $date_created ?></td>
         <td class = "table-main" ><?= $purchase_order_id ?></td>
         <td class = "table-main" ><?= $items_total?></td>
-        <td class = "table-main" ><?= $totalValue?></td>
+        <td class = "table-main" >&#8369;<?= $totalValue?></td>
         <td class = "table-main" ><?= $warehouse_name?></td>
         <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $inventory_id ?>'> View <span class = 'las la-eye'></span></button></td>
     <?php
@@ -342,7 +343,7 @@ else if($func == "transfer-completed"){
     }
 }
 else if($func == "returns"){
-    $sql = "SELECT return_id, transaction_no, items_total, total_price, remarks, return_date FROM item_returns ORDER BY return_id DESC";
+    $sql = "SELECT return_id, transaction_no, items_total, FORMAT(total_price,2) as total_price, remarks, return_date FROM item_returns ORDER BY return_id DESC";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     while($rows = mysqli_fetch_array($result)){
         $return_id = $rows['return_id'];
@@ -357,7 +358,7 @@ else if($func == "returns"){
         <td class = "table-main" ><?= $return_id  ?></td>
         <td class = "table-main" ><?= $transaction_no ?></td>
         <td class = "table-main" ><?= $items_total?></td>
-        <td class = "table-main" ><?= $total_price ?></td>
+        <td class = "table-main" >&#8369;<?= $total_price ?></td>
         <td class = "table-main" ><?= $return_type ?></td>
         <td class = "table-main" ><?= $return_date ?></td>
         <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $return_id ?>'> View <span class = 'las la-eye'></span></button></td>
@@ -365,7 +366,7 @@ else if($func == "returns"){
     }
 }
 else if($func == "pullout"){
-    $sql = "SELECT `pullout_id`, `total_items`, `total_price`, `date`, `remarks` FROM pullout";
+    $sql = "SELECT `pullout_id`, `total_items`, FORMAT(`total_price`,2) as total_price, `date`, `remarks` FROM pullout";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $return_id = $rows['pullout_id'];       
@@ -378,7 +379,7 @@ else if($func == "pullout"){
             <td class = "table-main" ></td>
             <td class = "table-main" ><?= $return_id  ?></td>
             <td class = "table-main" ><?= $items_total?></td>
-            <td class = "table-main" ><?= $total_price ?></td>
+            <td class = "table-main" > &#8369; <?= $total_price ?></td>
             <td class = "table-main" ><?= $return_date ?></td>
             <td class = "table-main" ><button href = "#view" class = 'modalbtn btn_view' value='<?= $return_id ?>'> View <span class = 'las la-eye'></span></button></td>
         <?php

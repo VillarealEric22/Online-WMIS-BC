@@ -28,14 +28,14 @@ if ($func == "product"){
 }
 else if($func == 'sales'){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `transaction_no`, `customer_id`, `c_name`, `c_address`, `contact_number`, `itemsTotal`, `total_price`, `transaction_date`, `employee_id`, `remarks` FROM sales_transaction LEFT JOIN customer USING (customer_id) WHERE transaction_no = '$edit_id'";
+    $sql = "SELECT `transaction_no`, `customer_id`, `c_name`, `c_address`, `contact_number`, `itemsTotal`, FORMAT(`total_price`,2) AS total_price, `transaction_date`, `employee_id`, `remarks` FROM sales_transaction LEFT JOIN customer USING (customer_id) WHERE transaction_no = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
 }
 else if($func == 'sales-1'){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT`transaction_no`, `product_code`, `quantity`, `price_ea`, `price_tot` FROM `cart_items` WHERE  transaction_no = '$edit_id'";
+    $sql = "SELECT`transaction_no`, `product_code`, `quantity`, FORMAT(`price_ea`,2) as price_ea, FORMAT(`price_tot`,2) as price_tot FROM `cart_items` WHERE  transaction_no = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $array = array();
     while($row = mysqli_fetch_array($result)){
@@ -93,14 +93,14 @@ else if($func == "orders"){
 }
 else if ($func == "order-1"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT`purchase_order_id`, `supplier_id`, `supplier_name`, `supplier_address`, `contact_number`, `total_price`, `order_date`, `remarks`  FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE purchase_order_id = '$edit_id'";
+    $sql = "SELECT`purchase_order_id`, `supplier_id`, `supplier_name`, `supplier_address`, `contact_number`,FORMAT(`total_price`,2) as total_price, `order_date`, `remarks`  FROM purchase_order LEFT JOIN supplier USING (supplier_id) WHERE purchase_order_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
 }
 else if ($func == "order-2"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `purchase_order_id`, `product_code`, `quantity`, `price`, `price_tot` FROM item_orders WHERE purchase_order_id = '$edit_id'";
+    $sql = "SELECT `purchase_order_id`, `product_code`, `quantity`, FORMAT(`price`,2) as price, FORMAT(`price_tot`,2) as price_tot FROM item_orders WHERE purchase_order_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $array = array();
     while($row = mysqli_fetch_array($result)){
@@ -123,14 +123,14 @@ else if($func == "inventory"){
 }
 else if($func == "inventory-1"){
     $o_id = $_POST["edit_id"];
-    $query = "SELECT `inventory_id`, `purchase_order_id`, `totalVal`, `date_created`, `warehouse_code`, `remarks` FROM inventory WHERE inventory_id = $o_id";
+    $query = "SELECT `inventory_id`, `purchase_order_id`, FORMAT(`totalVal`,2) as totalVal, `date_created`, `warehouse_code`, `remarks` FROM inventory WHERE inventory_id = $o_id";
     $result = mysqli_query($con,$query) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
 }
 else if($func == "inventory-2"){
     $o_id = $_POST["edit_id"];
-    $query = "SELECT `product_code`, `quantity`, `unit_price`, `total_price` FROM inventory_items WHERE inventory_id = $o_id";
+    $query = "SELECT `product_code`, `quantity`, FORMAT(`unit_price`,2) as unit_price , FORMAT(`total_price`,2) as total_price FROM inventory_items WHERE inventory_id = $o_id";
     $result = mysqli_query($con,$query) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $array = array();
     while($row = mysqli_fetch_array($result)){
@@ -180,14 +180,14 @@ else if($func == "return"){
 }
 else if ($func == "return-1"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `return_id`, `transaction_no`, `warehouse_code`, `warehouse_name`, `warehouse_address`, `contact_no`, `total_price`, `return_date`, `remarks` FROM item_returns INNER JOIN item_returns_pd USING (`return_id`) INNER JOIN warehouses USING (warehouse_code) WHERE return_id = '$edit_id'";
+    $sql = "SELECT `return_id`, `transaction_no`, `warehouse_code`, `warehouse_name`, `warehouse_address`, `contact_no`, FORMAT(`total_price`,2), `return_date`, `remarks` FROM item_returns INNER JOIN item_returns_pd USING (`return_id`) INNER JOIN warehouses USING (warehouse_code) WHERE return_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
 }
 else if ($func == "return-2"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `return_id`, `product_code`, `quantity`, `item_price`, `price_total`, `return_type` FROM item_returns_pd WHERE  return_id = '$edit_id'";
+    $sql = "SELECT `return_id`, `product_code`, `quantity`, FORMAT(`item_price`,2) as item_price, FORMAT(`price_total`,2) as price_total, `return_type` FROM item_returns_pd WHERE  return_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $array = array();
     while($row = mysqli_fetch_array($result)){
@@ -286,14 +286,14 @@ else if($func == "pullout-id"){
 }
 else if ($func == "pullout-1"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `pullout_id`, `purchase_order_id`, `date`, `total_price`, `remarks` FROM pullout WHERE pullout_id = '$edit_id'";
+    $sql = "SELECT `pullout_id`, `purchase_order_id`, `date`, FORMAT(`total_price`,2) as total_price, `remarks` FROM pullout WHERE pullout_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $rows = mysqli_fetch_array($result);
     echo json_encode($rows);
 }
 else if ($func == "pullout-2"){
     $edit_id = $_POST['edit_id'];
-    $sql = "SELECT `product_code`, `quantity`, `item_price`, `price_total`, `return_type` FROM pullout_items WHERE pullout_id = '$edit_id'";
+    $sql = "SELECT `product_code`, `quantity`, FORMAT(`item_price`,2) as item_price, FORMAT(`price_total`,2) as price_total, `return_type` FROM pullout_items WHERE pullout_id = '$edit_id'";
     $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
     $array = array();
     while($row = mysqli_fetch_array($result)){

@@ -87,8 +87,16 @@
                         <input type="text" id = "product_name" placeholder="Product Name" required>
                     </div>
                     <div class="input-box">
-                        <span class="label">Price</span>
-                        <input type="number" value = "0" min = "0" id ="price" placeholder="Price" required>
+                        <span class="label">Item Price</span>
+                        <div class="input-tb" id="tb-input">
+                            <table id="prodCart" class="modalTable" width = "100%">
+                                <tbody id = "itemRows">
+                                    <tr>
+                                        <td class = 'table-input'><span class='unit'> &#8369; </span><input type='number' value = "0" min = "0" id ="price" placeholder="0.00" required></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="input-box">
                         <span class="label">Warranty Code</span>
@@ -155,7 +163,7 @@
                         <li class = 'prod-content'><strong>Supplier: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vsupplier_id'></span></li>
                         <li class = 'prod-content'><strong>Manufacturer: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vmanufacturer'></span></li>
                         <li class = 'prod-content'><strong>Product Type: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vproduct_type'></span></li>
-                        <li class = 'prod-content'><strong>Item Price: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vprice'></span></li>
+                        <li class = 'prod-content'><strong>Item Price: </strong>&nbsp;&nbsp;&#8369;<span class = 'info' id = 'vprice'></span></li>
                         <li class = 'prod-content'><strong>Warranty: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vwarranty_code'></span></li>
                         <li class = 'prod-content'><strong>Color/Variant: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vcolor'></span></li>
                         <li class = 'prod-content'><strong>Critical Amount: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vcritical_amt'></span></li>

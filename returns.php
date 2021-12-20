@@ -98,7 +98,7 @@
                 <div class="extra-details">
                     <div class="input-box">
                         <span class="label">Total Value</span>
-                        Php <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
+                        &#8369; <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
                     </div>
                     <div class="input-box">
                         <span class="label">Warehouse</span>
@@ -238,7 +238,7 @@ $(document).ready(function(){
             dataType:"json",
             success: function(data) {
                 $.each(data, function(cvalue){
-                    var dat = "<tr id='ppid-"+cvalue+"'><td class = 'table-input' colspan='4'><input type = 'text' id = 'sel-product-code_"+cvalue+"' class='sel-product_code' value = '"+this.product_code+"' autocomplete='off' style = 'width:100%' disabled = 'disabled'></td></tr><tr id='wpid-"+cvalue+"'><td class = 'table-input' colspan='4'><input type = 'text' id = 'ret-"+cvalue+"' class='return_type' autocomplete='off' value = '"+this.return_type+"' style = 'width:100%' disabled = 'disabled'></td></tr><tr id ='row-"+cvalue+"'><td class = 'table-input'><input type='number' min ='0' placeholder ='0' value = '1' max = '"+this.quantity+"' id='amount_"+cvalue+"' class = 'qty' required disabled = 'disabled'></td><td class = 'table-input'><input type='number' min ='0' placeholder = '0' id='price_"+cvalue+"' class = 'price_ea' value = '"+this.item_price+"' disabled = 'disbaled' required></td><td class = 'table-input'><input type = 'hidden' class = 'pdIn' id='pid-"+cvalue+"'><p>Php<input type = 'hidden' id = 'rowTot"+cvalue+"' class = 'row-total' value = '"+this.price_total+"'><span id = 'rowTotal-"+cvalue+"' class = 'rowTotal'>"+this.price_total+"</span></td></tr>";
+                    var dat = "<tr id='ppid-"+cvalue+"'><td class = 'table-input' colspan='4'><input type = 'text' id = 'sel-product-code_"+cvalue+"' class='sel-product_code' value = '"+this.product_code+"' autocomplete='off' style = 'width:100%' disabled = 'disabled'></td></tr><tr id='wpid-"+cvalue+"'><td class = 'table-input' colspan='4'><input type = 'text' id = 'ret-"+cvalue+"' class='return_type' autocomplete='off' value = '"+this.return_type+"' style = 'width:100%' disabled = 'disabled'></td></tr><tr id ='row-"+cvalue+"'><td class = 'table-input'><input type='number' min ='0' placeholder ='0' value = '1' max = '"+this.quantity+"' id='amount_"+cvalue+"' class = 'qty' required disabled = 'disabled'></td><td class = 'table-input'><span class='unit'> &#8369; </span><input type='text' min ='0' placeholder = '0' id='price_"+cvalue+"' class = 'price_ea' value = '"+this.item_price+"' disabled = 'disbaled' required></td><td class = 'table-input'><input type = 'hidden' class = 'pdIn' id='pid-"+cvalue+"'><p> &#8369;<input type = 'hidden' id = 'rowTot"+cvalue+"' class = 'row-total' value = '"+this.price_total+"'><span id = 'rowTotal-"+cvalue+"' class = 'rowTotal'>"+this.price_total+"</span></td></tr>";
                     $('#itemRows').append(dat);
                 });
             },

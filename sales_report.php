@@ -27,9 +27,9 @@
             </div>
         </div>
         <div class ="content-row">
-            <li class = 'prod-content'><strong>Sales Total: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vwty_code'></span></li>
-            <li class = 'prod-content'><strong>Transactions Total: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vrefund'></span></li>
-            <li class = 'prod-content'><strong>Total Items sold: </strong>&nbsp;&nbsp;<span class = 'info' id = 'vwarranty'></span></li>
+            <li class = 'prod-content'><strong>Sales Total: </strong>&nbsp;&nbsp; &#8369; <span class = 'info' id = 'vwty_code'>0.00</span></li>
+            <li class = 'prod-content'><strong>Transactions Total: </strong>&nbsp;&nbsp; <span class = 'info' id = 'vrefund'>0</span></li>
+            <li class = 'prod-content'><strong>Total Items sold: </strong>&nbsp;&nbsp; <span class = 'info' id = 'vwarranty'>0</span></li>
         </div>
         <div class="content-row">
             

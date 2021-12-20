@@ -22,7 +22,7 @@
     </div>
     <div class = "card">
         <div>
-            <div class = "numbers"><span id = 'sales-today'></span></div>
+            <div class = "numbers"> &#8369; <span id = 'sales-today'></span></div>
             <div class = "cardName">Sales Today</div>
         </div>
         <div class = "iconBox">
@@ -31,7 +31,7 @@
     </div>
     <div class = "card">
         <div>
-            <div class = "numbers">₱<span id = 'sales-month'></span></div>
+            <div class = "numbers"> &#8369; <span id = 'sales-month'></span></div>
             <div class = "cardName">This month's sales</div>
         </div>
         <div class = "iconBox">

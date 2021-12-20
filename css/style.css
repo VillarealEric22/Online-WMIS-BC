@@ -672,9 +672,9 @@ form .input-box span.label{
 	left: 5px;
 	top: 10px; 
 	z-index: 9; 
-  }
-
+}
 .input-tb input{
+	position: relative;
 	display: block; 
 	height: 45px;
 	width: 100%;
@@ -690,6 +690,7 @@ form .input-box span.label{
 	border-color: #9b59b6;
 }
 .input-box input{
+	position: relative;
 	height: 45px;
 	width: 100%;
 	outline: none;

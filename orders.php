@@ -96,7 +96,7 @@
                 <div class="extra-details">
                     <div class="input-box">
                         <span class="label">Grand Total</span>
-                        Php <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
+                        &#8369; <input type = 'hidden' id = 'gTotal' value ='0'><span class="grand-total" id = "grandTotal">0.00</span>
                     </div>
                     <div class="input-box">
                         <span class="label">Remarks</span>
@@ -230,7 +230,7 @@ $(document).ready(function(){
             dataType:"json",
             success: function(data) {
                 $.each(data, function(pid){
-                    var dat = "<tr id='ppid-"+pid+"'><td class = 'table-input' colspan='4'><input type = 'text' id = 'sel-product_code_"+pid+"' class='sel-product_code' autocomplete='off' value = '"+this.product_code+"'style = 'width:100%' disabled='disabled'></td></tr><tr id = 'rpid-"+pid+"'><td class = 'table-input'><input type='hidden' id='alert-'" + pid + "' value=''><input type='number' id='amount_"+pid+"' value = '"+this.quantity+"' min ='0' placeholder ='0' class = 'qty' required disabled='disabled'></td><td class = 'table-input'><span class='unit'> &#8369; </span><input type='number' min ='0' placeholder = '"+ this.price + "' id='price_"+pid+"' class = 'price_ea' value='"+ this.price + "' required disabled='disabled'></td><td class = 'table-input'><input type = 'hidden' class = 'pdIn' id='pid-"+pid+"' value ='"+pid+"'><input type = 'hidden' id = 'rowTot"+pid+"' class = 'row-total' value = '0'><span> &#8369; </span> &nbsp; <span id = 'rowTotal-"+pid+"' class = 'rowTotal'>"+this.price_tot+"</span></td><td class = 'table-input'></td></tr>"
+                    var dat = "<tr id='ppid-"+pid+"'><td class = 'table-input' colspan='4'><input type = 'text' id = 'sel-product_code_"+pid+"' class='sel-product_code' autocomplete='off' value = '"+this.product_code+"'style = 'width:100%' disabled='disabled'></td></tr><tr id = 'rpid-"+pid+"'><td class = 'table-input'><input type='hidden' id='alert-'" + pid + "' value=''><input type='number' id='amount_"+pid+"' value = '"+this.quantity+"' min ='0' placeholder ='0' class = 'qty' required disabled='disabled'></td><td class = 'table-input'><span class='unit'> &#8369; </span><input type='text' min ='0' placeholder = '"+ this.price + "' id='price_"+pid+"' class = 'price_ea' value='"+ this.price + "' required disabled='disabled'></td><td class = 'table-input'><input type = 'hidden' class = 'pdIn' id='pid-"+pid+"' value ='"+pid+"'><input type = 'hidden' id = 'rowTot"+pid+"' class = 'row-total' value = '0'><span> &#8369; </span><span id = 'rowTotal-"+pid+"' class = 'rowTotal'>"+this.price_tot+"</span></td><td class = 'table-input'></td></tr>"
                     $('#itemRows').append(dat);
                 });
             },

@@ -6,7 +6,7 @@ if($func == 'sales_report'){
         $fromdate = date("Y-m-d",strtotime($_POST['from']));
         $todate = date("Y-m-d",strtotime($_POST['to']));
 
-        $sql = "SELECT product_code, COUNT(cart_items.transaction_no) AS transactions, IFNULL(SUM(quantity), 0) AS itemsold, IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price_ea,0)),0) AS total FROM cart_items, 
+        $sql = "SELECT product_code, COUNT(cart_items.transaction_no) AS transactions, IFNULL(SUM(quantity), 0) AS itemsold, FORMAT(IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price_ea,0)),0),2) AS total FROM cart_items, 
         (SELECT sales_transaction.transaction_no, transaction_date FROM sales_transaction WHERE sales_transaction.transaction_date BETWEEN '".$fromdate."' AND '".$todate."') so WHERE cart_items.transaction_no = so.transaction_no
         GROUP BY product_code";
 
@@ -21,7 +21,7 @@ if($func == 'sales_report'){
                 <td class = "table-main" ><?= $product ?></td>
                 <td class = "table-main" ><?= $itemsold ?></td>
                 <td class = "table-main" ><?= $transactions ?></td>
-                <td class = "table-main" ><?= $total ?></td>
+                <td class = "table-main" > &#8369; <?= $total ?></td>
             </tr>
             <?php
         }
@@ -29,7 +29,7 @@ if($func == 'sales_report'){
 	else if($func == 'SalesTot'){
 		$fromdate = date("Y-m-d",strtotime($_POST['from']));
 		$todate = date("Y-m-d",strtotime($_POST['to']));
-		$sql = "SELECT SUM(s.itemsold) AS itemsold, SUM(s.transactions) AS transactions, SUM(s.total) AS total_sales FROM (SELECT product_code, COUNT(cart_items.transaction_no) AS transactions, IFNULL(SUM(quantity), 0) AS itemsold, IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price_ea,0)),0) AS total FROM cart_items, 
+		$sql = "SELECT SUM(s.itemsold) AS itemsold, SUM(s.transactions) AS transactions, FORMAT(SUM(s.total),2) AS total_sales FROM (SELECT product_code, COUNT(cart_items.transaction_no) AS transactions, IFNULL(SUM(quantity), 0) AS itemsold, IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price_ea,0)),0) AS total FROM cart_items, 
 		(SELECT sales_transaction.transaction_no, transaction_date FROM sales_transaction WHERE sales_transaction.transaction_date BETWEEN '".$fromdate."' AND '".$todate."') so WHERE cart_items.transaction_no = so.transaction_no
 		GROUP BY product_code) s";
 		$result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
@@ -68,7 +68,7 @@ if($func == 'sales_report'){
     else if($func == "sales-today"){
         $fromdate = date("Y-m-d",strtotime($_POST['from']));
 
-        $sql = "SELECT IFNULL(SUM(total_price),0) AS total_items FROM sales_transaction WHERE transaction_date BETWEEN '".$fromdate."' AND '".$fromdate."'";
+        $sql = "SELECT FORMAT(IFNULL(SUM(total_price),0) ,2) AS total_items FROM sales_transaction WHERE transaction_date BETWEEN '".$fromdate."' AND '".$fromdate."'";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $rows = mysqli_fetch_array($result);
         echo json_encode($rows);   
@@ -77,21 +77,13 @@ if($func == 'sales_report'){
         $fromdate = date("Y-m-d",strtotime($_POST['from']));
         $todate = date("Y-m-d",strtotime($_POST['to']));
 
-        $sql = "SELECT IFNULL(SUM(total_price),0) AS total_items FROM sales_transaction WHERE transaction_date BETWEEN '".$fromdate."' AND '".$todate."'";
-        $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
-        $rows = mysqli_fetch_array($result);
-        echo json_encode($rows);   
-    }
-    else if($func == "trans-today"){
-        $fromdate = date("Y-m-d",strtotime($_POST['from']));
-
-        $sql = "SELECT IFNULL(SUM(total_price),0) AS total_items FROM sales_transaction WHERE transaction_date BETWEEN '".$fromdate."' AND '".$fromdate."'";
+        $sql = "SELECT FORMAT(IFNULL(SUM(total_price),0),2) AS total_items FROM sales_transaction WHERE transaction_date BETWEEN '".$fromdate."' AND '".$todate."'";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         $rows = mysqli_fetch_array($result);
         echo json_encode($rows);   
     }
     else if($func == "sales"){
-        $sql = "SELECT `transaction_no`, `c_name`, `itemsTotal`, `total_price`, `transaction_date`, CONCAT(employee.firstname, ' ', employee.lastname) AS employee FROM sales_transaction LEFT JOIN customer USING (customer_id) INNER JOIN employee USING(employee_id) ORDER BY transaction_date DESC LIMIT 10";
+        $sql = "SELECT `transaction_no`, `c_name`, `itemsTotal`, FORMAT(`total_price`,2) as total_price, `transaction_date`, CONCAT(employee.firstname, ' ', employee.lastname) AS employee FROM sales_transaction LEFT JOIN customer USING (customer_id) INNER JOIN employee USING(employee_id) ORDER BY transaction_date DESC LIMIT 10";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $transaction_no = $rows['transaction_no'];
@@ -105,14 +97,14 @@ if($func == 'sales_report'){
             <td class = "table-main" ><?= $transaction_no ?></td>
             <td class = "table-main" ><?= $customer_id ?></td>
             <td class = "table-main" ><?= $itemsTotal?></td>
-            <td class = "table-main" ><?= $total_price ?></td>
+            <td class = "table-main" >&#8369;<?= $total_price ?></td>
             <td class = "table-main" ><?= $transaction_date ?></td>
         </tr>
         <?php
         }
     }
     else if($func == "customer"){
-        $sql = "SELECT `transaction_no`, `c_name`, `c_address`,`total_price`, `transaction_date` FROM sales_transaction LEFT JOIN customer USING (customer_id) ORDER BY transaction_date DESC LIMIT 10";
+        $sql = "SELECT `transaction_no`, `c_name`, `c_address`, FORMAT(`total_price`,0), `transaction_date` FROM sales_transaction LEFT JOIN customer USING (customer_id) ORDER BY transaction_date DESC LIMIT 10";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $transaction_no = $rows['transaction_no'];
@@ -129,7 +121,7 @@ if($func == 'sales_report'){
         }
     }
     else if ($func == "recent_orders"){
-        $sql = "SELECT purchase_order_id, order_date, items_total, total_price FROM purchase_order ORDER BY order_date DESC LIMIT 10 ";
+        $sql = "SELECT purchase_order_id, order_date, items_total, FORMAT(total_price,2) as total_price FROM purchase_order ORDER BY order_date DESC LIMIT 10 ";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $id = $rows['purchase_order_id'];
@@ -139,13 +131,13 @@ if($func == 'sales_report'){
                 <tr id='tr_<?= $id ?>' class ='tablerow'>
                     <td class = "table-main" ><?= $id ?></td>
                     <td class = "table-main" ><?= $items_total ?></td>
-                    <td class = "table-main" >₱ <?= $total_price?></td>
+                    <td class = "table-main" > &#8369; <?= $total_price?></td>
                 </tr>
             <?php
         }
     }
     else if ($func == "lowStock"){
-        $sql = "SELECT p.product_code, p.product_name, p.product_type, p.item_price, w.qty, ro_categ FROM (SELECT product_code, product_name, ro_categ, product_type, item_price, rop_min FROM products)p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE ro_categ != 'JIT' && qty <= rop_min GROUP BY product_code";
+        $sql = "SELECT p.product_code, p.product_name, p.product_type, FORMAT(p.item_price,2) as item_price, w.qty, ro_categ FROM (SELECT product_code, product_name, ro_categ, product_type, item_price, rop_min FROM products)p LEFT JOIN (SELECT product_code, IFNULL(SUM(quantity),0) AS qty FROM whse_items GROUP BY product_code) w USING (product_code) WHERE ro_categ != 'JIT' && qty <= rop_min GROUP BY product_code";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $product_code = $rows['product_code'];
@@ -203,7 +195,7 @@ if($func == 'sales_report'){
         $fromdate = date("Y-m-d",strtotime($_POST['from']));
         $todate = date("Y-m-d",strtotime($_POST['to']));
         
-        $sql = "SELECT p.product_code AS products, IFNULL(ii.quantity,0) AS available, IFNULL(itemsold,0) AS itemsold, IFNULL(itemsreturned,0) AS itemsreturned_c, IFNULL(total,0) AS total, IFNULL(itembought,0) AS item_bought, IFNULL(total_buy,0) AS total_buy, ROUND(IFNULL(IFNULL(ci.itemsold/ioi.itembought,0)*100,0),2) AS sellthrough
+        $sql = "SELECT p.product_code AS products, IFNULL(ii.quantity,0) AS available, IFNULL(itemsold,0) AS itemsold, IFNULL(itemsreturned,0) AS itemsreturned_c, FORMAT(IFNULL(total,0),2) AS total, IFNULL(itembought,0) AS item_bought, FORMAT(IFNULL(total_buy,0),2) AS total_buy, ROUND(IFNULL(IFNULL(ci.itemsold/ioi.itembought,0)*100,0),2) AS sellthrough
         FROM (SELECT product_code from products) p 
         LEFT JOIN (SELECT product_code, quantity FROM whse_items GROUP BY product_code) ii ON (p.product_code = ii.product_code) 
         LEFT JOIN (SELECT cart_items.transaction_no, product_code, quantity, price_ea, IFNULL(SUM(quantity), 0) AS itemsold, IFNULL(SUM(IFNULL(quantity,0) * IFNULL(price_ea,0)),0) AS total FROM cart_items, (SELECT sales_transaction.transaction_no, transaction_date FROM sales_transaction WHERE sales_transaction.transaction_date BETWEEN '$fromdate' AND '$todate') AS st WHERE cart_items.transaction_no = st.transaction_no GROUP BY product_code) ci ON (p.product_code = ci.product_code)
@@ -226,9 +218,9 @@ if($func == 'sales_report'){
                 <td class = "table-main" ><?= $products ?></td>    
                 <td class = "table-main" ><?= $items_available ?></td>       
                 <td class = "table-main" ><?= $itemsold ?></td>
-                <td class = "table-main" ><?= $revenue ?></td>
+                <td class = "table-main" > &#8369; <?= $revenue ?></td>
                 <td class = "table-main" ><?= $itemsbought ?></td>
-                <td class = "table-main" ><?= $total_buy ?></td>
+                <td class = "table-main" > &#8369; <?= $total_buy ?></td>
                 <td class = "table-main" ><?= $itemsreturned ?></td>
                 <td class = "table-main" ><?= $sellthrough ?></td>
             </tr>
@@ -274,7 +266,7 @@ if($func == 'sales_report'){
         $todate = date("Y-m-d",strtotime($_POST['to']));
 
 
-        $sql = "SELECT products, itemsold, consumption, totalsold, total_consumption, ROUND(IFNULL(IFNULL(itemsold/totalsold,0)*100,0),2) AS sales_vol,  ROUND(IFNULL(IFNULL(consumption/total_consumption,0)*100,0),2) AS consumption_vol, CASE 
+        $sql = "SELECT products, itemsold, FORMAT(consumption,2) as consumption, totalsold, total_consumption, ROUND(IFNULL(IFNULL(itemsold/totalsold,0)*100,0),2) AS sales_vol,  ROUND(IFNULL(IFNULL(consumption/total_consumption,0)*100,0),2) AS consumption_vol, CASE 
         WHEN SUM(itemsold) OVER (ORDER BY itemsold DESC)/SUM(itemsold) OVER () <= .7 THEN 'A'
         WHEN SUM(itemsold) OVER (ORDER BY itemsold DESC)/SUM(itemsold) OVER () <= .9 THEN 'B'
         ELSE 'C' END AS class FROM (SELECT SUM(s.itemsold) AS totalsold, SUM(s.consumption) AS total_consumption FROM (SELECT p.product_code AS products, IFNULL(itemsold,0) AS itemsold, ROUND(IFNULL(ioi.price,0),2) AS cpu, IFNULL(total,0) AS consumption
@@ -305,7 +297,7 @@ if($func == 'sales_report'){
         <tr id='tr_<?= $products?>' class ='tablerow'>       
             <td class = "table-main" ><?= $products ?></td>       
             <td class = "table-main" ><?= $itemsold ?></td>
-            <td class = "table-main" ><?= $consumption ?></td>
+            <td class = "table-main" > &#8369; <?= $consumption ?></td>
             <td class = "table-main" ><?= $sales_vol ?></td>
             <td class = "table-main" ><?= $consumption_vol ?></td>
             <td class = "table-main" ><?= $class ?></td>
