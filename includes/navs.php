@@ -21,8 +21,6 @@
 	<div class = "cointaner">
 		<div class = "navigation">
 			<?php
-			session_start();
-
 			if($_SESSION["userrole"] == "Admin")
 			{
 				?>
