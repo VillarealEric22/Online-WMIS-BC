@@ -2,7 +2,7 @@
     include('includes/navs.php');
 ?>
 <?php
-    if ($_SESSION["userrole"]!= "Admin" || $_SESSION["userrole"]!="Inventory_clerk") {
+    if ($_SESSION["userrole"] == "Sales") {
         header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
 
        die("Invalid access, you do not have permission to be in this page");
