@@ -1,22 +1,21 @@
 <?php
     include('includes/navs.php');
 ?>
-<?php
-    if ($_SESSION["userrole"]!= "Admin") {
-        header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
-
-       die("Invalid access, you do not have permission to be in this page");
-    }
-?>
 <div class = "details-tb">
     <div class = "table-view">
         <div class="function-row">
             <div class = "cardHeader">
                 <h2>Products</h2>
                 <div class="crud-buttons">
-                    <button href = "#product" class = "btn modalbtn blue" id = "add_btn">Add</button>
-                    <button href = "#product" class = "btn modalbtn green" id = "edit_btn" disabled = "disabled">Edit</button>
-                    <button href = "#delete" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Delete</button>
+                    <?php
+                        if ($_SESSION["userrole"] != "Admin") {
+                            ?>
+                            <button href = "#product" class = "btn modalbtn blue" id = "add_btn">Add</button>
+                            <button href = "#product" class = "btn modalbtn green" id = "edit_btn" disabled = "disabled">Edit</button>
+                            <button href = "#delete" class = "btn modalbtn red" id = "delete_btn" disabled = "disabled">Delete</button>
+                         <?php
+                        }
+                    ?>                    
                 </div>
             </div>
             <div class="content-row">
