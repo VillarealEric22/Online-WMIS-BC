@@ -104,7 +104,7 @@ if($func == 'sales_report'){
         }
     }
     else if($func == "customer"){
-        $sql = "SELECT `transaction_no`, `c_name`, `c_address`, FORMAT(`total_price`,0), `transaction_date` FROM sales_transaction LEFT JOIN customer USING (customer_id) ORDER BY transaction_date DESC LIMIT 10";
+        $sql = "SELECT `transaction_no`, `c_name`, `c_address`, FORMAT(`total_price`,0) AS total_price, `transaction_date` FROM sales_transaction LEFT JOIN customer USING (customer_id) ORDER BY transaction_date DESC LIMIT 10";
         $result = mysqli_query($con,$sql) or die($con->error); //or die($con->error) is for debugging of SQL Query
         while($rows = mysqli_fetch_array($result)){
             $transaction_no = $rows['transaction_no'];
